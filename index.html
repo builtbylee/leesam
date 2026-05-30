@@ -1,0 +1,1427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Lee Sam — AI-Era Recruiting Leader</title>
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500;600&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-2: #f6f9fc;
+      --panel: #ffffff;
+      --panel-2: #f6f9fc;
+      --ink: #0a2540;
+      --ink-dark: #0a2540;
+      --muted: #425466;
+      --muted-dark: #6b7c93;
+      --line: #e6ebf1;
+      --line-dark: #d9e2ec;
+      --orange: #2563eb;
+      --green: #00a884;
+      --blue: #00d4ff;
+      --rose: #ff80b5;
+      --ease: cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.08;
+      mix-blend-mode: multiply;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .chrome,
+    .meta-row,
+    .meta-row strong,
+    .label,
+    .hero-copy h4,
+    .console-head,
+    .console-eyebrow,
+    .metric-card span,
+    .section-label,
+    .practice-card .num,
+    .stat .year,
+    .stat strong sup,
+    .timeline-head {
+      font-style: normal;
+      font-weight: 400;
+    }
+
+    .chrome {
+      position: fixed;
+      top: 18px;
+      left: 24px;
+      right: 24px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .chrome nav {
+      display: flex;
+      gap: 24px;
+      color: rgba(10, 37, 64, 0.72);
+    }
+
+    .shell {
+      width: min(1320px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      min-height: 100dvh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      padding: 118px 0 70px;
+      background:
+        linear-gradient(125deg, rgba(168, 237, 234, 0.72) 0%, rgba(254, 214, 227, 0.58) 24%, rgba(255, 215, 0, 0.28) 42%, rgba(255, 128, 181, 0.34) 61%, rgba(99, 91, 255, 0.26) 78%, rgba(0, 212, 255, 0.34) 100%),
+        linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(246, 240, 229, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(246, 240, 229, 0.045) 1px, transparent 1px);
+      background-size: 88px 88px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 88%);
+    }
+
+    .stamp {
+      position: absolute;
+      right: -60px;
+      top: 48%;
+      transform: translateY(-50%);
+      font-family: Anton, sans-serif;
+      font-size: clamp(220px, 38vw, 560px);
+      line-height: 0.8;
+      color: rgba(99, 91, 255, 0.09);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.75fr);
+      gap: 46px;
+      align-items: end;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      border-top: 1px solid rgba(10, 37, 64, 0.14);
+      padding-top: 18px;
+      margin-bottom: 44px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-row strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 17px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .label::before {
+      content: "";
+      width: 42px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    h1 {
+      margin: 28px 0 0;
+      font-family: Anton, sans-serif;
+      font-size: clamp(82px, 13vw, 178px);
+      font-weight: 400;
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .hero-subhead {
+      margin: 12px 0 0;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 38px;
+      border-top: 1px solid rgba(10, 37, 64, 0.14);
+      padding-top: 28px;
+    }
+
+    .hero-copy h4 {
+      margin: 0 0 9px;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .hero-copy p {
+      margin: 0;
+      color: var(--ink);
+      font-family: Fraunces, serif;
+      font-size: 20px;
+      line-height: 1.28;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-copy em { color: var(--muted); }
+
+    .console {
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.82);
+      padding: 7px;
+      box-shadow: 0 50px 100px -20px rgba(50,50,93,0.24), 0 30px 60px -30px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .console-inner {
+      border: 1px solid rgba(10, 37, 64, 0.08);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.94);
+      overflow: hidden;
+    }
+
+    .hero-portrait-card .console-inner {
+      aspect-ratio: 1.18 / 1;
+      background: #ffffff;
+    }
+
+    .hero-portrait {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .console-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 17px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+    }
+
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--green);
+    }
+
+    .live::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 14px rgba(0, 168, 132, 0.35);
+    }
+
+    .console-body { padding: 22px; }
+
+    .console-eyebrow {
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .console-title {
+      margin: 10px 0 18px;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      line-height: 1.08;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 15px;
+      background: var(--bg-2);
+    }
+
+    .metric-card strong {
+      display: block;
+      font-family: Anton, sans-serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+    }
+
+    .metric-card span {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .bar-chart {
+      display: flex;
+      align-items: end;
+      gap: 5px;
+      height: 86px;
+      margin-top: 22px;
+    }
+
+    .bar {
+      flex: 1;
+      min-height: 14px;
+      border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, var(--orange), rgba(0, 212, 255, 0.2));
+    }
+
+    .brand-strip {
+      background: #ffffff;
+      color: var(--ink-dark);
+      border-bottom: 1px solid var(--line-dark);
+      padding: 30px 0;
+    }
+
+    .brand-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 36px;
+    }
+
+    .brand-inner p {
+      max-width: 210px;
+      margin: 0;
+      color: var(--muted-dark);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .brand-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: flex-end;
+      color: rgba(10,37,64,0.56);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .light {
+      background: var(--bg-2);
+      color: var(--ink-dark);
+      padding: 120px 0;
+    }
+
+    .dark-section {
+      background: #ffffff;
+      color: var(--ink);
+      padding: 130px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 78px;
+      align-items: start;
+    }
+
+    .section-label {
+      position: sticky;
+      top: 86px;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .section-label::before {
+      content: "";
+      display: block;
+      width: 44px;
+      height: 2px;
+      margin-bottom: 18px;
+      background: currentColor;
+    }
+
+    .section-title {
+      margin: 0 0 24px;
+      font-family: Anton, sans-serif;
+      font-size: clamp(54px, 8vw, 112px);
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .section-title em {
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: normal;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      text-transform: uppercase;
+    }
+
+    .brief-copy {
+      max-width: 850px;
+      margin: 0;
+      color: var(--ink-dark);
+      font-family: Manrope, Inter, sans-serif;
+      font-size: clamp(21px, 2.25vw, 31px);
+      font-weight: 400;
+      line-height: 1.36;
+      letter-spacing: -0.025em;
+    }
+
+    .brief-copy + .brief-copy {
+      margin-top: 20px;
+      color: var(--ink-dark);
+    }
+
+    .record-subhead {
+      max-width: 620px;
+      margin: -4px 0 42px;
+      color: var(--muted-dark);
+      font-size: 19px;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      margin-top: 52px;
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+    }
+
+    .practice-card {
+      min-height: 230px;
+      padding: 28px;
+      background: #ffffff;
+    }
+
+    .practice-card .num {
+      display: block;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      margin-bottom: 36px;
+    }
+
+    .practice-card h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    .practice-card p {
+      max-width: 420px;
+      margin: 0;
+      color: var(--muted-dark);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin-top: 54px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .tool-card {
+      min-height: 260px;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 26px;
+      padding: 28px;
+      background: #ffffff;
+    }
+
+    .tool-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .tool-card h3 {
+      max-width: 520px;
+      margin: 0;
+      font-family: Anton, sans-serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .tool-card p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .personal-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+      gap: 56px;
+      align-items: end;
+    }
+
+    .personal-copy {
+      max-width: 640px;
+    }
+
+    .personal-copy p {
+      margin: 0;
+      color: var(--ink-dark);
+      font-family: Manrope, Inter, sans-serif;
+      font-size: clamp(20px, 2vw, 28px);
+      line-height: 1.42;
+      letter-spacing: -0.025em;
+    }
+
+    .personal-copy p + p {
+      margin-top: 20px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.78fr;
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .photo-slot {
+      min-height: 360px;
+      overflow: hidden;
+      display: flex;
+      align-items: end;
+      border: 7px solid #ffffff;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(37,99,235,0.16), rgba(0,212,255,0.08)),
+        var(--bg-2);
+      box-shadow: 0 30px 70px -46px rgba(10,37,64,0.55);
+    }
+
+    .photo-slot.small {
+      min-height: 173px;
+    }
+
+    .photo-column {
+      display: grid;
+      gap: 14px;
+    }
+
+    .photo-caption {
+      width: 100%;
+      padding: 18px;
+      color: var(--ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.76);
+      border-top: 1px solid rgba(10,37,64,0.08);
+    }
+
+    .stats-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 48px;
+      align-items: end;
+      padding-bottom: 36px;
+      margin-bottom: 1px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .stats-head p {
+      max-width: 320px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      text-align: right;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .stat {
+      min-height: 222px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg-2);
+      padding: 28px;
+    }
+
+    .stat .year {
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: Anton, sans-serif;
+      font-size: clamp(62px, 8vw, 112px);
+      font-weight: 400;
+      line-height: 0.82;
+      letter-spacing: -0.04em;
+    }
+
+    .stat strong sup {
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.34em;
+      font-weight: 400;
+      text-transform: uppercase;
+      top: -0.8em;
+      position: relative;
+    }
+
+    .stat span:last-child {
+      color: var(--muted);
+      font-family: Barlow, Inter, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .timeline {
+      border-top: 1px solid var(--line-dark);
+      margin-top: 46px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 55px;
+      bottom: 0;
+      left: 99px;
+      width: 1px;
+      background: var(--line-dark);
+    }
+
+    .timeline-head,
+    .timeline-row {
+      display: grid;
+      grid-template-columns: 60px 42px 260px minmax(0, 1fr) 150px 36px;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .timeline-head {
+      padding: 0 0 14px;
+      color: var(--muted-dark);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .timeline-row {
+      padding: 23px 0;
+      cursor: pointer;
+      transition: transform 500ms var(--ease), background 500ms var(--ease), padding 500ms var(--ease);
+    }
+
+    .timeline-row:hover {
+      padding-left: 14px;
+      background: rgba(37,99,235,0.05);
+      transform: translateX(2px);
+    }
+
+    .timeline-item {
+      border-bottom: 1px solid var(--line-dark);
+    }
+
+    .timeline-item summary {
+      list-style: none;
+    }
+
+    .timeline-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .timeline-arrow {
+      color: var(--ink);
+      font-size: 20px;
+      transition: transform 360ms var(--ease), color 360ms var(--ease);
+    }
+
+    .timeline-item[open] .timeline-arrow {
+      color: var(--orange);
+      transform: rotate(90deg);
+    }
+
+    .timeline-detail {
+      margin: -2px 0 28px 120px;
+      max-width: 780px;
+      padding: 24px 28px;
+      border: 1px solid var(--line-dark);
+      border-radius: 18px;
+      background: #ffffff;
+    }
+
+    .timeline-detail ul {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .timeline-detail li {
+      position: relative;
+      padding-left: 20px;
+      color: var(--ink-dark);
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 15px;
+      line-height: 1.48;
+      letter-spacing: -0.01em;
+    }
+
+    .timeline-detail li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.68em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--orange);
+    }
+
+    .timeline-point {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+    }
+
+    .timeline-point::before {
+      content: "";
+      width: 11px;
+      height: 11px;
+      border: 2px solid var(--orange);
+      border-radius: 999px;
+      background: var(--bg-2);
+      box-shadow: 0 0 0 7px var(--bg-2);
+    }
+
+    .timeline-row .idx {
+      color: var(--orange);
+      font-family: Anton, sans-serif;
+      font-size: 28px;
+    }
+
+    .timeline-row .yr {
+      color: var(--muted-dark);
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .timeline-row .role {
+      font-family: Anton, sans-serif;
+      font-size: 30px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .timeline-row .role em {
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: normal;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      text-transform: uppercase;
+    }
+
+    .timeline-row .company {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--muted-dark);
+      font-family: Barlow, Inter, sans-serif;
+      font-size: 19px;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .logo {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 38px;
+      border: 1px solid rgba(10, 37, 64, 0.1);
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .logo img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-fallback {
+      display: none;
+    }
+
+    .logo img[hidden] + .logo-fallback {
+      display: inline;
+    }
+
+    .logo-cloudflare,
+    .logo-okta,
+    .logo-snap,
+    .logo-salesforce,
+    .logo-twitter,
+    .logo-boa,
+    .logo-ey,
+    .logo-hp { background: #ffffff; }
+
+    .final {
+      padding: 126px 0 92px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(99,91,255,0.16), transparent 26rem),
+        linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+    }
+
+    .final h2 {
+      margin: 0;
+      font-family: Anton, sans-serif;
+      font-size: clamp(74px, 13vw, 180px);
+      font-weight: 400;
+      line-height: 0.85;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+    }
+
+    .final h2 em {
+      color: inherit;
+      font-family: inherit;
+      font-size: inherit;
+      font-style: normal;
+      font-weight: inherit;
+      line-height: inherit;
+      letter-spacing: inherit;
+      text-transform: uppercase;
+    }
+
+    .final p {
+      max-width: 570px;
+      margin: 28px auto 32px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .button-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      transition: transform 500ms var(--ease), background 500ms var(--ease);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      background: #1b3a5e;
+    }
+
+    .button.secondary {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--ink);
+    }
+
+    .ticker {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 11;
+      height: 32px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      background: var(--ink);
+      color: #ffffff;
+      border-top: 1px solid rgba(10,37,64,0.12);
+      font-family: Anton, sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 46px;
+      white-space: nowrap;
+      animation: scroll 32s linear infinite;
+    }
+
+    .ticker span::after {
+      content: "●";
+      margin-left: 46px;
+      font-size: 8px;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 980px) {
+      .chrome nav { display: none; }
+
+      .hero-grid,
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .stats-grid,
+      .practice-grid,
+      .portfolio-grid,
+      .personal-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .brand-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .brand-list {
+        justify-content: flex-start;
+      }
+
+      .section-label {
+        position: static;
+      }
+
+      .stats-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .stats-head p {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .shell {
+        width: min(100% - 28px, 1320px);
+      }
+
+      .hero {
+        padding: 96px 0 48px;
+      }
+
+      .meta-row,
+      .metric-grid,
+      .timeline-head,
+      .timeline-row {
+        grid-template-columns: 1fr;
+      }
+
+      .meta-row div {
+        text-align: left !important;
+      }
+
+      .console-body {
+        padding: 18px;
+      }
+
+      .tool-card {
+        min-height: 220px;
+      }
+
+      .photo-slot,
+      .photo-slot.small {
+        min-height: 260px;
+      }
+
+      .light,
+      .dark-section {
+        padding: 76px 0;
+      }
+
+      .timeline-head {
+        display: none;
+      }
+
+      .timeline::before,
+      .timeline-point {
+        display: none;
+      }
+
+      .timeline-row {
+        gap: 8px;
+      }
+
+      .timeline-row .company {
+        text-align: left;
+      }
+
+      .timeline-detail {
+        margin: 8px 0 24px;
+        padding: 20px;
+      }
+
+      .ticker {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="chrome">
+    <strong>LS / 2026</strong>
+    <nav aria-label="Primary">
+      <a href="#brief">Brief</a>
+      <a href="#ai-work">AI Work</a>
+      <a href="#numbers">Numbers</a>
+      <a href="#experience">Experience</a>
+      <a href="#outside-work">Outside Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="stamp">26</div>
+      <div class="shell hero-grid">
+        <div>
+          <div class="meta-row">
+            <div><span>Focus</span><strong>Engineering · GTM · AI</strong></div>
+            <div style="text-align:center"><span>Based</span><strong>London, UK</strong></div>
+            <div style="text-align:right"><span>Currently</span><strong>Cloudflare · EMEA</strong></div>
+          </div>
+          <div class="label">EMEA Talent Systems · AI Transformation</div>
+          <h1>Lee Sam.</h1>
+          <div class="hero-subhead">The recruiting leader for the AI era.</div>
+          <div class="hero-copy">
+            <div>
+              <h4>Position</h4>
+              <p>Building Engineering and GTM teams across <em>EMEA</em> at Cloudflare.</p>
+            </div>
+            <div>
+              <h4>Thesis</h4>
+              <p>AI is changing how companies scale. Recruiting leadership turns that shift into operating advantage.</p>
+            </div>
+            <div>
+              <h4>Record</h4>
+              <p>Eighteen years across category-defining technology companies.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside class="console hero-portrait-card" aria-label="Portrait of Lee Sam">
+          <div class="console-inner">
+            <img class="hero-portrait" src="assets/lee-sam-hero.jpeg" alt="Lee Sam seated by a London office window">
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="light" id="brief">
+      <div class="shell section-grid">
+        <div class="section-label">02 / Brief</div>
+        <div>
+          <h2 class="section-title">Building teams for <em>re-architected</em> companies.</h2>
+          <p class="brief-copy">My expertise lies in building Engineering and GTM teams across EMEA.</p>
+          <p class="brief-copy">The work spans executive search strategy, market mapping, succession pipelines, senior stakeholder partnership, and the practical adoption of AI inside day-to-day recruiting operations.</p>
+
+          <div class="practice-grid">
+            <article class="practice-card">
+              <span class="num">01</span>
+              <h3>Executive & leadership search</h3>
+              <p>Search strategy, market mapping, and proactive succession pipelines for critical regional leadership roles.</p>
+            </article>
+            <article class="practice-card">
+              <span class="num">02</span>
+              <h3>Recruiting at scale</h3>
+              <p>Built and led EMEA recruiting through significant growth, workforce planning, and operational complexity.</p>
+            </article>
+            <article class="practice-card">
+              <span class="num">03</span>
+              <h3>Inclusive pipelines & DE&I</h3>
+              <p>Inclusive pipeline thinking as the default, with a through-line since early-career diversity leadership.</p>
+            </article>
+            <article class="practice-card">
+              <span class="num">04</span>
+              <h3>AI inside recruiting</h3>
+              <p>Agentic coding workshops, custom workflow tools, and the slower work of changing how a team operates.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="ai-work">
+      <div class="shell section-grid">
+        <div class="section-label">03 / AI Work</div>
+        <div>
+          <h2 class="section-title">Recruiting tools for the <em>AI era.</em></h2>
+          <p class="brief-copy">A mini portfolio of practical tools built to make recruiting sharper, faster, and more intelligence-led.</p>
+
+          <div class="portfolio-grid">
+            <article class="tool-card">
+              <div class="tool-meta"><span>Cloudflare</span><span>Internal Tool</span></div>
+              <h3>Job Builder</h3>
+              <p>A structured role-building workflow for turning hiring intent into sharper job architecture, stronger briefs, and more consistent intake.</p>
+            </article>
+            <article class="tool-card">
+              <div class="tool-meta"><span>Cloudflare</span><span>Internal Tool</span></div>
+              <h3>Candidate Intelligence</h3>
+              <p>A candidate research layer designed to improve preparation, synthesis, and signal quality across senior recruiting workflows.</p>
+            </article>
+            <article class="tool-card">
+              <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
+              <h3>Pinr</h3>
+              <p>A product experiment built outside work, combining product thinking, agentic coding, and hands-on app development.</p>
+            </article>
+            <article class="tool-card">
+              <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
+              <h3>Ryval</h3>
+              <p>A second independent app build exploring how AI-assisted workflows can move an idea from concept to usable product.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-section" id="numbers">
+      <div class="shell">
+        <div class="stats-head">
+          <h2 class="section-title">Delivery, <br>in <em>numbers.</em></h2>
+          <p>EMEA recruiting delivery at Cloudflare across FY23–25. Volume measured in hundreds, acceptance measured in confidence.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat"><span class="year">FY 2023</span><strong>318</strong><span>EMEA hires delivered</span></div>
+          <div class="stat"><span class="year">FY 2023 cohort</span><strong>86<sup>%</sup></strong><span>Offer acceptance rate</span></div>
+          <div class="stat"><span class="year">FY 2024</span><strong>477</strong><span>EMEA hires delivered</span></div>
+          <div class="stat"><span class="year">FY 2025 · 1 Sep</span><strong>429</strong><span>EMEA hires year-to-date</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light" id="experience">
+      <div class="shell section-grid">
+        <div class="section-label">05 / Experience</div>
+        <div>
+          <h2 class="section-title">Timeline.</h2>
+          <p class="record-subhead">Eighteen years across the world's category-defining technology companies.</p>
+          <div class="timeline">
+            <div class="timeline-head">
+              <span>№</span><span></span><span>Company</span><span>Position</span><span style="text-align:right">Year</span><span></span>
+            </div>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">01</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Leadership Recruiting & <em>AI</em></span><span class="yr">2026 →</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Lead executive and senior leadership recruiting for Cloudflare across EMEA, focused on critical regional leadership roles.</li>
+                  <li>Design executive search strategies, research frameworks, market maps, and proactive succession pipelines.</li>
+                  <li>Advance AI adoption across Recruiting by improving productivity, simplifying workflows, and building custom tools for recurring work.</li>
+                  <li>Partner with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">02</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Head of Recruiting <em>EMEA</em></span><span class="yr">2022 — 26</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 429 hires in 2025 as of 1 September.</li>
+                  <li>Partnered with business leaders and Finance on workforce planning, headcount forecasting, and growth alignment.</li>
+                  <li>Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.</li>
+                  <li>Worked across HR, Compensation, Legal, People Operations, and Special Projects to support hiring governance, M&A activity, and talent retention.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">03</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Recruiter → Manager</span><span class="yr">2018 — 22</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare's regional growth.</li>
+                  <li>Hired across Sales and Engineering talent across EMEA.</li>
+                  <li>Partnered with managers and leaders to identify diverse talent for active and future hiring needs.</li>
+                  <li>Built the foundation for broader EMEA recruiting leadership across planning, delivery, stakeholder partnership, and team operating rhythm.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">04</span><span class="timeline-point"></span><span class="company"><span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>Okta</span><span class="role">Senior Recruiter</span><span class="yr">2018</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Recruited for a fast-growing enterprise identity business during a period of international scaling.</li>
+                  <li>Partnered with hiring teams in a cloud software environment focused on security, access, workflow, and customer success.</li>
+                  <li>Brought prior SaaS recruiting experience into a high-growth, venture-backed technology company.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">05</span><span class="timeline-point"></span><span class="company"><span class="logo logo-snap"><img src="assets/logos/snap.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>Snap Inc.</span><span class="role">Senior Business Recruiter</span><span class="yr">2017</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Hired as Snap's first Business Recruiter outside the US.</li>
+                  <li>Owned strategic hiring across EMEA, with additional ad-hoc roles across the Middle East and US.</li>
+                  <li>Managed end-to-end hiring from intake and sourcing through offers, contracts, and onboarding.</li>
+                  <li>Recruited across Account Executives, Account Managers, Creative Strategists, Marketing Managers, Event Managers, Sales Operations, Business Operations, and Agency Partners.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">06</span><span class="timeline-point"></span><span class="company"><span class="logo logo-salesforce"><img src="assets/logos/salesforce.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>Salesforce</span><span class="role">Senior Recruiter</span><span class="yr">2015 — 16</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Partnered with Professional Services, Service Cloud, and Marketing Cloud business groups across EMEA.</li>
+                  <li>Developed senior stakeholder relationships and managed hiring through direct sourcing and employee referrals.</li>
+                  <li>Worked closely with Employee Success, Finance, and cross-functional teams to keep recruiting processes smooth and efficient.</li>
+                  <li>Contributed to Salesforce's 1:1:1 model through volunteering and local community activity.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">07</span><span class="timeline-point"></span><span class="company"><span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>Twitter</span><span class="role">Senior Recruiter</span><span class="yr">2013 — 15</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Recruited across UK and EMEA roles spanning Ads Sales, Account Management, Media Partnerships, Marketing, Comms, Legal, Finance, and Research.</li>
+                  <li>Managed end-to-end hiring from intake through offer acceptance, with a strong focus on candidate experience.</li>
+                  <li>Used market data and internal benchmarks to construct competitive candidate offers with HR, Compensation, and senior business approval.</li>
+                  <li>Promoted employee referrals, ran sourcing sessions, maintained hiring trackers, and presented recruiting updates to the UK office.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">08</span><span class="timeline-point"></span><span class="company"><span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>BoA Merrill Lynch</span><span class="role">Technology Recruiter</span><span class="yr">2011 — 13</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Managed end-to-end technology hiring across GWIM, GMRT, GWBT, Technology Infrastructure, and Risk Tech.</li>
+                  <li>Built talent pools for Software Engineers, Application Support Analysts, Business Analysts, and Project or Programme Managers.</li>
+                  <li>Partnered with hiring managers, HR Business Partners, agencies, and business leaders on pipeline, compensation, approvals, and market updates.</li>
+                  <li>Direct sourced candidates through LinkedIn, X-ray search, eFinancialCareers, Jobserve, CW Jobs, and niche boards.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">09</span><span class="timeline-point"></span><span class="company"><span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>Ernst & Young</span><span class="role">Recruiter <em>IT Advisory</em></span><span class="yr">2010 — 11</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Managed end-to-end recruitment for IT Advisory, Risk Advisory, Programme Advisory Services, and interim Transactions Advisory coverage.</li>
+                  <li>Recruited Programme Managers, Enterprise Architects, SAP Consultants, and transformation specialists across major sectors.</li>
+                  <li>Turned around IT Advisory recruitment, helping the group meet FY10 headcount targets and all recruitment KPIs.</li>
+                  <li>Served as Champion for Racial Diversity at EY UK, improving attraction and recruitment of candidates from under-represented ethnicities.</li>
+                </ul>
+              </div>
+            </details>
+            <details class="timeline-item">
+              <summary class="timeline-row"><span class="idx">10</span><span class="timeline-point"></span><span class="company"><span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>Hewlett Packard</span><span class="role">In-House Recruiter</span><span class="yr">2007 — 10</span><span class="timeline-arrow">→</span></summary>
+              <div class="timeline-detail">
+                <ul>
+                  <li>Recruited Technical Account Managers, Technical Pre-Sales Consultants, and Sales Account Managers for the Technology Solutions Group.</li>
+                  <li>Supported hiring managers from requisition approval through close, advising on salary, benefits, working conditions, and process compliance.</li>
+                  <li>Reduced agency expenditure through direct sourcing and achieved 98% direct recruitment in FY09.</li>
+                  <li>Reduced time-to-hire to under 38 days in FY09 while managing the largest requisition volume in the Staffing team.</li>
+                </ul>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="light" id="outside-work">
+      <div class="shell personal-layout">
+        <div class="personal-copy">
+          <div class="section-label">06 / Outside Work</div>
+          <h2 class="section-title">Travel, basketball, and a few long flights.</h2>
+          <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
+          <p>I am a Milwaukee Bucks fan, including flying to Milwaukee to watch games in person. This section will hold travel photography, Bucks game photos, and the personal side of the story.</p>
+        </div>
+        <div class="photo-grid" aria-label="Travel and Milwaukee Bucks photo placeholders">
+          <div class="photo-slot"><span class="photo-caption">Travel photo</span></div>
+          <div class="photo-column">
+            <div class="photo-slot small"><span class="photo-caption">Milwaukee game day</span></div>
+            <div class="photo-slot small"><span class="photo-caption">Away from work</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final" id="contact">
+      <div class="shell">
+        <h2>Let's <em>talk.</em></h2>
+        <p>For introductions, conversations, or quiet enquiries about senior leadership search, AI-era recruiting operations, and talent systems for companies being rebuilt around AI.</p>
+        <div class="button-row">
+          <a class="button" href="mailto:lee.sam78@gmail.com">lee.sam78@gmail.com →</a>
+          <a class="button secondary" href="#top">Back to top</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>1,224 HIRES · FY23–25</span><span>LONDON</span>
+      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>1,224 HIRES · FY23–25</span><span>LONDON</span>
+    </div>
+  </div>
+</body>
+</html>
