@@ -685,7 +685,16 @@
       animation-delay: 8s;
     }
 
+    .pinr-phone img {
+      animation-name: pinrCarousel;
+    }
+
     @keyframes ryvalCarousel {
+      0%, 28% { opacity: 1; }
+      33%, 100% { opacity: 0; }
+    }
+
+    @keyframes pinrCarousel {
       0%, 28% { opacity: 1; }
       33%, 100% { opacity: 0; }
     }
@@ -1396,10 +1405,17 @@
               <h3>Relay</h3>
               <p>A Greenhouse-connected handover tool that summarizes a recruiter's open roles, current status, and next actions, then exports the handover to PDF for colleagues.</p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card featured-app">
               <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
               <h3>Pinr</h3>
               <p>A product experiment built outside work, combining product thinking, agentic coding, and hands-on app development.</p>
+              <div class="phone-mockup pinr-phone" aria-label="Pinr mobile app screenshots">
+                <div class="phone-screen">
+                  <img src="assets/apps/pinr-map.jpg" alt="Pinr mobile app map screen">
+                  <img src="assets/apps/pinr-profile.jpg" alt="Pinr mobile app profile and bucket list screen">
+                  <img src="assets/apps/pinr-place.jpg" alt="Pinr mobile app destination detail screen">
+                </div>
+              </div>
             </article>
             <article class="tool-card featured-app">
               <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
