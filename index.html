@@ -773,9 +773,17 @@
       animation-delay: 8s;
     }
 
+    .cortex-card {
+      grid-column: span 2;
+    }
+
+    .cortex-card .web-stage {
+      aspect-ratio: 4 / 3;
+    }
+
     @keyframes webCarousel {
-      0%, 28% { opacity: 1; }
-      33%, 100% { opacity: 0; }
+      0%, 30% { opacity: 1; }
+      31%, 100% { opacity: 0; }
     }
 
     .personal-layout {
@@ -1258,6 +1266,10 @@
         grid-template-columns: 1fr;
       }
 
+      .cortex-card {
+        grid-column: span 1;
+      }
+
       .tool-card.featured-app .tool-meta,
       .tool-card.featured-app h3,
       .tool-card.featured-app p,
@@ -1324,6 +1336,10 @@
 
       .tool-card.featured-app {
         grid-template-columns: 1fr;
+      }
+
+      .cortex-card {
+        grid-column: span 1;
       }
 
       .tool-card.featured-app .tool-meta,
@@ -1519,10 +1535,21 @@
                 </div>
               </div>
             </article>
-            <article class="tool-card">
+            <article class="tool-card cortex-card">
               <div class="tool-meta"><span>Personal App</span><span>Autonomous Trading</span></div>
               <h3>Cortex</h3>
               <p>A programmatic stock trading bot that monitors market movement and places trades through a trading platform API based on preset technical indicators.</p>
+              <div class="web-preview" aria-label="Cortex desktop trading bot mockup screenshots">
+                <div class="web-preview-bar">
+                  <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                  <span>project aion</span>
+                </div>
+                <div class="web-stage">
+                  <img src="assets/apps/cortex-command-center.png" alt="Cortex autonomous command center desktop mockup">
+                  <img src="assets/apps/cortex-signal-fusion.png" alt="Cortex signal fusion matrix desktop mockup">
+                  <img src="assets/apps/cortex-backtest-risk.png" alt="Cortex backtest and risk lab desktop mockup">
+                </div>
+              </div>
             </article>
             <article class="tool-card featured-app">
               <div class="tool-meta"><span>Mobile App</span><span>Candidate Intelligence</span></div>
