@@ -447,23 +447,19 @@
 
     .section-title {
       margin: 0 0 24px;
-      font-family: Anton, sans-serif;
+      font-family: "Instrument Sans", Inter, sans-serif;
       font-size: clamp(54px, 8vw, 112px);
-      font-weight: 400;
-      line-height: 0.88;
+      font-weight: 600;
+      line-height: 0.95;
       letter-spacing: -0.035em;
-      text-transform: uppercase;
     }
 
     .section-title em {
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      font-style: normal;
-      font-weight: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-      text-transform: uppercase;
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--orange);
+      letter-spacing: -0.01em;
     }
 
     .brief-copy {
@@ -1057,7 +1053,7 @@
     .timeline-head,
     .timeline-row {
       display: grid;
-      grid-template-columns: 60px 42px 260px minmax(0, 1fr) 150px 36px;
+      grid-template-columns: 60px 42px minmax(0, 1fr) 260px 150px 36px;
       gap: 18px;
       align-items: center;
     }
@@ -1108,12 +1104,9 @@
     }
 
     .timeline-detail {
-      margin: -2px 0 28px 120px;
+      margin: -4px 0 24px 120px;
       max-width: 780px;
-      padding: 24px 28px;
-      border: 1px solid var(--line-dark);
-      border-radius: 18px;
-      background: #ffffff;
+      padding: 8px 0 0;
     }
 
     .timeline-detail ul {
@@ -1166,8 +1159,11 @@
 
     .timeline-row .idx {
       color: var(--orange);
-      font-family: Anton, sans-serif;
-      font-size: 28px;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
     }
 
     .timeline-row .yr {
@@ -1178,22 +1174,20 @@
     }
 
     .timeline-row .role {
-      font-family: Anton, sans-serif;
-      font-size: 30px;
-      line-height: 1;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.022em;
+      color: var(--ink);
     }
 
     .timeline-row .role em {
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      font-style: normal;
-      font-weight: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-      text-transform: uppercase;
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--orange);
+      letter-spacing: -0.005em;
     }
 
     .timeline-row .company {
@@ -1262,23 +1256,19 @@
 
     .final h2 {
       margin: 0;
-      font-family: Anton, sans-serif;
+      font-family: "Instrument Sans", Inter, sans-serif;
       font-size: clamp(74px, 13vw, 180px);
-      font-weight: 400;
-      line-height: 0.85;
+      font-weight: 600;
+      line-height: 0.95;
       letter-spacing: -0.045em;
-      text-transform: uppercase;
     }
 
     .final h2 em {
-      color: inherit;
-      font-family: inherit;
-      font-size: inherit;
-      font-style: normal;
-      font-weight: inherit;
-      line-height: inherit;
-      letter-spacing: inherit;
-      text-transform: uppercase;
+      font-family: "Instrument Serif", serif;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--orange);
+      letter-spacing: -0.01em;
     }
 
     .final p {
@@ -1557,10 +1547,10 @@
           <p class="record-subhead">Eighteen years across the world's category-defining technology companies.</p>
           <div class="timeline">
             <div class="timeline-head">
-              <span>№</span><span></span><span>Company</span><span>Position</span><span style="text-align:right">Year</span><span></span>
+              <span>№</span><span></span><span>Position</span><span>Company</span><span style="text-align:right">Year</span><span></span>
             </div>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">01</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Leadership Recruiting & <em>AI</em></span><span class="yr">2026 →</span><span class="timeline-arrow">→</span></summary>
+            <details class="timeline-item" open>
+              <summary class="timeline-row"><span class="idx">01</span><span class="timeline-point"></span><span class="role">Leadership Recruiting &amp; <em>AI</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2026 — Now</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Lead executive and senior leadership recruiting for Cloudflare across EMEA, focused on critical regional leadership roles.</li>
@@ -1572,7 +1562,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">02</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Head of Recruiting <em>EMEA</em></span><span class="yr">2022 — 26</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">02</span><span class="timeline-point"></span><span class="role">Head of Recruiting, <em>EMEA</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2022 — 26</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 429 hires in 2025 as of 1 September.</li>
@@ -1583,7 +1573,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">03</span><span class="timeline-point"></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="role">Recruiter → Manager</span><span class="yr">2018 — 22</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">03</span><span class="timeline-point"></span><span class="role">Recruiter → <em>Manager</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2018 — 22</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare's regional growth.</li>
@@ -1594,7 +1584,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">04</span><span class="timeline-point"></span><span class="company"><span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>Okta</span><span class="role">Senior Recruiter</span><span class="yr">2018</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">04</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>Okta</span><span class="yr">2018</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Recruited for a fast-growing enterprise identity business during a period of international scaling.</li>
@@ -1604,7 +1594,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">05</span><span class="timeline-point"></span><span class="company"><span class="logo logo-snap"><img src="assets/logos/snap.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>Snap Inc.</span><span class="role">Senior Business Recruiter</span><span class="yr">2017</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">05</span><span class="timeline-point"></span><span class="role">Senior Business Recruiter</span><span class="company"><span class="logo logo-snap"><img src="assets/logos/snap.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>Snap Inc.</span><span class="yr">2017</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Hired as Snap's first Business Recruiter outside the US.</li>
@@ -1615,7 +1605,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">06</span><span class="timeline-point"></span><span class="company"><span class="logo logo-salesforce"><img src="assets/logos/salesforce.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>Salesforce</span><span class="role">Senior Recruiter</span><span class="yr">2015 — 16</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">06</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-salesforce"><img src="assets/logos/salesforce.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>Salesforce</span><span class="yr">2015 — 16</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Partnered with Professional Services, Service Cloud, and Marketing Cloud business groups across EMEA.</li>
@@ -1626,7 +1616,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">07</span><span class="timeline-point"></span><span class="company"><span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>Twitter</span><span class="role">Senior Recruiter</span><span class="yr">2013 — 15</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">07</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>Twitter</span><span class="yr">2013 — 15</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Recruited across UK and EMEA roles spanning Ads Sales, Account Management, Media Partnerships, Marketing, Comms, Legal, Finance, and Research.</li>
@@ -1637,7 +1627,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">08</span><span class="timeline-point"></span><span class="company"><span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>BoA Merrill Lynch</span><span class="role">Technology Recruiter</span><span class="yr">2011 — 13</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">08</span><span class="timeline-point"></span><span class="role">Technology Recruiter</span><span class="company"><span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>BoA Merrill Lynch</span><span class="yr">2011 — 13</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Managed end-to-end technology hiring across GWIM, GMRT, GWBT, Technology Infrastructure, and Risk Tech.</li>
@@ -1648,7 +1638,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">09</span><span class="timeline-point"></span><span class="company"><span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>Ernst & Young</span><span class="role">Recruiter <em>IT Advisory</em></span><span class="yr">2010 — 11</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">09</span><span class="timeline-point"></span><span class="role">Recruiter, <em>IT Advisory</em></span><span class="company"><span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>Ernst &amp; Young</span><span class="yr">2010 — 11</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Managed end-to-end recruitment for IT Advisory, Risk Advisory, Programme Advisory Services, and interim Transactions Advisory coverage.</li>
@@ -1659,7 +1649,7 @@
               </div>
             </details>
             <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">10</span><span class="timeline-point"></span><span class="company"><span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>Hewlett Packard</span><span class="role">In-House Recruiter</span><span class="yr">2007 — 10</span><span class="timeline-arrow">→</span></summary>
+              <summary class="timeline-row"><span class="idx">10</span><span class="timeline-point"></span><span class="role">In-House Recruiter</span><span class="company"><span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>Hewlett Packard</span><span class="yr">2007 — 10</span><span class="timeline-arrow">→</span></summary>
               <div class="timeline-detail">
                 <ul>
                   <li>Recruited Technical Account Managers, Technical Pre-Sales Consultants, and Sales Account Managers for the Technology Solutions Group.</li>
