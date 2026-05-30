@@ -566,6 +566,63 @@
       line-height: 1.55;
     }
 
+    .tool-card.featured-app {
+      grid-template-columns: minmax(0, 1fr) minmax(170px, 0.46fr);
+      grid-template-rows: auto auto;
+      align-items: end;
+      column-gap: 34px;
+    }
+
+    .tool-card.featured-app .tool-meta,
+    .tool-card.featured-app h3,
+    .tool-card.featured-app p {
+      grid-column: 1;
+    }
+
+    .phone-mockup {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      align-self: center;
+      justify-self: center;
+      width: min(190px, 100%);
+      aspect-ratio: 9 / 19.5;
+      padding: 8px;
+      border: 1px solid rgba(10, 37, 64, 0.14);
+      border-radius: 34px;
+      background: #0a0a0a;
+      box-shadow: 0 28px 52px -28px rgba(10,37,64,0.68);
+    }
+
+    .phone-screen {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      border-radius: 27px;
+      background: #050505;
+    }
+
+    .phone-screen::before {
+      content: "";
+      position: absolute;
+      top: 7px;
+      left: 50%;
+      z-index: 2;
+      width: 56px;
+      height: 15px;
+      border-radius: 999px;
+      background: #050505;
+      transform: translateX(-50%);
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+
     .personal-layout {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
@@ -1042,6 +1099,23 @@
         grid-template-columns: 1fr;
       }
 
+      .tool-card.featured-app {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card.featured-app .tool-meta,
+      .tool-card.featured-app h3,
+      .tool-card.featured-app p,
+      .phone-mockup {
+        grid-column: 1;
+      }
+
+      .phone-mockup {
+        grid-row: auto;
+        width: min(210px, 82%);
+        margin-top: 8px;
+      }
+
       .brand-inner {
         align-items: flex-start;
         flex-direction: column;
@@ -1091,6 +1165,23 @@
 
       .tool-card {
         min-height: 220px;
+      }
+
+      .tool-card.featured-app {
+        grid-template-columns: 1fr;
+      }
+
+      .tool-card.featured-app .tool-meta,
+      .tool-card.featured-app h3,
+      .tool-card.featured-app p,
+      .phone-mockup {
+        grid-column: 1;
+      }
+
+      .phone-mockup {
+        grid-row: auto;
+        width: min(210px, 82%);
+        margin-top: 8px;
       }
 
       .photo-slot,
@@ -1243,10 +1334,15 @@
               <h3>Pinr</h3>
               <p>A product experiment built outside work, combining product thinking, agentic coding, and hands-on app development.</p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card featured-app">
               <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
               <h3>Ryval</h3>
               <p>A second independent app build exploring how AI-assisted workflows can move an idea from concept to usable product.</p>
+              <div class="phone-mockup" aria-label="Ryval mobile app screenshot">
+                <div class="phone-screen">
+                  <img src="assets/apps/ryval-workout.jpg" alt="Ryval mobile app workout screen">
+                </div>
+              </div>
             </article>
             <article class="tool-card">
               <div class="tool-meta"><span>Personal App</span><span>Autonomous Trading</span></div>
