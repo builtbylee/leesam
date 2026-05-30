@@ -689,12 +689,21 @@
       animation-name: pinrCarousel;
     }
 
+    .execue-phone img {
+      animation-name: execueCarousel;
+    }
+
     @keyframes ryvalCarousel {
       0%, 28% { opacity: 1; }
       33%, 100% { opacity: 0; }
     }
 
     @keyframes pinrCarousel {
+      0%, 28% { opacity: 1; }
+      33%, 100% { opacity: 0; }
+    }
+
+    @keyframes execueCarousel {
       0%, 28% { opacity: 1; }
       33%, 100% { opacity: 0; }
     }
@@ -1434,10 +1443,17 @@
               <h3>Cortex</h3>
               <p>A programmatic stock trading bot that monitors market movement and places trades through a trading platform API based on preset technical indicators.</p>
             </article>
-            <article class="tool-card">
+            <article class="tool-card featured-app">
               <div class="tool-meta"><span>Mobile App</span><span>Candidate Intelligence</span></div>
               <h3>Execue</h3>
               <p>A mobile app where candidates upload a CV and job posting URL, then receive role-fit analysis, suitability guidance, and interview preparation support.</p>
+              <div class="phone-mockup execue-phone" aria-label="Execue mobile app screenshots">
+                <div class="phone-screen">
+                  <img src="assets/apps/execue-report.jpg" alt="Execue mobile app job match report">
+                  <img src="assets/apps/execue-generating.jpg" alt="Execue mobile app generating analysis screen">
+                  <img src="assets/apps/execue-home.jpg" alt="Execue mobile app home screen">
+                </div>
+              </div>
             </article>
           </div>
         </div>
