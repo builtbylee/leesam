@@ -851,6 +851,103 @@
       border-top: 1px solid rgba(10,37,64,0.08);
     }
 
+    .memory-carousel {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: #ffffff;
+      box-shadow: 0 34px 80px -58px rgba(10,37,64,0.7);
+    }
+
+    .memory-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .memory-stage {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background:
+        linear-gradient(135deg, rgba(37,99,235,0.08), rgba(0,212,255,0.08)),
+        var(--bg-2);
+    }
+
+    .memory-slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-items: center;
+      padding: 18px;
+      opacity: 0;
+      animation: memoryCarousel 45s infinite;
+    }
+
+    .memory-slide:nth-child(1) { animation-delay: 0s; }
+    .memory-slide:nth-child(2) { animation-delay: 5s; }
+    .memory-slide:nth-child(3) { animation-delay: 10s; }
+    .memory-slide:nth-child(4) { animation-delay: 15s; }
+    .memory-slide:nth-child(5) { animation-delay: 20s; }
+    .memory-slide:nth-child(6) { animation-delay: 25s; }
+    .memory-slide:nth-child(7) { animation-delay: 30s; }
+    .memory-slide:nth-child(8) { animation-delay: 35s; }
+    .memory-slide:nth-child(9) { animation-delay: 40s; }
+
+    .memory-slide img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 20px;
+      object-fit: contain;
+      background: #ffffff;
+      box-shadow: 0 24px 60px -48px rgba(10,37,64,0.8);
+    }
+
+    .memory-slide figcaption {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.48);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.86);
+      color: var(--ink);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 18px 50px -36px rgba(10,37,64,0.9);
+    }
+
+    .memory-slide figcaption span:last-child {
+      color: var(--orange);
+    }
+
+    @keyframes memoryCarousel {
+      0%, 9% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      11%, 100% {
+        opacity: 0;
+        transform: translateY(8px) scale(0.985);
+      }
+    }
+
     .stats-head {
       display: flex;
       justify-content: space-between;
@@ -1679,13 +1776,50 @@
           <div class="section-label">05 / Outside Work</div>
           <h2 class="section-title">Travel, basketball, and a few long flights.</h2>
           <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
-          <p>I am a Milwaukee Bucks fan, including flying to Milwaukee to watch games in person. This section will hold travel photography, Bucks game photos, and the personal side of the story.</p>
+          <p>I am a Milwaukee Bucks fan, including flying to Milwaukee to watch games in person. This is the personal side of the story: places, games, and the occasional very long flight.</p>
         </div>
-        <div class="photo-grid" aria-label="Travel and Milwaukee Bucks photo placeholders">
-          <div class="photo-slot"><span class="photo-caption">Travel photo</span></div>
-          <div class="photo-column">
-            <div class="photo-slot small"><span class="photo-caption">Milwaukee game day</span></div>
-            <div class="photo-slot small"><span class="photo-caption">Away from work</span></div>
+        <div class="memory-carousel" aria-label="Travel and Milwaukee Bucks photo carousel">
+          <div class="memory-head">
+            <span>Personal archive</span>
+            <span>Travel · Bucks</span>
+          </div>
+          <div class="memory-stage">
+            <figure class="memory-slide">
+              <img src="assets/outside-work/busan.jpg" alt="Lee Sam overlooking the colourful hillside houses in Busan">
+              <figcaption><span>Busan</span><span>01 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/bali.jpg" alt="Lee Sam standing above the coastline in Bali">
+              <figcaption><span>Bali coastline</span><span>02 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/petra.jpg" alt="Lee Sam standing in front of Petra">
+              <figcaption><span>Petra</span><span>03 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/rio.jpg" alt="Lee Sam sitting on the Escadaria Selaron steps in Rio">
+              <figcaption><span>Rio de Janeiro</span><span>04 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/machu-picchu.jpg" alt="Lee Sam at Machu Picchu">
+              <figcaption><span>Machu Picchu</span><span>05 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/fiserv-forum.jpg" alt="Lee Sam outside Fiserv Forum in Milwaukee">
+              <figcaption><span>Fiserv Forum</span><span>06 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/bucks-tipoff.jpg" alt="Milwaukee Bucks tipoff at Fiserv Forum">
+              <figcaption><span>Bucks tipoff</span><span>07 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/giannis-courtside.jpg" alt="Giannis Antetokounmpo courtside during a Milwaukee Bucks game">
+              <figcaption><span>Courtside</span><span>08 / 09</span></figcaption>
+            </figure>
+            <figure class="memory-slide">
+              <img src="assets/outside-work/broadcast-booth.jpg" alt="Lee Sam wearing a headset in a basketball broadcast booth">
+              <figcaption><span>Broadcast booth</span><span>09 / 09</span></figcaption>
+            </figure>
           </div>
         </div>
       </div>
