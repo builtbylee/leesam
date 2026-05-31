@@ -635,6 +635,40 @@
       text-transform: uppercase;
     }
 
+    /* workshop photo visual — used inside slides */
+
+    .workshop-visual {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: #ffffff;
+      box-shadow: 0 24px 58px -44px rgba(10,37,64,0.62);
+    }
+
+    .workshop-visual img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      border-radius: 18px;
+      opacity: 0;
+      animation: workshopFade 10s infinite;
+    }
+
+    .workshop-visual img:nth-child(1) { animation-delay: 0s; }
+    .workshop-visual img:nth-child(2) { animation-delay: 5s; }
+
+    @keyframes workshopFade {
+      0%, 42% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
     /* phone mockup — used inside slides */
 
     .phone-mockup {
@@ -811,6 +845,18 @@
     .web-stage img:nth-child(1) { animation-delay: 0s; }
     .web-stage img:nth-child(2) { animation-delay: 6s; }
     .web-stage img:nth-child(3) { animation-delay: 12s; }
+
+    .web-stage-2 img {
+      animation: webCarousel2 12s infinite;
+    }
+
+    .web-stage-2 img:nth-child(1) { animation-delay: 0s; }
+    .web-stage-2 img:nth-child(2) { animation-delay: 6s; }
+
+    @keyframes webCarousel2 {
+      0%, 45% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
 
     /* carousel controls */
 
@@ -1715,6 +1761,10 @@
         aspect-ratio: 16 / 10;
       }
 
+      .workshop-visual {
+        max-width: 100%;
+      }
+
       .brand-inner {
         align-items: flex-start;
         flex-direction: column;
@@ -2005,25 +2055,57 @@
                   </div>
                 </article>
 
-                <article class="ai-slide is-placeholder" aria-roledescription="slide">
+                <article class="ai-slide is-web" aria-roledescription="slide">
                   <div class="ai-slide-visual">
-                    <div class="placeholder-visual">Preview · Coming soon</div>
+                    <div class="web-preview" aria-label="Job Builder screenshots">
+                      <div class="web-preview-bar">
+                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <span>job-builder.cloudflare.io</span>
+                      </div>
+                      <div class="web-stage web-stage-2">
+                        <img src="assets/apps/job-builder-overview.jpg" alt="Job Builder overview showing job basics and interview stages">
+                        <img src="assets/apps/job-builder-submit.jpg" alt="Job Builder review and submit screen">
+                      </div>
+                    </div>
                   </div>
                   <div class="ai-slide-copy">
                     <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
                     <h3>Job Builder</h3>
-                    <p>Turns a 30-minute intake conversation into a structured JD, role architecture, and interview plan.</p>
+                    <p>Replaces an 11-page manual interview plan template with a guided flow that connects to Greenhouse via the Harvest API, pre-loads templates, and submits a fully configured job in minutes instead of days. Secured behind Cloudflare Access.</p>
                   </div>
                 </article>
 
-                <article class="ai-slide is-placeholder" aria-roledescription="slide">
+                <article class="ai-slide is-web" aria-roledescription="slide">
                   <div class="ai-slide-visual">
-                    <div class="placeholder-visual">Preview · Coming soon</div>
+                    <div class="web-preview" aria-label="Relay screenshots">
+                      <div class="web-preview-bar">
+                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <span>relay.cloudflare.io</span>
+                      </div>
+                      <div class="web-stage web-stage-2">
+                        <img src="assets/apps/relay-import.jpg" alt="Relay import view showing roles pulled from Greenhouse">
+                        <img src="assets/apps/relay-handover.jpg" alt="Relay handover document with role status and candidate details">
+                      </div>
+                    </div>
                   </div>
                   <div class="ai-slide-copy">
                     <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Recruiter automation</div>
                     <h3>Relay</h3>
-                    <p>Greenhouse → handover document in under a minute. Summarises open roles, status, and next steps.</p>
+                    <p>Automates recruiter-to-recruiter handovers. Connects to Greenhouse via the Harvest API, imports role status with one tap, and generates a clean handover document that can be exported to PDF and shared immediately.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide is-web" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="workshop-visual" aria-label="Agentic coding workshop photos">
+                      <img src="assets/apps/workshop-close.jpg" alt="Lee Sam co-hosting the agentic coding workshop at Cloudflare London">
+                      <img src="assets/apps/workshop-wide.jpg" alt="Attendees building projects during the agentic coding workshop">
+                    </div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Workshop · Feb 2026</div>
+                    <h3>Agentic Coding Workshop</h3>
+                    <p>Co-hosted a hands-on workshop at Cloudflare's London office introducing non-technical employees to agentic coding. Attendees used Windsurf to build their own personal and work-related projects in the session.</p>
                   </div>
                 </article>
 
@@ -2083,7 +2165,7 @@
 
             <div class="ai-carousel-controls">
               <div class="ai-carousel-counter">
-                <b class="current">01</b><span class="sep">/</span><span class="total">06</span>
+                <b class="current">01</b><span class="sep">/</span><span class="total">07</span>
               </div>
               <div class="ai-carousel-dots" role="tablist"></div>
               <div class="ai-carousel-buttons">
@@ -2265,7 +2347,7 @@
             'Partner with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.'
           ],
           noteTitle: 'AI-era work',
-          note: 'Build practical tools for recurring recruiting tasks and help define how candidates and interview teams should approach AI usage in hiring processes.'
+          note: 'Build practical tools for recurring recruiting tasks, help define how candidates and interview teams should approach AI usage in hiring processes, and co-hosted an agentic coding workshop at Cloudflare\'s London office (February 2026) introducing non-technical employees to vibe coding using Windsurf.'
         },
         {
           meta: 'Cloudflare · EMEA · Regional leadership',
@@ -2278,10 +2360,10 @@
           proofs: [
             ['318', 'FY 2023 hires'],
             ['477', 'FY 2024 hires'],
-            ['429', 'FY 2025 YTD']
+            ['599', 'FY 2025 hires']
           ],
           bullets: [
-            'Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 429 hires in 2025 as of 1 September.',
+            'Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 599 hires in 2025 — a record year.',
             'Partnered with business leaders and Finance on workforce planning, headcount forecasting, and growth alignment.',
             'Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.',
             'Worked across HR, Compensation, Legal, People Operations, and Special Projects to support hiring governance, M&A activity, and talent retention.'
