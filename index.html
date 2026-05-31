@@ -454,11 +454,8 @@
     }
 
     .section-title em {
-      font-family: "Instrument Serif", serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--orange);
-      letter-spacing: -0.01em;
+      font-style: normal;
+      color: inherit;
     }
 
     .brief-copy {
@@ -1081,64 +1078,249 @@
       text-align: right;
     }
 
+    /* Hero stat — large cumulative number + bar chart */
+    .numbers-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
+      gap: 48px;
+      align-items: end;
+      padding: 44px 48px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .numbers-hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--orange), #60a5fa);
+    }
+    .numbers-hero-meta {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .numbers-hero-meta b { color: var(--orange); font-weight: 500; }
+    .numbers-hero-value {
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(88px, 12vw, 168px);
+      font-weight: 700;
+      line-height: 0.88;
+      letter-spacing: -0.05em;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+    .numbers-hero-label {
+      margin: 16px 0 0;
+      max-width: 440px;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    /* Trend bar chart */
+    .trend-bars {
+      display: flex;
+      align-items: end;
+      gap: 12px;
+      height: 160px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .trend-bar {
+      flex: 1;
+      background: linear-gradient(180deg, var(--orange), rgba(37, 99, 235, 0.22));
+      border-radius: 3px 3px 0 0;
+      min-height: 12px;
+      position: relative;
+    }
+    .trend-bar .bv {
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.012em;
+      white-space: nowrap;
+    }
+    .trend-labels {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+    .trend-labels span {
+      flex: 1;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .trend-yoy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      padding: 5px 10px;
+      border-radius: 99px;
+      background: rgba(0, 168, 132, 0.08);
+      color: var(--green);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+
+    /* Supporting stats grid */
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
     }
 
     .stat {
-      min-height: 222px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 28px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      background: var(--bg-2);
-      padding: 28px;
+      gap: 16px;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
     }
 
-    .stat .year {
-      color: var(--orange);
+    .stat-year {
       font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
+      font-size: 10.5px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      font-weight: 500;
+    }
+
+    .stat-value {
+      margin: 0;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(54px, 6.5vw, 80px);
+      font-weight: 600;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-value .pct {
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 0.4em;
+      font-weight: 500;
+      color: var(--orange);
+      letter-spacing: -0.02em;
+      margin-left: 2px;
+      vertical-align: 0.55em;
+    }
+
+    .stat-label {
+      margin-top: auto;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 14px;
+      line-height: 1.45;
+      color: var(--muted);
+    }
+
+    /* Maple Leaf Award callout */
+    .award {
+      margin-top: 22px;
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) auto;
+      gap: 24px;
+      align-items: center;
+      padding: 22px 28px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .award::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #d97706, #f59e0b);
+    }
+    .award-mark {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+    .award-mark img { width: 38px; height: 38px; object-fit: contain; display: block; }
+    .award-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .award-meta {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10.5px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-    }
-
-    .stat strong {
-      display: block;
-      font-family: Anton, sans-serif;
-      font-size: clamp(62px, 8vw, 112px);
-      font-weight: 400;
-      line-height: 0.82;
-      letter-spacing: -0.04em;
-    }
-
-    .stat strong sup {
-      color: var(--orange);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 0.34em;
-      font-weight: 400;
-      text-transform: uppercase;
-      top: -0.8em;
-      position: relative;
-    }
-
-    .stat span:last-child {
       color: var(--muted);
-      font-family: Barlow, Inter, sans-serif;
-      font-size: 16px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .award-meta b { color: #b45309; font-weight: 500; }
+    .award-meta .sep { width: 3px; height: 3px; background: var(--line-dark); border-radius: 50%; }
+    .award-title {
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.022em;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .award-desc {
+      margin: 4px 0 0;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+      max-width: 560px;
+    }
+    .award-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 6px 12px;
+      border-radius: 99px;
+      background: rgba(217, 119, 6, 0.1);
+      color: #b45309;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10.5px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .timeline-dossier {
       display: grid;
-      grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
-      gap: 24px;
-      margin-top: 46px;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 20px;
+      margin-top: 52px;
       align-items: stretch;
     }
 
@@ -1184,15 +1366,12 @@
 
     .timeline-role-title {
       display: block;
-      overflow: hidden;
       color: inherit;
       font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
-      line-height: 1.1;
-      letter-spacing: -0.03em;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
     }
 
     .timeline-role-meta {
@@ -1241,20 +1420,20 @@
       margin: 0;
       color: var(--ink);
       font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(48px, 5.4vw, 82px);
+      font-size: clamp(36px, 3.5vw, 54px);
       font-weight: 600;
-      line-height: 0.98;
-      letter-spacing: -0.055em;
+      line-height: 1.0;
+      letter-spacing: -0.045em;
     }
 
     .timeline-panel-summary {
       max-width: 900px;
-      margin: 20px 0 0;
+      margin: 16px 0 0;
       color: var(--muted);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(20px, 2vw, 27px);
-      line-height: 1.28;
-      letter-spacing: -0.04em;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: clamp(15px, 1.1vw, 17px);
+      line-height: 1.55;
+      letter-spacing: -0.01em;
     }
 
     .timeline-proof-grid {
@@ -1269,8 +1448,8 @@
     }
 
     .timeline-proof {
-      min-height: 116px;
-      padding: 20px;
+      min-height: 110px;
+      padding: 18px 20px;
       background: var(--bg-2);
     }
 
@@ -1278,10 +1457,10 @@
       display: block;
       color: var(--ink);
       font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(36px, 4vw, 62px);
+      font-size: clamp(32px, 3.5vw, 54px);
       font-weight: 700;
       line-height: 0.95;
-      letter-spacing: -0.055em;
+      letter-spacing: -0.05em;
     }
 
     .timeline-proof span {
@@ -1326,12 +1505,12 @@
 
     .timeline-bullets li {
       position: relative;
-      padding-left: 22px;
+      padding-left: 20px;
       color: var(--ink-dark);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 17px;
-      line-height: 1.5;
-      letter-spacing: -0.03em;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      letter-spacing: -0.005em;
     }
 
     .timeline-bullets li::before {
@@ -1348,10 +1527,10 @@
     .timeline-note {
       margin: 0;
       color: var(--muted);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 18px;
-      line-height: 1.5;
-      letter-spacing: -0.035em;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      letter-spacing: -0.005em;
     }
 
     .logo {
@@ -1558,6 +1737,21 @@
         text-align: left;
       }
 
+      .numbers-hero {
+        grid-template-columns: 1fr;
+        padding: 32px 28px;
+        gap: 32px;
+      }
+
+      .award {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      .award-mark { width: 44px; height: 44px; }
+      .award-pill { align-self: flex-start; }
+
       .timeline-dossier,
       .timeline-detail-grid {
         grid-template-columns: 1fr;
@@ -1707,6 +1901,9 @@
         <div>
           <h2 class="section-title">Timeline.</h2>
           <p class="record-subhead">Eighteen years across the world's category-defining technology companies.</p>
+        </div>
+      </div>
+      <div class="shell">
           <div class="timeline-dossier" data-timeline-dossier>
             <div class="timeline-nav" role="tablist" aria-label="Experience timeline">
               <button class="timeline-role" type="button" role="tab" aria-selected="true" aria-controls="timeline-panel" data-role-index="0">
@@ -1773,7 +1970,6 @@
               </div>
             </article>
           </div>
-        </div>
       </div>
     </section>
 
@@ -1905,15 +2101,66 @@
       <div class="shell">
         <div class="section-label stats-label">04 / Numbers</div>
         <div class="stats-head">
-          <h2 class="section-title">Delivery, <br>in <em>numbers.</em></h2>
-          <p>EMEA recruiting delivery at Cloudflare across FY23–25. Volume measured in hundreds, acceptance measured in confidence.</p>
+          <h2 class="section-title">Delivery, in numbers.</h2>
+          <p>EMEA recruiting at Cloudflare, 2018 to present. Volume, quality, and independence — measured.</p>
         </div>
+
+        <!-- Hero stat: cumulative hires + year-on-year bar chart -->
+        <div class="numbers-hero">
+          <div>
+            <div class="numbers-hero-meta"><b>2018 — 2025</b> · Cumulative EMEA</div>
+            <div class="numbers-hero-value">3,329</div>
+            <p class="numbers-hero-label">Total hires delivered across EMEA. FY25 set the region's all-time record — 599 hires, a +49% increase year-on-year.</p>
+          </div>
+          <div>
+            <div class="trend-bars">
+              <div class="trend-bar" style="height:53%"><span class="bv">318</span></div>
+              <div class="trend-bar" style="height:80%"><span class="bv">477</span></div>
+              <div class="trend-bar" style="height:100%"><span class="bv">599</span></div>
+            </div>
+            <div class="trend-labels">
+              <span>FY 23</span><span>FY 24</span><span>FY 25</span>
+            </div>
+            <div class="trend-yoy">↑ +49% YoY · FY24 → FY25 · record year</div>
+          </div>
+        </div>
+
+        <!-- Supporting stats -->
         <div class="stats-grid">
-          <div class="stat"><span class="year">FY 2023</span><strong>318</strong><span>EMEA hires delivered</span></div>
-          <div class="stat"><span class="year">FY 2023 cohort</span><strong>86<sup>%</sup></strong><span>Offer acceptance rate</span></div>
-          <div class="stat"><span class="year">FY 2024</span><strong>477</strong><span>EMEA hires delivered</span></div>
-          <div class="stat"><span class="year">FY 2025 · 1 Sep</span><strong>429</strong><span>EMEA hires year-to-date</span></div>
+          <div class="stat">
+            <div class="stat-year">2018 – Present</div>
+            <div class="stat-value">89<span class="pct">%</span></div>
+            <div class="stat-label">Offer acceptance rate across all EMEA hires</div>
+          </div>
+          <div class="stat">
+            <div class="stat-year">2018 – Present</div>
+            <div class="stat-value">2.2<span class="pct">%</span></div>
+            <div class="stat-label">Agency-sourced hires — 76 of 3,329 placed without an agency</div>
+          </div>
+          <div class="stat">
+            <div class="stat-year">FY 2025 · Team</div>
+            <div class="stat-value">11</div>
+            <div class="stat-label">Recruiters on the EMEA team delivering the record year</div>
+          </div>
+          <div class="stat">
+            <div class="stat-year">FY 2025 · Personal</div>
+            <div class="stat-value">34</div>
+            <div class="stat-label">Hires placed personally — alongside leading the team</div>
+          </div>
         </div>
+
+        <!-- Maple Leaf Award -->
+        <aside class="award" aria-label="Maple Leaf Award recognition">
+          <div class="award-mark" aria-hidden="true">
+            <img src="assets/awards/maple-leaf.png" alt="">
+          </div>
+          <div class="award-body">
+            <div class="award-meta"><b>Cloudflare</b><span class="sep"></span>2021</div>
+            <div class="award-title">Maple Leaf Award</div>
+            <p class="award-desc">The first member of the Recruiting team to receive Cloudflare's internal recognition for outstanding contribution to the company.</p>
+          </div>
+          <span class="award-pill">First in Recruiting</span>
+        </aside>
       </div>
     </section>
 
@@ -1986,8 +2233,8 @@
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-track">
-      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>1,224 HIRES · FY23–25</span><span>LONDON</span>
-      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>1,224 HIRES · FY23–25</span><span>LONDON</span>
+      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>3,329 HIRES · 2018–PRESENT</span><span>LONDON</span>
+      <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>3,329 HIRES · 2018–PRESENT</span><span>LONDON</span>
     </div>
   </div>
 
