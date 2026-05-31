@@ -67,8 +67,7 @@
     .section-label,
     .practice-card .num,
     .stat .year,
-    .stat strong sup,
-    .timeline-head {
+    .stat strong sup {
       font-style: normal;
       font-weight: 400;
     }
@@ -1135,214 +1134,265 @@
       text-transform: uppercase;
     }
 
-    .timeline {
-      border-top: 1px solid var(--line-dark);
+    .timeline-dossier {
+      display: grid;
+      grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+      gap: 24px;
       margin-top: 46px;
-      position: relative;
+      align-items: stretch;
     }
 
-    .timeline::before {
-      content: "";
-      position: absolute;
-      top: 55px;
-      bottom: 0;
-      left: 99px;
-      width: 1px;
+    .timeline-nav {
+      display: grid;
+      align-content: start;
+      gap: 1px;
+      border: 1px solid var(--line-dark);
+      background: var(--line-dark);
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .timeline-role {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 14px;
+      align-items: center;
+      width: 100%;
+      min-height: 94px;
+      padding: 18px;
+      border: 0;
+      background: #ffffff;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: background 320ms var(--ease), color 320ms var(--ease), transform 320ms var(--ease);
+    }
+
+    .timeline-role:hover {
+      background: rgba(37, 99, 235, 0.06);
+    }
+
+    .timeline-role[aria-selected="true"] {
+      background: var(--ink);
+      color: #ffffff;
+    }
+
+    .timeline-role:focus-visible {
+      outline: 2px solid var(--orange);
+      outline-offset: -4px;
+    }
+
+    .timeline-role-title {
+      display: block;
+      overflow: hidden;
+      color: inherit;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .timeline-role-meta {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted-dark);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .timeline-role[aria-selected="true"] .timeline-role-meta {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .timeline-panel {
+      min-height: 100%;
+      border: 1px solid var(--line-dark);
+      border-radius: 28px;
+      background: #ffffff;
+      padding: clamp(28px, 4vw, 52px);
+    }
+
+    .timeline-panel-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+      align-items: flex-start;
+      margin-bottom: 34px;
+    }
+
+    .timeline-panel-meta {
+      margin-bottom: 14px;
+      color: var(--orange);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .timeline-panel-title {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(48px, 5.4vw, 82px);
+      font-weight: 600;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+    }
+
+    .timeline-panel-summary {
+      max-width: 900px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(20px, 2vw, 27px);
+      line-height: 1.28;
+      letter-spacing: -0.04em;
+    }
+
+    .timeline-proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      margin: 32px 0 34px;
+      border: 1px solid var(--line-dark);
+      border-radius: 22px;
+      overflow: hidden;
       background: var(--line-dark);
     }
 
-    .timeline-head,
-    .timeline-row {
-      display: grid;
-      grid-template-columns: 60px 42px minmax(0, 1fr) 260px 150px 36px;
-      gap: 18px;
-      align-items: center;
+    .timeline-proof {
+      min-height: 116px;
+      padding: 20px;
+      background: var(--bg-2);
     }
 
-    .timeline-head {
-      padding: 0 0 14px;
+    .timeline-proof strong {
+      display: block;
+      color: var(--ink);
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(36px, 4vw, 62px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+    }
+
+    .timeline-proof span {
+      display: block;
+      margin-top: 12px;
       color: var(--muted-dark);
       font-family: "JetBrains Mono", monospace;
       font-size: 10px;
+      font-weight: 400;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      border-bottom: 1px solid var(--line-dark);
     }
 
-    .timeline-row {
-      padding: 23px 0;
-      cursor: pointer;
-      transition: transform 500ms var(--ease), background 500ms var(--ease), padding 500ms var(--ease);
-    }
-
-    .timeline-row:hover {
-      padding-left: 14px;
-      background: rgba(37,99,235,0.05);
-      transform: translateX(2px);
-    }
-
-    .timeline-item {
-      border-bottom: 1px solid var(--line-dark);
-    }
-
-    .timeline-item summary {
-      list-style: none;
-    }
-
-    .timeline-item summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .timeline-arrow {
-      color: var(--ink);
-      font-size: 20px;
-      transition: transform 360ms var(--ease), color 360ms var(--ease);
-    }
-
-    .timeline-item[open] .timeline-arrow {
-      color: var(--orange);
-      transform: rotate(90deg);
-    }
-
-    .timeline-detail {
-      margin: -4px 0 24px 120px;
-      max-width: 780px;
-      padding: 8px 0 0;
-    }
-
-    .timeline-detail ul {
+    .timeline-detail-grid {
       display: grid;
-      gap: 12px;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+      gap: 34px;
+    }
+
+    .timeline-detail-block {
+      border-top: 1px solid var(--line-dark);
+      padding-top: 20px;
+    }
+
+    .timeline-detail-block h3 {
+      margin: 0 0 18px;
+      color: var(--ink);
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .timeline-bullets {
+      display: grid;
+      gap: 13px;
       margin: 0;
       padding: 0;
       list-style: none;
     }
 
-    .timeline-detail li {
+    .timeline-bullets li {
       position: relative;
-      padding-left: 20px;
+      padding-left: 22px;
       color: var(--ink-dark);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 15px;
-      line-height: 1.48;
-      letter-spacing: -0.01em;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: 17px;
+      line-height: 1.5;
+      letter-spacing: -0.03em;
     }
 
-    .timeline-detail li::before {
+    .timeline-bullets li::before {
       content: "";
       position: absolute;
       left: 0;
-      top: 0.68em;
-      width: 6px;
-      height: 6px;
+      top: 0.7em;
+      width: 7px;
+      height: 7px;
       border-radius: 999px;
       background: var(--orange);
     }
 
-    .timeline-point {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-    }
-
-    .timeline-point::before {
-      content: "";
-      width: 11px;
-      height: 11px;
-      border: 2px solid var(--orange);
-      border-radius: 999px;
-      background: var(--bg-2);
-      box-shadow: 0 0 0 7px var(--bg-2);
-    }
-
-    .timeline-row .idx {
-      color: var(--orange);
+    .timeline-note {
+      margin: 0;
+      color: var(--muted);
       font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      font-variant-numeric: tabular-nums;
-    }
-
-    .timeline-row .yr {
-      color: var(--muted-dark);
-      font-size: 14px;
-      font-variant-numeric: tabular-nums;
-      text-align: right;
-    }
-
-    .timeline-row .role {
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 24px;
-      font-weight: 500;
-      line-height: 1.1;
-      letter-spacing: -0.022em;
-      color: var(--ink);
-    }
-
-    .timeline-row .role em {
-      font-style: normal;
-      color: inherit;
-    }
-
-    .timeline-row .company {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--muted-dark);
-      font-family: Barlow, Inter, sans-serif;
-      font-size: 19px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      text-align: left;
-      white-space: nowrap;
+      font-size: 18px;
+      line-height: 1.5;
+      letter-spacing: -0.035em;
     }
 
     .logo {
       position: relative;
       display: inline-grid;
       place-items: center;
-      width: 38px;
-      height: 38px;
-      flex: 0 0 38px;
-      border: 1px solid rgba(10, 37, 64, 0.1);
-      border-radius: 10px;
+      width: 52px;
+      height: 52px;
+      flex: 0 0 52px;
+      border: 1px solid var(--line-dark);
+      border-radius: 999px;
       background: #ffffff;
+      overflow: hidden;
       color: var(--ink);
       font-family: "JetBrains Mono", monospace;
       font-size: 10px;
       font-weight: 400;
       letter-spacing: 0.06em;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
     }
 
     .logo img {
-      width: 28px;
-      height: 28px;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       display: block;
     }
 
-    .logo-fallback {
-      display: none;
+    .timeline-panel-logo {
+      width: 92px;
+      height: 92px;
+      flex: 0 0 92px;
     }
 
-    .logo img[hidden] + .logo-fallback {
-      display: inline;
+    .logo-salesforce img {
+      object-fit: contain;
+      transform: scale(1.18);
     }
 
-    .logo-cloudflare,
-    .logo-okta,
-    .logo-snap,
-    .logo-salesforce,
-    .logo-twitter,
-    .logo-boa,
-    .logo-ey,
-    .logo-hp { background: #ffffff; }
+    .logo-fallback { display: none; }
+
+    .logo img[hidden] + .logo-fallback { display: inline; }
 
     .final {
       padding: 126px 0 92px;
@@ -1507,6 +1557,15 @@
       .stats-head p {
         text-align: left;
       }
+
+      .timeline-dossier,
+      .timeline-detail-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-panel-top {
+        display: grid;
+      }
     }
 
     @media (max-width: 680px) {
@@ -1520,8 +1579,7 @@
 
       .meta-row,
       .metric-grid,
-      .timeline-head,
-      .timeline-row {
+      .timeline-proof-grid {
         grid-template-columns: 1fr;
       }
 
@@ -1570,26 +1628,30 @@
         padding: 76px 0;
       }
 
-      .timeline-head {
-        display: none;
+      .timeline-dossier {
+        margin-top: 34px;
       }
 
-      .timeline::before,
-      .timeline-point {
-        display: none;
+      .timeline-role {
+        min-height: 82px;
+        padding: 14px;
       }
 
-      .timeline-row {
-        gap: 8px;
+      .timeline-panel {
+        padding: 24px;
       }
 
-      .timeline-row .company {
-        text-align: left;
+      .timeline-panel-title {
+        font-size: clamp(38px, 12vw, 58px);
       }
 
-      .timeline-detail {
-        margin: 8px 0 24px;
-        padding: 20px;
+      .timeline-panel-summary {
+        font-size: 18px;
+      }
+
+      .timeline-panel-logo {
+        width: 72px;
+        height: 72px;
       }
 
       .ticker {
@@ -1645,120 +1707,71 @@
         <div>
           <h2 class="section-title">Timeline.</h2>
           <p class="record-subhead">Eighteen years across the world's category-defining technology companies.</p>
-          <div class="timeline">
-            <div class="timeline-head">
-              <span>№</span><span></span><span>Position</span><span>Company</span><span style="text-align:right">Year</span><span></span>
+          <div class="timeline-dossier" data-timeline-dossier>
+            <div class="timeline-nav" role="tablist" aria-label="Experience timeline">
+              <button class="timeline-role" type="button" role="tab" aria-selected="true" aria-controls="timeline-panel" data-role-index="0">
+                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
+                <span><span class="timeline-role-title">Leadership Recruiting &amp; AI</span><span class="timeline-role-meta">2026 — Now</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="1">
+                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
+                <span><span class="timeline-role-title">Head of Recruiting, EMEA</span><span class="timeline-role-meta">2022 — 2026</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="2">
+                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
+                <span><span class="timeline-role-title">Recruiter to Manager</span><span class="timeline-role-meta">2018 — 2022</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="3">
+                <span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>
+                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">Okta · 2018</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="4">
+                <span class="logo logo-snap"><img src="assets/logos/snap-clean.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>
+                <span><span class="timeline-role-title">Senior Business Recruiter</span><span class="timeline-role-meta">Snap · 2017</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="5">
+                <span class="logo logo-salesforce"><img src="assets/logos/salesforce-clean.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>
+                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">2015 — 2016</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="6">
+                <span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>
+                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">Twitter · 2013 — 2015</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="7">
+                <span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>
+                <span><span class="timeline-role-title">Technology Recruiter</span><span class="timeline-role-meta">2011 — 2013</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="8">
+                <span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>
+                <span><span class="timeline-role-title">Recruiter, IT Advisory</span><span class="timeline-role-meta">EY · 2010 — 2011</span></span>
+              </button>
+              <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="9">
+                <span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>
+                <span><span class="timeline-role-title">In-House Recruiter</span><span class="timeline-role-meta">2007 — 2010</span></span>
+              </button>
             </div>
-            <details class="timeline-item" open>
-              <summary class="timeline-row"><span class="idx">01</span><span class="timeline-point"></span><span class="role">Leadership Recruiting &amp; <em>AI</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2026 — Now</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Lead executive and senior leadership recruiting for Cloudflare across EMEA, focused on critical regional leadership roles.</li>
-                  <li>Design executive search strategies, research frameworks, market maps, and proactive succession pipelines.</li>
-                  <li>Advance AI adoption across Recruiting by improving productivity, simplifying workflows, and building custom tools for recurring work.</li>
-                  <li>Contributed to Cloudflare's official candidate guidance on AI usage in interviews, helping define practical expectations for candidates and interview teams.</li>
-                  <li>Partner with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.</li>
-                </ul>
+
+            <article class="timeline-panel" id="timeline-panel" role="tabpanel" aria-live="polite">
+              <div class="timeline-panel-top">
+                <div>
+                  <div class="timeline-panel-meta" data-role-meta>Cloudflare · EMEA · Current focus</div>
+                  <h3 class="timeline-panel-title" data-role-title>Leadership Recruiting &amp; AI</h3>
+                  <p class="timeline-panel-summary" data-role-summary>A role positioned around the work companies now need from recruiting leadership: senior search judgment, talent-market fluency, AI-enabled operations, and practical systems thinking.</p>
+                </div>
+                <span class="logo timeline-panel-logo logo-cloudflare" data-role-logo-wrap><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" data-role-logo onerror="this.hidden=true"><span class="logo-fallback" data-role-logo-fallback>CF</span></span>
               </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">02</span><span class="timeline-point"></span><span class="role">Head of Recruiting, <em>EMEA</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2022 — 26</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 429 hires in 2025 as of 1 September.</li>
-                  <li>Partnered with business leaders and Finance on workforce planning, headcount forecasting, and growth alignment.</li>
-                  <li>Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.</li>
-                  <li>Worked across HR, Compensation, Legal, People Operations, and Special Projects to support hiring governance, M&A activity, and talent retention.</li>
-                </ul>
+              <div class="timeline-proof-grid" data-role-proofs></div>
+              <div class="timeline-detail-grid">
+                <div class="timeline-detail-block">
+                  <h3>Responsibilities</h3>
+                  <ul class="timeline-bullets" data-role-bullets></ul>
+                </div>
+                <div class="timeline-detail-block">
+                  <h3 data-role-note-title>AI-era work</h3>
+                  <p class="timeline-note" data-role-note></p>
+                </div>
               </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">03</span><span class="timeline-point"></span><span class="role">Recruiter → <em>Manager</em></span><span class="company"><span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>Cloudflare</span><span class="yr">2018 — 22</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare's regional growth.</li>
-                  <li>Hired across Sales and Engineering talent across EMEA.</li>
-                  <li>Partnered with managers and leaders to identify diverse talent for active and future hiring needs.</li>
-                  <li>Built the foundation for broader EMEA recruiting leadership across planning, delivery, stakeholder partnership, and team operating rhythm.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">04</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>Okta</span><span class="yr">2018</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Recruited for a fast-growing enterprise identity business during a period of international scaling.</li>
-                  <li>Partnered with hiring teams in a cloud software environment focused on security, access, workflow, and customer success.</li>
-                  <li>Brought prior SaaS recruiting experience into a high-growth, venture-backed technology company.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">05</span><span class="timeline-point"></span><span class="role">Senior Business Recruiter</span><span class="company"><span class="logo logo-snap"><img src="assets/logos/snap.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>Snap Inc.</span><span class="yr">2017</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Hired as Snap's first Business Recruiter outside the US.</li>
-                  <li>Owned strategic hiring across EMEA, with additional ad-hoc roles across the Middle East and US.</li>
-                  <li>Managed end-to-end hiring from intake and sourcing through offers, contracts, and onboarding.</li>
-                  <li>Recruited across Account Executives, Account Managers, Creative Strategists, Marketing Managers, Event Managers, Sales Operations, Business Operations, and Agency Partners.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">06</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-salesforce"><img src="assets/logos/salesforce.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>Salesforce</span><span class="yr">2015 — 16</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Partnered with Professional Services, Service Cloud, and Marketing Cloud business groups across EMEA.</li>
-                  <li>Developed senior stakeholder relationships and managed hiring through direct sourcing and employee referrals.</li>
-                  <li>Worked closely with Employee Success, Finance, and cross-functional teams to keep recruiting processes smooth and efficient.</li>
-                  <li>Contributed to Salesforce's 1:1:1 model through volunteering and local community activity.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">07</span><span class="timeline-point"></span><span class="role">Senior Recruiter</span><span class="company"><span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>Twitter</span><span class="yr">2013 — 15</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Recruited across UK and EMEA roles spanning Ads Sales, Account Management, Media Partnerships, Marketing, Comms, Legal, Finance, and Research.</li>
-                  <li>Managed end-to-end hiring from intake through offer acceptance, with a strong focus on candidate experience.</li>
-                  <li>Used market data and internal benchmarks to construct competitive candidate offers with HR, Compensation, and senior business approval.</li>
-                  <li>Promoted employee referrals, ran sourcing sessions, maintained hiring trackers, and presented recruiting updates to the UK office.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">08</span><span class="timeline-point"></span><span class="role">Technology Recruiter</span><span class="company"><span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>BoA Merrill Lynch</span><span class="yr">2011 — 13</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Managed end-to-end technology hiring across GWIM, GMRT, GWBT, Technology Infrastructure, and Risk Tech.</li>
-                  <li>Built talent pools for Software Engineers, Application Support Analysts, Business Analysts, and Project or Programme Managers.</li>
-                  <li>Partnered with hiring managers, HR Business Partners, agencies, and business leaders on pipeline, compensation, approvals, and market updates.</li>
-                  <li>Direct sourced candidates through LinkedIn, X-ray search, eFinancialCareers, Jobserve, CW Jobs, and niche boards.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">09</span><span class="timeline-point"></span><span class="role">Recruiter, <em>IT Advisory</em></span><span class="company"><span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>Ernst &amp; Young</span><span class="yr">2010 — 11</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Managed end-to-end recruitment for IT Advisory, Risk Advisory, Programme Advisory Services, and interim Transactions Advisory coverage.</li>
-                  <li>Recruited Programme Managers, Enterprise Architects, SAP Consultants, and transformation specialists across major sectors.</li>
-                  <li>Turned around IT Advisory recruitment, helping the group meet FY10 headcount targets and all recruitment KPIs.</li>
-                  <li>Served as Champion for Racial Diversity at EY UK, improving attraction and recruitment of candidates from under-represented ethnicities.</li>
-                </ul>
-              </div>
-            </details>
-            <details class="timeline-item">
-              <summary class="timeline-row"><span class="idx">10</span><span class="timeline-point"></span><span class="role">In-House Recruiter</span><span class="company"><span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>Hewlett Packard</span><span class="yr">2007 — 10</span><span class="timeline-arrow">→</span></summary>
-              <div class="timeline-detail">
-                <ul>
-                  <li>Recruited Technical Account Managers, Technical Pre-Sales Consultants, and Sales Account Managers for the Technology Solutions Group.</li>
-                  <li>Supported hiring managers from requisition approval through close, advising on salary, benefits, working conditions, and process compliance.</li>
-                  <li>Reduced agency expenditure through direct sourcing and achieved 98% direct recruitment in FY09.</li>
-                  <li>Reduced time-to-hire to under 38 days in FY09 while managing the largest requisition volume in the Staffing team.</li>
-                </ul>
-              </div>
-            </details>
+            </article>
           </div>
         </div>
       </div>
@@ -1979,6 +1992,292 @@
   </div>
 
   <script>
+    (function() {
+      const root = document.querySelector('[data-timeline-dossier]');
+      if (!root) return;
+
+      const roles = [
+        {
+          meta: 'Cloudflare · EMEA · Current focus',
+          title: 'Leadership Recruiting & AI',
+          summary: 'A role positioned around the work companies now need from recruiting leadership: senior search judgment, talent-market fluency, AI-enabled operations, and practical systems thinking.',
+          logo: 'assets/logos/cloudflare.png',
+          logoClass: 'logo-cloudflare',
+          logoAlt: 'Cloudflare logo',
+          fallback: 'CF',
+          proofs: [
+            ['EMEA', 'Regional leadership searches'],
+            ['AI', 'Recruiting workflow adoption'],
+            ['Exec', 'Senior stakeholder partnership']
+          ],
+          bullets: [
+            'Lead executive and senior leadership recruiting for Cloudflare across EMEA, focused on critical regional leadership roles.',
+            'Design executive search strategies, research frameworks, market maps, and proactive succession pipelines.',
+            'Advance AI adoption across Recruiting by improving productivity, simplifying workflows, and building custom tools for recurring work.',
+            'Contributed to Cloudflare\'s official candidate guidance on AI usage in interviews, helping define practical expectations for candidates and interview teams.',
+            'Partner with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.'
+          ],
+          noteTitle: 'AI-era work',
+          note: 'Build practical tools for recurring recruiting tasks and help define how candidates and interview teams should approach AI usage in hiring processes.'
+        },
+        {
+          meta: 'Cloudflare · EMEA · Regional leadership',
+          title: 'Head of Recruiting, EMEA',
+          summary: 'Led regional recruiting delivery at scale while managing team performance, workforce planning partnership, and cross-functional hiring governance.',
+          logo: 'assets/logos/cloudflare.png',
+          logoClass: 'logo-cloudflare',
+          logoAlt: 'Cloudflare logo',
+          fallback: 'CF',
+          proofs: [
+            ['318', 'FY 2023 hires'],
+            ['477', 'FY 2024 hires'],
+            ['429', 'FY 2025 YTD']
+          ],
+          bullets: [
+            'Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 429 hires in 2025 as of 1 September.',
+            'Partnered with business leaders and Finance on workforce planning, headcount forecasting, and growth alignment.',
+            'Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.',
+            'Worked across HR, Compensation, Legal, People Operations, and Special Projects to support hiring governance, M&A activity, and talent retention.'
+          ],
+          noteTitle: 'Operating model',
+          note: 'Balanced delivery, team development, executive communication, and hiring governance through a period of significant EMEA scale.'
+        },
+        {
+          meta: 'Cloudflare · EMEA · Growth phase',
+          title: 'Recruiter to Manager',
+          summary: 'Progressed from individual contributor to regional recruiting leadership while helping build the foundation for Cloudflare EMEA hiring.',
+          logo: 'assets/logos/cloudflare.png',
+          logoClass: 'logo-cloudflare',
+          logoAlt: 'Cloudflare logo',
+          fallback: 'CF',
+          proofs: [
+            ['IC → Lead', 'Progression path'],
+            ['GTM', 'Commercial hiring'],
+            ['Eng', 'Technical hiring']
+          ],
+          bullets: [
+            'Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare regional growth.',
+            'Hired across Sales and Engineering talent across EMEA.',
+            'Partnered with managers and leaders to identify diverse talent for active and future hiring needs.',
+            'Built the foundation for broader EMEA recruiting leadership across planning, delivery, stakeholder partnership, and team operating rhythm.'
+          ],
+          noteTitle: 'Foundation',
+          note: 'This period established the operating rhythm, stakeholder trust, and delivery credibility that later expanded into regional leadership.'
+        },
+        {
+          meta: 'Okta · Enterprise identity · 2018',
+          title: 'Senior Recruiter',
+          summary: 'Enterprise identity recruiting inside a fast-growing cloud software company during a period of international scaling.',
+          logo: 'assets/logos/okta.png',
+          logoClass: 'logo-okta',
+          logoAlt: 'Okta logo',
+          fallback: 'OK',
+          proofs: [
+            ['SaaS', 'Cloud software'],
+            ['EMEA', 'International scale'],
+            ['ID', 'Identity market']
+          ],
+          bullets: [
+            'Recruited for a fast-growing enterprise identity business during a period of international scaling.',
+            'Partnered with hiring teams in a cloud software environment focused on security, access, workflow, and customer success.',
+            'Brought prior SaaS recruiting experience into a high-growth, venture-backed technology company.'
+          ],
+          noteTitle: 'Context',
+          note: 'Short but useful exposure to enterprise identity, high-growth SaaS hiring, and scaling teams in an international cloud software environment.'
+        },
+        {
+          meta: 'Snap Inc. · Business recruiting · 2017',
+          title: 'Senior Business Recruiter',
+          summary: 'Snap\'s first Business Recruiter outside the US, owning strategic EMEA hiring with additional cross-region support.',
+          logo: 'assets/logos/snap-clean.png',
+          logoClass: 'logo-snap',
+          logoAlt: 'Snap Inc. logo',
+          fallback: 'SN',
+          proofs: [
+            ['1st', 'Business recruiter outside US'],
+            ['EMEA', 'Strategic hiring'],
+            ['GTM', 'Commercial roles']
+          ],
+          bullets: [
+            'Hired as Snap\'s first Business Recruiter outside the US.',
+            'Owned strategic hiring across EMEA, with additional ad-hoc roles across the Middle East and US.',
+            'Managed end-to-end hiring from intake and sourcing through offers, contracts, and onboarding.',
+            'Recruited across Account Executives, Account Managers, Creative Strategists, Marketing Managers, Event Managers, Sales Operations, Business Operations, and Agency Partners.'
+          ],
+          noteTitle: 'Scope',
+          note: 'Built recruiting coverage for a newer international business function where structure, speed, and candidate experience all mattered.'
+        },
+        {
+          meta: 'Salesforce · EMEA · 2015 — 2016',
+          title: 'Senior Recruiter',
+          summary: 'Partnered with Professional Services, Service Cloud, and Marketing Cloud groups across EMEA.',
+          logo: 'assets/logos/salesforce-clean.png',
+          logoClass: 'logo-salesforce',
+          logoAlt: 'Salesforce logo',
+          fallback: 'SF',
+          proofs: [
+            ['EMEA', 'Multi-cloud coverage'],
+            ['PS', 'Professional Services'],
+            ['1:1:1', 'Community model']
+          ],
+          bullets: [
+            'Partnered with Professional Services, Service Cloud, and Marketing Cloud business groups across EMEA.',
+            'Developed senior stakeholder relationships and managed hiring through direct sourcing and employee referrals.',
+            'Worked closely with Employee Success, Finance, and cross-functional teams to keep recruiting processes smooth and efficient.',
+            'Contributed to Salesforce 1:1:1 model through volunteering and local community activity.'
+          ],
+          noteTitle: 'Stakeholders',
+          note: 'A highly matrixed environment that sharpened senior stakeholder partnership, cross-functional process management, and SaaS talent-market fluency.'
+        },
+        {
+          meta: 'Twitter · UK and EMEA · 2013 — 2015',
+          title: 'Senior Recruiter',
+          summary: 'Recruited across commercial, media, marketing, legal, finance, research, and partnership roles during Twitter regional growth.',
+          logo: 'assets/logos/twitter.png',
+          logoClass: 'logo-twitter',
+          logoAlt: 'Twitter logo',
+          fallback: 'TW',
+          proofs: [
+            ['EMEA', 'Regional coverage'],
+            ['Ads', 'Commercial hiring'],
+            ['Offer', 'Comp partnership']
+          ],
+          bullets: [
+            'Recruited across UK and EMEA roles spanning Ads Sales, Account Management, Media Partnerships, Marketing, Comms, Legal, Finance, and Research.',
+            'Managed end-to-end hiring from intake through offer acceptance, with a strong focus on candidate experience.',
+            'Used market data and internal benchmarks to construct competitive candidate offers with HR, Compensation, and senior business approval.',
+            'Promoted employee referrals, ran sourcing sessions, maintained hiring trackers, and presented recruiting updates to the UK office.'
+          ],
+          noteTitle: 'Signal',
+          note: 'A formative high-growth platform-company role with broad functional coverage and a strong emphasis on candidate experience.'
+        },
+        {
+          meta: 'BoA Merrill Lynch · Technology · 2011 — 2013',
+          title: 'Technology Recruiter',
+          summary: 'End-to-end technology hiring across global wealth, markets, infrastructure, and risk technology groups.',
+          logo: 'assets/logos/boa.png',
+          logoClass: 'logo-boa',
+          logoAlt: 'Bank of America logo',
+          fallback: 'BA',
+          proofs: [
+            ['Tech', 'Infrastructure and risk'],
+            ['Direct', 'Sourcing channels'],
+            ['Markets', 'Financial services']
+          ],
+          bullets: [
+            'Managed end-to-end technology hiring across GWIM, GMRT, GWBT, Technology Infrastructure, and Risk Tech.',
+            'Built talent pools for Software Engineers, Application Support Analysts, Business Analysts, and Project or Programme Managers.',
+            'Partnered with hiring managers, HR Business Partners, agencies, and business leaders on pipeline, compensation, approvals, and market updates.',
+            'Direct sourced candidates through LinkedIn, X-ray search, eFinancialCareers, Jobserve, CW Jobs, and niche boards.'
+          ],
+          noteTitle: 'Recruiting craft',
+          note: 'Built depth in direct sourcing, technical role calibration, hiring-manager partnership, and process management in a complex financial services environment.'
+        },
+        {
+          meta: 'Ernst & Young · IT Advisory · 2010 — 2011',
+          title: 'Recruiter, IT Advisory',
+          summary: 'Managed recruitment for IT Advisory, Risk Advisory, Programme Advisory Services, and interim Transactions Advisory coverage.',
+          logo: 'assets/logos/ey.png',
+          logoClass: 'logo-ey',
+          logoAlt: 'EY logo',
+          fallback: 'EY',
+          proofs: [
+            ['FY10', 'Headcount target'],
+            ['D&I', 'Racial diversity champion'],
+            ['Advisory', 'Transformation hiring']
+          ],
+          bullets: [
+            'Managed end-to-end recruitment for IT Advisory, Risk Advisory, Programme Advisory Services, and interim Transactions Advisory coverage.',
+            'Recruited Programme Managers, Enterprise Architects, SAP Consultants, and transformation specialists across major sectors.',
+            'Turned around IT Advisory recruitment, helping the group meet FY10 headcount targets and all recruitment KPIs.',
+            'Served as Champion for Racial Diversity at EY UK, improving attraction and recruitment of candidates from under-represented ethnicities.'
+          ],
+          noteTitle: 'Impact',
+          note: 'Combined delivery turnaround, advisory hiring, and diversity work before moving deeper into technology recruiting.'
+        },
+        {
+          meta: 'Hewlett Packard · In-house recruiting · 2007 — 2010',
+          title: 'In-House Recruiter',
+          summary: 'Recruited technical and commercial roles for the Technology Solutions Group while improving direct hiring outcomes.',
+          logo: 'assets/logos/hp.svg',
+          logoClass: 'logo-hp',
+          logoAlt: 'HP logo',
+          fallback: 'HP',
+          proofs: [
+            ['98%', 'Direct recruitment in FY09'],
+            ['<38', 'Days time-to-hire'],
+            ['TSG', 'Technical Solutions Group']
+          ],
+          bullets: [
+            'Recruited Technical Account Managers, Technical Pre-Sales Consultants, and Sales Account Managers for the Technology Solutions Group.',
+            'Supported hiring managers from requisition approval through close, advising on salary, benefits, working conditions, and process compliance.',
+            'Reduced agency expenditure through direct sourcing and achieved 98% direct recruitment in FY09.',
+            'Reduced time-to-hire to under 38 days in FY09 while managing the largest requisition volume in the Staffing team.'
+          ],
+          noteTitle: 'Early proof',
+          note: 'A strong early in-house recruiting role with measurable process improvement, direct sourcing impact, and high requisition ownership.'
+        }
+      ];
+
+      const buttons = Array.from(root.querySelectorAll('[data-role-index]'));
+      const panel = root.querySelector('#timeline-panel');
+      const meta = root.querySelector('[data-role-meta]');
+      const title = root.querySelector('[data-role-title]');
+      const summary = root.querySelector('[data-role-summary]');
+      const logoWrap = root.querySelector('[data-role-logo-wrap]');
+      const logo = root.querySelector('[data-role-logo]');
+      const logoFallback = root.querySelector('[data-role-logo-fallback]');
+      const proofs = root.querySelector('[data-role-proofs]');
+      const bullets = root.querySelector('[data-role-bullets]');
+      const noteTitle = root.querySelector('[data-role-note-title]');
+      const note = root.querySelector('[data-role-note]');
+
+      function renderRole(index) {
+        const role = roles[index] || roles[0];
+        buttons.forEach(function(button, i) {
+          button.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+
+        meta.textContent = role.meta;
+        title.textContent = role.title;
+        summary.textContent = role.summary;
+        logoWrap.className = 'logo timeline-panel-logo ' + role.logoClass;
+        logo.src = role.logo;
+        logo.alt = role.logoAlt;
+        logo.hidden = false;
+        logoFallback.textContent = role.fallback;
+        noteTitle.textContent = role.noteTitle;
+        note.textContent = role.note;
+
+        proofs.innerHTML = role.proofs.map(function(proof) {
+          return '<div class="timeline-proof"><strong>' + proof[0] + '</strong><span>' + proof[1] + '</span></div>';
+        }).join('');
+
+        bullets.innerHTML = role.bullets.map(function(item) {
+          return '<li>' + item + '</li>';
+        }).join('');
+      }
+
+      buttons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          renderRole(Number(button.dataset.roleIndex));
+        });
+
+        button.addEventListener('keydown', function(event) {
+          const current = buttons.indexOf(button);
+          if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return;
+          event.preventDefault();
+          const next = event.key === 'ArrowDown'
+            ? (current + 1) % buttons.length
+            : (current - 1 + buttons.length) % buttons.length;
+          buttons[next].focus();
+          renderRole(next);
+        });
+      });
+
+      renderRole(0);
+    })();
+
     (function() {
       const carousel = document.querySelector('.ai-carousel');
       if (!carousel) return;
