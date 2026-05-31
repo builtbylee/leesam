@@ -6,7 +6,7 @@ Personal digital CV for Lee Sam. Live at **https://leesam.pages.dev**.
 
 ## The site
 
-A single-file static site (`index.html`, ~2100 lines). All CSS and JavaScript is inline — no build step, no framework, no dependencies. The `assets/` folder holds images only.
+A single-file static site (`index.html`, ~2680 lines). All CSS and JavaScript is inline — no build step, no framework, no dependencies. The `assets/` folder holds images only.
 
 Deploy from the repo root:
 ```bash
@@ -42,7 +42,7 @@ assets/
 
 **Typography:**
 - `Instrument Sans` — headings, UI labels, role titles, stat values
-- `Instrument Serif` italic — decorative use only (the word "talk." in the Contact section `<em>` tag)
+- `Instrument Serif` — three uses: (1) hero subhead `.subhead` ("The recruiting leader for the AI era."), (2) section subheads (`.record-subhead`, `.ai-section-subhead`, `.outside-subhead`), (3) decorative italic in Contact ("talk."). The `section-title em` neutralisation does NOT affect these — they are separate elements.
 - `JetBrains Mono` — eyebrows, metadata labels, section counters
 - `Manrope` — body/paragraph text, bullet copy, descriptive text
 
@@ -56,7 +56,7 @@ The `section-title em` CSS rule is neutralised (`font-style: normal; color: inhe
 
 | # | ID | Notes |
 |---|---|---|
-| 01 | `#hero` | 2-col grid. Portrait card right. Instrument Serif italic subhead. |
+| 01 | `#hero` | 2-col grid. Portrait card right. Instrument Serif subhead ("The recruiting leader for the AI era."). Two hero copy paragraphs: AI-era rearchitecting narrative + Lee as the AI-native leader for that shift. |
 | 02 | `#experience` | Two-pane dossier (JS-driven). Header above dossier; dossier spans full shell width. |
 | 03 | `#ai-work` | Carousel, 6 slides (Candidate Intelligence, Job Builder, Relay, Execue, Pinr, Ryval). |
 | 04 | `#numbers` | Hero stat 3,329 + bar chart + 4 stat cards + Maple Leaf Award callout. |
@@ -87,17 +87,12 @@ The HTML shell for the dossier is static (nav buttons + panel article). JS rende
 
 ## Remaining work
 
-### High priority
-- [ ] **Timeline proof grid data**: verify the `proofs` values for each role are accurate. The current Cloudflare current role shows EMEA / AI / Exec as keyword themes — this is correct. Earlier roles (Head of Recruiting, etc.) show hire numbers (318 / 477 / 429) which need updating to match the Numbers section (318 / 477 / 599 for FY23/24/25).
-- [ ] **Agentic coding workshop**: Lee co-hosted an agentic coding workshop at Cloudflare's London office in early 2026. Add this to: (a) the AI Work carousel as a new slide, and/or (b) as a bullet in the current Cloudflare role in the timeline. Needs a decision from Lee on placement.
-
 ### Medium priority
-- [ ] **Timeline mobile UX**: at <980px the dossier stacks to single column (nav on top, panel below). Verify this works cleanly — the nav becomes a horizontal scroll row or stacked list, and the panel renders correctly beneath it.
-- [ ] **AI Work carousel — Job Builder and Relay placeholders**: slides exist but content is marked as coming. Fill in when Lee provides copy.
-- [ ] **Numbers section roleData**: the `roleData` JS array for the Head of Recruiting role (index 1) references `429` for FY25 hires. Update to `599` to match the Numbers section.
+- [ ] **AI Work carousel — Job Builder and Relay content**: slides exist but are placeholders. Fill in when Lee provides copy.
+- [ ] **Timeline mobile UX**: at <980px the dossier stacks to single column (nav on top, panel below). Verify this works cleanly across 390px and 360px viewports.
 
 ### Low priority
-- [ ] **Logo quality**: existing logos at `assets/logos/` are 28px display circles with `object-fit: cover`. The Codex commit added `salesforce-clean.png` and `snap-clean.png`. Review all logos for quality and replace any that look poor at the 52px nav size.
+- [ ] **Logo quality**: logos at `assets/logos/` render at 52px nav circles with `object-fit: cover`. Review all logos and replace any that look poor at that size.
 - [ ] **Section transition consistency**: check all section padding/border-top treatments are consistent between `light` and `dark-section` classes.
 
 ---
