@@ -108,7 +108,8 @@
       transition: color 200ms var(--ease), background 200ms var(--ease);
     }
 
-    .chrome nav a:hover {
+    .chrome nav a:hover,
+    .chrome nav a.active {
       color: var(--ink);
       background: rgba(37, 99, 235, 0.08);
     }
@@ -1684,10 +1685,10 @@
       align-items: center;
       gap: 10px;
       border-radius: 999px;
-      padding: 12px 18px;
+      padding: 16px 32px;
       background: var(--ink);
       color: #ffffff;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 600;
       transition: transform 500ms var(--ease), background 500ms var(--ease);
     }
@@ -1951,7 +1952,7 @@
       <div class="shell hero-grid">
         <div>
           <div class="meta-row">
-            <div><span>Focus</span><strong>Engineering &amp; GTM Recruiting</strong></div>
+            <div><span>Focus</span><strong>Leadership Recruiting</strong></div>
             <div style="text-align:center"><span>Based</span><strong>London, UK</strong></div>
             <div style="text-align:right"><span>Company</span><strong>Cloudflare · EMEA</strong></div>
           </div>
@@ -2226,9 +2227,9 @@
           </div>
           <div>
             <div class="trend-bars">
-              <div class="trend-bar" style="height:53%"><span class="bv">318</span></div>
-              <div class="trend-bar" style="height:80%"><span class="bv">477</span></div>
-              <div class="trend-bar" style="height:100%"><span class="bv">599</span></div>
+              <div class="trend-bar" data-h="53" style="height:53%"><span class="bv">318</span></div>
+              <div class="trend-bar" data-h="80" style="height:80%"><span class="bv">477</span></div>
+              <div class="trend-bar" data-h="100" style="height:100%"><span class="bv">599</span></div>
             </div>
             <div class="trend-labels">
               <span>FY 23</span><span>FY 24</span><span>FY 25</span>
@@ -2282,7 +2283,7 @@
           <div class="section-label">05 / Outside Work</div>
           <h2 class="section-title">Travel and basketball.</h2>
           <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
-          <p>I am a Milwaukee Bucks fan, including flying to Milwaukee to watch games in person. This is the personal side of the story: places, games, and the occasional very long flight.</p>
+          <p>A Milwaukee Bucks fan who's flown to Wisconsin to prove it.</p>
         </div>
         <div class="memory-carousel" aria-label="Travel and Milwaukee Bucks photo carousel">
           <div class="memory-head">
@@ -2691,6 +2692,78 @@
           goTo(current + (diff > 0 ? 1 : -1));
         }
       }, { passive: true });
+    })();
+  </script>
+
+  <script>
+    // Nav active state on scroll
+    (function() {
+      var sectionIds = ['experience', 'ai-work', 'numbers', 'outside-work', 'contact'];
+      var sections = sectionIds.map(function(id) { return document.getElementById(id); });
+      var links = sectionIds.map(function(id) {
+        return document.querySelector('.chrome nav a[href="#' + id + '"]');
+      });
+
+      function update() {
+        var mid = window.scrollY + window.innerHeight * 0.4;
+        var active = -1;
+        sections.forEach(function(s, i) {
+          if (s && s.offsetTop <= mid) active = i;
+        });
+        links.forEach(function(link, i) {
+          if (link) link.classList.toggle('active', i === active);
+        });
+      }
+
+      window.addEventListener('scroll', update, { passive: true });
+      update();
+    })();
+
+    // Numbers section: count-up stat + bar chart grow on scroll
+    (function() {
+      var heroValue = document.querySelector('.numbers-hero-value');
+      var bars = document.querySelectorAll('.trend-bar[data-h]');
+      var section = document.getElementById('numbers');
+      if (!section || !bars.length) return;
+
+      // Collapse bars to 0 ready for animation
+      bars.forEach(function(bar) {
+        bar.style.transition = 'none';
+        bar.style.height = '0';
+      });
+
+      var fired = false;
+      var obs = new IntersectionObserver(function(entries) {
+        if (!entries[0].isIntersecting || fired) return;
+        fired = true;
+        obs.disconnect();
+
+        // Grow bars with staggered delay
+        bars.forEach(function(bar, i) {
+          setTimeout(function() {
+            bar.style.transition = 'height 700ms cubic-bezier(0.22, 1, 0.36, 1)';
+            bar.style.height = bar.dataset.h + '%';
+          }, i * 120);
+        });
+
+        // Count up 3,329
+        if (heroValue) {
+          var target = 3329;
+          var duration = 1400;
+          var startTime = null;
+          function tick(now) {
+            if (!startTime) startTime = now;
+            var elapsed = now - startTime;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            heroValue.textContent = Math.round(eased * target).toLocaleString('en-GB');
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+      }, { threshold: 0.25 });
+
+      obs.observe(section);
     })();
   </script>
 </body>
