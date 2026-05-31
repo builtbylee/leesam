@@ -525,77 +525,125 @@
       line-height: 1.55;
     }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
+    /* AI Work carousel */
+
+    .ai-carousel {
+      position: relative;
       margin-top: 54px;
-      background: var(--line);
+      min-width: 0;
+    }
+
+    .ai-carousel:focus-visible {
+      outline: none;
+    }
+
+    .ai-carousel-viewport {
+      overflow: hidden;
       border: 1px solid var(--line);
-    }
-
-    .tool-card {
-      min-height: 260px;
-      display: grid;
-      grid-template-rows: auto 1fr auto;
-      gap: 26px;
-      padding: 28px;
+      border-radius: 22px;
       background: #ffffff;
+      box-shadow: 0 30px 80px -56px rgba(10,37,64,0.55);
+      min-width: 0;
     }
 
-    .tool-meta {
+    .ai-carousel-track {
+      display: flex;
+      transition: transform 600ms var(--ease);
+      will-change: transform;
+    }
+
+    .ai-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+      gap: 64px;
+      padding: 64px;
+      min-height: 540px;
+      align-items: center;
+    }
+
+    .ai-slide.is-web,
+    .ai-slide.is-placeholder {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+
+    .ai-slide-visual {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      color: var(--orange);
+      justify-content: center;
+    }
+
+    .ai-slide-copy {
+      max-width: 460px;
+    }
+
+    .ai-slide-meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
       font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      font-weight: 400;
+      font-size: 11px;
       letter-spacing: 0.16em;
       text-transform: uppercase;
+      color: var(--muted);
     }
 
-    .tool-card h3 {
-      max-width: 520px;
-      margin: 0;
-      font-family: Anton, sans-serif;
-      font-size: clamp(42px, 5vw, 72px);
-      font-weight: 400;
-      line-height: 0.9;
+    .ai-slide-meta b {
+      color: var(--orange);
+      font-weight: 500;
+    }
+
+    .ai-slide-meta .sep {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--line-dark);
+    }
+
+    .ai-slide h3 {
+      margin: 0 0 16px;
+      font-family: "Instrument Sans", Inter, sans-serif;
+      font-size: clamp(40px, 4.4vw, 64px);
+      font-weight: 600;
+      line-height: 1;
       letter-spacing: -0.035em;
+      color: var(--ink);
+    }
+
+    .ai-slide p {
+      margin: 0;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 17px;
+      line-height: 1.55;
+      letter-spacing: -0.005em;
+      color: var(--muted);
+    }
+
+    .placeholder-visual {
+      width: 100%;
+      max-width: 480px;
+      aspect-ratio: 4 / 3;
+      border: 1px dashed var(--line-dark);
+      border-radius: 18px;
+      background:
+        repeating-linear-gradient(135deg, rgba(37,99,235,0.04) 0 10px, transparent 10px 20px),
+        var(--bg-2);
+      display: grid;
+      place-items: center;
+      color: var(--muted-dark);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
-    .tool-card p {
-      max-width: 520px;
-      margin: 0;
-      color: var(--muted);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 16px;
-      line-height: 1.55;
-    }
-
-    .tool-card.featured-app {
-      grid-template-columns: minmax(0, 1fr) minmax(170px, 0.46fr);
-      grid-template-rows: auto auto;
-      align-items: end;
-      column-gap: 34px;
-    }
-
-    .tool-card.featured-app .tool-meta,
-    .tool-card.featured-app h3,
-    .tool-card.featured-app p {
-      grid-column: 1;
-    }
+    /* phone mockup — used inside slides */
 
     .phone-mockup {
-      grid-column: 2;
-      grid-row: 1 / span 3;
-      align-self: center;
-      justify-self: center;
       position: relative;
-      width: min(230px, 100%);
+      width: min(260px, 100%);
       aspect-ratio: 9 / 19.5;
       padding: 9px;
       border: 1px solid #2f3540;
@@ -680,20 +728,12 @@
       object-fit: contain;
       object-position: top center;
       opacity: 0;
-      animation: ryvalCarousel 12s infinite;
+      animation: ryvalCarousel 18s infinite;
     }
 
-    .phone-screen img:nth-child(1) {
-      animation-delay: 0s;
-    }
-
-    .phone-screen img:nth-child(2) {
-      animation-delay: 4s;
-    }
-
-    .phone-screen img:nth-child(3) {
-      animation-delay: 8s;
-    }
+    .phone-screen img:nth-child(1) { animation-delay: 0s; }
+    .phone-screen img:nth-child(2) { animation-delay: 6s; }
+    .phone-screen img:nth-child(3) { animation-delay: 12s; }
 
     .pinr-phone img {
       animation-name: pinrCarousel;
@@ -719,10 +759,11 @@
     }
 
     .web-preview {
-      grid-column: 1 / -1;
+      width: 100%;
+      max-width: 560px;
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 14px;
       background: #f6f9fc;
       box-shadow: 0 24px 58px -44px rgba(10,37,64,0.62);
     }
@@ -768,27 +809,87 @@
       padding: 14px;
       object-fit: contain;
       opacity: 0;
-      animation: webCarousel 12s infinite;
+      animation: webCarousel 18s infinite;
     }
 
-    .web-stage img:nth-child(1) {
-      animation-delay: 0s;
+    .web-stage img:nth-child(1) { animation-delay: 0s; }
+    .web-stage img:nth-child(2) { animation-delay: 6s; }
+    .web-stage img:nth-child(3) { animation-delay: 12s; }
+
+    /* carousel controls */
+
+    .ai-carousel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 28px;
     }
 
-    .web-stage img:nth-child(2) {
-      animation-delay: 4s;
+    .ai-carousel-counter {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
     }
 
-    .web-stage img:nth-child(3) {
-      animation-delay: 8s;
+    .ai-carousel-counter b {
+      color: var(--ink);
+      font-weight: 500;
     }
 
-    .cortex-card {
-      grid-column: span 2;
+    .ai-carousel-counter .sep {
+      margin: 0 6px;
+      color: var(--line-dark);
     }
 
-    .cortex-card .web-stage {
-      aspect-ratio: 4 / 3;
+    .ai-carousel-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .ai-carousel-dot {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 999px;
+      background: var(--line-dark);
+      cursor: pointer;
+      transition: background 240ms var(--ease), width 240ms var(--ease);
+    }
+
+    .ai-carousel-dot.active {
+      width: 24px;
+      background: var(--orange);
+    }
+
+    .ai-carousel-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-carousel-btn {
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border: 1px solid var(--line-dark);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--ink);
+      font-size: 16px;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
+    }
+
+    .ai-carousel-btn:hover {
+      background: var(--ink);
+      color: #ffffff;
+      border-color: var(--ink);
     }
 
     @keyframes webCarousel {
@@ -1349,40 +1450,40 @@
 
       .hero-grid,
       .section-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .hero-copy,
       .stats-grid,
       .practice-grid,
-      .portfolio-grid,
       .personal-layout {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
       }
 
       .photo-grid {
         grid-template-columns: 1fr;
       }
 
-      .tool-card.featured-app {
+      .ai-slide,
+      .ai-slide.is-web,
+      .ai-slide.is-placeholder {
         grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 40px 28px;
+        min-height: 0;
       }
 
-      .cortex-card {
-        grid-column: span 1;
-      }
-
-      .tool-card.featured-app .tool-meta,
-      .tool-card.featured-app h3,
-      .tool-card.featured-app p,
-      .phone-mockup {
-        grid-column: 1;
+      .ai-slide-visual {
+        order: -1;
       }
 
       .phone-mockup {
-        grid-row: auto;
-        width: min(210px, 82%);
-        margin-top: 8px;
+        width: min(220px, 70%);
+      }
+
+      .placeholder-visual {
+        max-width: 100%;
+        aspect-ratio: 16 / 10;
       }
 
       .brand-inner {
@@ -1432,29 +1533,31 @@
         padding: 18px;
       }
 
-      .tool-card {
-        min-height: 220px;
+      .ai-slide {
+        padding: 32px 22px;
+        gap: 26px;
       }
 
-      .tool-card.featured-app {
-        grid-template-columns: 1fr;
+      .ai-slide h3 {
+        font-size: clamp(34px, 9vw, 48px);
       }
 
-      .cortex-card {
-        grid-column: span 1;
+      .ai-carousel-controls {
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
       }
 
-      .tool-card.featured-app .tool-meta,
-      .tool-card.featured-app h3,
-      .tool-card.featured-app p,
-      .phone-mockup {
-        grid-column: 1;
+      .ai-carousel-buttons {
+        order: 3;
       }
 
-      .phone-mockup {
-        grid-row: auto;
-        width: min(210px, 82%);
-        margin-top: 8px;
+      .ai-carousel-counter {
+        order: 1;
+      }
+
+      .ai-carousel-dots {
+        order: 2;
       }
 
       .photo-slot,
@@ -1668,86 +1771,119 @@
           <h2 class="section-title">Recruiting tools for the <em>AI era.</em></h2>
           <p class="brief-copy">A mini portfolio of practical tools built to make recruiting sharper, faster, and more intelligence-led.</p>
 
-          <div class="portfolio-grid">
-            <article class="tool-card">
-              <div class="tool-meta"><span>Cloudflare</span><span>Internal Tool</span></div>
-              <h3>Job Builder</h3>
-              <p>A structured role-building workflow for turning hiring intent into sharper job architecture, stronger briefs, and more consistent intake.</p>
-            </article>
-            <article class="tool-card">
-              <div class="tool-meta"><span>Cloudflare</span><span>Internal Tool</span></div>
-              <h3>Candidate Intelligence</h3>
-              <p>A candidate research layer designed to improve preparation, synthesis, and signal quality across senior recruiting workflows.</p>
-              <div class="web-preview" aria-label="Candidate Intelligence web app screenshots">
-                <div class="web-preview-bar">
-                  <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                  <span>candidate intelligence</span>
-                </div>
-                <div class="web-stage">
-                  <img src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen">
-                  <img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence job match upload screen">
-                  <img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match score screen">
-                </div>
+          <div class="ai-carousel" tabindex="0" aria-roledescription="carousel" aria-label="AI work portfolio">
+            <div class="ai-carousel-viewport">
+              <div class="ai-carousel-track">
+
+                <article class="ai-slide is-web" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="web-preview" aria-label="Candidate Intelligence screenshots">
+                      <div class="web-preview-bar">
+                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <span>candidate-intel.cloudflare.io</span>
+                      </div>
+                      <div class="web-stage">
+                        <img src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen">
+                        <img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence upload screen">
+                        <img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match result">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
+                    <h3>Candidate Intelligence</h3>
+                    <p>Synthesises a senior candidate's public footprint into a research brief in minutes, not hours.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide is-placeholder" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="placeholder-visual">Preview · Coming soon</div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
+                    <h3>Job Builder</h3>
+                    <p>Turns a 30-minute intake conversation into a structured JD, role architecture, and interview plan.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide is-placeholder" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="placeholder-visual">Preview · Coming soon</div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Recruiter automation</div>
+                    <h3>Relay</h3>
+                    <p>Greenhouse → handover document in under a minute. Summarises open roles, status, and next steps.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="phone-mockup execue-phone" aria-label="Execue mobile app">
+                      <div class="phone-screen">
+                        <img src="assets/apps/execue-report.jpg" alt="Execue job match report">
+                        <img src="assets/apps/execue-generating.jpg" alt="Execue generating analysis">
+                        <img src="assets/apps/execue-home.jpg" alt="Execue home screen">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                    <h3>Execue</h3>
+                    <p>Candidates upload a CV and a job posting URL, then receive role-fit analysis and interview prep support.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="phone-mockup pinr-phone" aria-label="Pinr mobile app">
+                      <div class="phone-screen">
+                        <img src="assets/apps/pinr-map.jpg" alt="Pinr map">
+                        <img src="assets/apps/pinr-profile.jpg" alt="Pinr profile">
+                        <img src="assets/apps/pinr-place.jpg" alt="Pinr destination detail">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                    <h3>Pinr</h3>
+                    <p>A product experiment combining product thinking, agentic coding, and hands-on app development.</p>
+                  </div>
+                </article>
+
+                <article class="ai-slide" aria-roledescription="slide">
+                  <div class="ai-slide-visual">
+                    <div class="phone-mockup" aria-label="Ryval mobile app">
+                      <div class="phone-screen">
+                        <img src="assets/apps/ryval-workout.jpg" alt="Ryval workout">
+                        <img src="assets/apps/ryval-home.jpg" alt="Ryval home dashboard">
+                        <img src="assets/apps/ryval-detail.jpg" alt="Ryval workout detail">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ai-slide-copy">
+                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                    <h3>Ryval</h3>
+                    <p>A second independent build exploring how AI-assisted workflows can move an idea from concept to usable product.</p>
+                  </div>
+                </article>
+
               </div>
-            </article>
-            <article class="tool-card">
-              <div class="tool-meta"><span>Cloudflare</span><span>Recruiter Automation</span></div>
-              <h3>Relay</h3>
-              <p>A Greenhouse-connected handover tool that summarizes a recruiter's open roles, current status, and next actions, then exports the handover to PDF for colleagues.</p>
-            </article>
-            <article class="tool-card featured-app">
-              <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
-              <h3>Pinr</h3>
-              <p>A product experiment built outside work, combining product thinking, agentic coding, and hands-on app development.</p>
-              <div class="phone-mockup pinr-phone" aria-label="Pinr mobile app screenshots">
-                <div class="phone-screen">
-                  <img src="assets/apps/pinr-map.jpg" alt="Pinr mobile app map screen">
-                  <img src="assets/apps/pinr-profile.jpg" alt="Pinr mobile app profile and bucket list screen">
-                  <img src="assets/apps/pinr-place.jpg" alt="Pinr mobile app destination detail screen">
-                </div>
+            </div>
+
+            <div class="ai-carousel-controls">
+              <div class="ai-carousel-counter">
+                <b class="current">01</b><span class="sep">/</span><span class="total">06</span>
               </div>
-            </article>
-            <article class="tool-card featured-app">
-              <div class="tool-meta"><span>Personal App</span><span>Built Outside Work</span></div>
-              <h3>Ryval</h3>
-              <p>A second independent app build exploring how AI-assisted workflows can move an idea from concept to usable product.</p>
-              <div class="phone-mockup" aria-label="Ryval mobile app screenshot">
-                <div class="phone-screen">
-                  <img src="assets/apps/ryval-workout.jpg" alt="Ryval mobile app workout screen">
-                  <img src="assets/apps/ryval-home.jpg" alt="Ryval mobile app home dashboard">
-                  <img src="assets/apps/ryval-detail.jpg" alt="Ryval mobile app workout detail screen">
-                </div>
+              <div class="ai-carousel-dots" role="tablist"></div>
+              <div class="ai-carousel-buttons">
+                <button class="ai-carousel-btn ai-carousel-btn-prev" aria-label="Previous slide">←</button>
+                <button class="ai-carousel-btn ai-carousel-btn-next" aria-label="Next slide">→</button>
               </div>
-            </article>
-            <article class="tool-card cortex-card">
-              <div class="tool-meta"><span>Personal App</span><span>Autonomous Trading</span></div>
-              <h3>Cortex</h3>
-              <p>A programmatic stock trading bot that monitors market movement and places trades through a trading platform API based on preset technical indicators.</p>
-              <div class="web-preview" aria-label="Cortex desktop trading bot mockup screenshots">
-                <div class="web-preview-bar">
-                  <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                  <span>project aion</span>
-                </div>
-                <div class="web-stage">
-                  <img src="assets/apps/cortex-command-center.png" alt="Cortex autonomous command center desktop mockup">
-                  <img src="assets/apps/cortex-signal-fusion.png" alt="Cortex signal fusion matrix desktop mockup">
-                  <img src="assets/apps/cortex-backtest-risk.png" alt="Cortex backtest and risk lab desktop mockup">
-                </div>
-              </div>
-            </article>
-            <article class="tool-card featured-app">
-              <div class="tool-meta"><span>Mobile App</span><span>Candidate Intelligence</span></div>
-              <h3>Execue</h3>
-              <p>A mobile app where candidates upload a CV and job posting URL, then receive role-fit analysis, suitability guidance, and interview preparation support.</p>
-              <div class="phone-mockup execue-phone" aria-label="Execue mobile app screenshots">
-                <div class="phone-screen">
-                  <img src="assets/apps/execue-report.jpg" alt="Execue mobile app job match report">
-                  <img src="assets/apps/execue-generating.jpg" alt="Execue mobile app generating analysis screen">
-                  <img src="assets/apps/execue-home.jpg" alt="Execue mobile app home screen">
-                </div>
-              </div>
-            </article>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
@@ -1841,5 +1977,58 @@
       <span>LEE SAM</span><span>EMEA LEADERSHIP RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>1,224 HIRES · FY23–25</span><span>LONDON</span>
     </div>
   </div>
+
+  <script>
+    (function() {
+      const carousel = document.querySelector('.ai-carousel');
+      if (!carousel) return;
+      const track = carousel.querySelector('.ai-carousel-track');
+      const slides = Array.from(track.children);
+      const prevBtn = carousel.querySelector('.ai-carousel-btn-prev');
+      const nextBtn = carousel.querySelector('.ai-carousel-btn-next');
+      const dotsContainer = carousel.querySelector('.ai-carousel-dots');
+      const counterCurrent = carousel.querySelector('.ai-carousel-counter .current');
+      const total = slides.length;
+      let current = 0;
+
+      slides.forEach(function(_, i) {
+        const dot = document.createElement('button');
+        dot.className = 'ai-carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('type', 'button');
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', function() { goTo(i); });
+        dotsContainer.appendChild(dot);
+      });
+
+      function goTo(index) {
+        current = ((index % total) + total) % total;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        Array.from(dotsContainer.children).forEach(function(dot, i) {
+          dot.classList.toggle('active', i === current);
+        });
+        counterCurrent.textContent = String(current + 1).padStart(2, '0');
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+      carousel.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      });
+
+      let touchStartX = 0;
+      track.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      track.addEventListener('touchend', function(e) {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+          goTo(current + (diff > 0 ? 1 : -1));
+        }
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>
