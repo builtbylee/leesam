@@ -461,26 +461,28 @@
     .brief-copy {
       max-width: 850px;
       margin: 0;
-      color: var(--ink-dark);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: clamp(21px, 2.25vw, 31px);
+      color: var(--muted);
+      font-family: "Instrument Serif", serif;
+      font-size: clamp(22px, 2.2vw, 32px);
       font-weight: 400;
-      line-height: 1.36;
-      letter-spacing: -0.025em;
+      line-height: 1.35;
+      letter-spacing: -0.012em;
     }
 
     .brief-copy + .brief-copy {
       margin-top: 20px;
-      color: var(--ink-dark);
+      color: var(--muted);
     }
 
     .record-subhead {
       max-width: 620px;
       margin: -4px 0 42px;
-      color: var(--muted-dark);
-      font-size: 19px;
-      line-height: 1.45;
-      letter-spacing: -0.01em;
+      color: var(--muted);
+      font-family: "Instrument Serif", serif;
+      font-size: clamp(20px, 1.8vw, 27px);
+      font-weight: 400;
+      line-height: 1.35;
+      letter-spacing: -0.012em;
     }
 
     .practice-grid {
@@ -525,9 +527,11 @@
 
     .ai-carousel {
       position: relative;
-      margin-top: 54px;
+      margin-top: 36px;
       min-width: 0;
     }
+
+    #ai-work { padding-top: 80px; }
 
     .ai-carousel:focus-visible {
       outline: none;
@@ -952,11 +956,12 @@
 
     .personal-copy p {
       margin: 0;
-      color: var(--ink-dark);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: clamp(20px, 2vw, 28px);
-      line-height: 1.42;
-      letter-spacing: -0.025em;
+      color: var(--muted);
+      font-family: "Instrument Serif", serif;
+      font-size: clamp(20px, 1.8vw, 27px);
+      font-weight: 400;
+      line-height: 1.4;
+      letter-spacing: -0.012em;
     }
 
     .personal-copy p + p {
@@ -1860,6 +1865,16 @@
 
       .ai-carousel-dots {
         order: 2;
+        gap: 6px;
+      }
+
+      .ai-carousel-dot {
+        width: 6px;
+        height: 6px;
+      }
+
+      .ai-carousel-dot.active {
+        width: 18px;
       }
 
       .photo-slot,
@@ -2250,7 +2265,7 @@
       <div class="shell personal-layout">
         <div class="personal-copy">
           <div class="section-label">05 / Outside Work</div>
-          <h2 class="section-title">Travel, basketball, and a few long flights.</h2>
+          <h2 class="section-title">Travel and basketball.</h2>
           <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
           <p>I am a Milwaukee Bucks fan, including flying to Milwaukee to watch games in person. This is the personal side of the story: places, games, and the occasional very long flight.</p>
         </div>
@@ -2347,7 +2362,7 @@
             'Partner with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.'
           ],
           noteTitle: 'AI-era work',
-          note: 'Build practical tools for recurring recruiting tasks, help define how candidates and interview teams should approach AI usage in hiring processes, and co-hosted an agentic coding workshop at Cloudflare\'s London office (February 2026) introducing non-technical employees to vibe coding using Windsurf.'
+          note: 'Build practical tools for recurring recruiting tasks, help define how candidates and interview teams should approach AI usage in hiring processes, and co-hosted an agentic coding workshop at Cloudflare\'s London office (February 2026) introducing non-technical employees to agentic coding using AI tools.'
         },
         {
           meta: 'Cloudflare · EMEA · Regional leadership',
