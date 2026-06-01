@@ -1616,6 +1616,9 @@
       flex: 0 0 92px;
     }
 
+    /* Mobile accordion — hidden on desktop */
+    .timeline-accordion { display: none; }
+
     .logo-salesforce img {
       object-fit: contain;
       padding: 5px;
@@ -1831,6 +1834,48 @@
       .timeline-panel-top {
         display: grid;
       }
+
+      /* Mobile accordion */
+      .timeline-panel { display: none; }
+
+      .timeline-nav {
+        display: block;
+        background: #ffffff;
+      }
+
+      .timeline-role {
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .timeline-accordion {
+        display: block;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .timeline-accordion.open {
+        max-height: 3200px;
+      }
+
+      .timeline-accordion-inner {
+        padding: 24px 20px 30px;
+        background: var(--bg-2);
+        border-bottom: 1px solid var(--line-dark);
+      }
+
+      .mob-acc-title {
+        font-family: "Instrument Sans", Inter, sans-serif;
+        font-size: clamp(26px, 7vw, 36px);
+        font-weight: 600;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        color: var(--ink);
+        margin: 8px 0 14px;
+      }
+
+      .mob-acc-proofs { margin: 20px 0 24px; }
+      .mob-acc-note { margin-top: 20px; }
     }
 
     @media (max-width: 680px) {
@@ -1960,10 +2005,10 @@
           <p class="subhead">The recruiting leader for the AI era.</p>
           <div class="hero-copy">
             <div>
-              <p>Companies are rearchitecting for the AI era. The way they find, assess, and hire leadership will change too.</p>
+              <p>Companies are rearchitecting for the AI era. The way they find, assess, and hire will change too.</p>
             </div>
             <div>
-              <p>Navigating that shift demands an AI-native recruiting leader — one who understands both the work and the tools required to do it differently.</p>
+              <p>Navigating that shift requires an AI-native recruiting leader — one who understands both the work and the tools required to do it differently.</p>
             </div>
           </div>
         </div>
@@ -2585,7 +2630,6 @@
       ];
 
       const buttons = Array.from(root.querySelectorAll('[data-role-index]'));
-      const panel = root.querySelector('#timeline-panel');
       const meta = root.querySelector('[data-role-meta]');
       const title = root.querySelector('[data-role-title]');
       const summary = root.querySelector('[data-role-summary]');
@@ -2597,12 +2641,23 @@
       const noteTitle = root.querySelector('[data-role-note-title]');
       const note = root.querySelector('[data-role-note]');
 
+      // Create one accordion div per role, inserted after each nav button
+      const accordions = buttons.map(function(btn) {
+        const acc = document.createElement('div');
+        acc.className = 'timeline-accordion';
+        acc.innerHTML = '<div class="timeline-accordion-inner"></div>';
+        btn.insertAdjacentElement('afterend', acc);
+        return acc;
+      });
+
+      let openAccordionIndex = -1;
+
+      // Desktop: render into the right-hand panel
       function renderRole(index) {
         const role = roles[index] || roles[0];
         buttons.forEach(function(button, i) {
           button.setAttribute('aria-selected', i === index ? 'true' : 'false');
         });
-
         meta.textContent = role.meta;
         title.textContent = role.title;
         summary.textContent = role.summary;
@@ -2613,19 +2668,58 @@
         logoFallback.textContent = role.fallback;
         noteTitle.textContent = role.noteTitle;
         note.textContent = role.note;
-
         proofs.innerHTML = role.proofs.map(function(proof) {
           return '<div class="timeline-proof"><strong>' + proof[0] + '</strong><span>' + proof[1] + '</span></div>';
         }).join('');
-
         bullets.innerHTML = role.bullets.map(function(item) {
           return '<li>' + item + '</li>';
         }).join('');
       }
 
+      // Mobile: build accordion HTML for a role
+      function buildAccordionHTML(role) {
+        return '<div class="timeline-panel-meta">' + role.meta + '</div>' +
+          '<h3 class="mob-acc-title">' + role.title + '</h3>' +
+          '<p class="timeline-panel-summary">' + role.summary + '</p>' +
+          '<div class="timeline-proof-grid mob-acc-proofs">' +
+            role.proofs.map(function(p) {
+              return '<div class="timeline-proof"><strong>' + p[0] + '</strong><span>' + p[1] + '</span></div>';
+            }).join('') +
+          '</div>' +
+          '<div class="timeline-detail-block"><h3>Responsibilities</h3><ul class="timeline-bullets">' +
+            role.bullets.map(function(b) { return '<li>' + b + '</li>'; }).join('') +
+          '</ul></div>' +
+          '<div class="timeline-detail-block mob-acc-note"><h3>' + role.noteTitle + '</h3><p class="timeline-note">' + role.note + '</p></div>';
+      }
+
+      function openAccordion(index) {
+        accordions[index].querySelector('.timeline-accordion-inner').innerHTML = buildAccordionHTML(roles[index]);
+        accordions[index].classList.add('open');
+        buttons[index].setAttribute('aria-selected', 'true');
+        openAccordionIndex = index;
+      }
+
+      function closeAccordion(index) {
+        accordions[index].classList.remove('open');
+        buttons[index].setAttribute('aria-selected', 'false');
+        if (openAccordionIndex === index) openAccordionIndex = -1;
+      }
+
       buttons.forEach(function(button) {
         button.addEventListener('click', function() {
-          renderRole(Number(button.dataset.roleIndex));
+          const index = Number(button.dataset.roleIndex);
+          if (window.innerWidth <= 980) {
+            // Mobile: accordion expand/collapse
+            if (openAccordionIndex === index) {
+              closeAccordion(index);
+            } else {
+              if (openAccordionIndex >= 0) closeAccordion(openAccordionIndex);
+              openAccordion(index);
+            }
+          } else {
+            // Desktop: update right-hand panel
+            renderRole(index);
+          }
         });
 
         button.addEventListener('keydown', function(event) {
@@ -2636,11 +2730,16 @@
             ? (current + 1) % buttons.length
             : (current - 1 + buttons.length) % buttons.length;
           buttons[next].focus();
-          renderRole(next);
+          if (window.innerWidth > 980) renderRole(next);
         });
       });
 
       renderRole(0);
+
+      // Auto-open first accordion on mobile load
+      if (window.innerWidth <= 980) {
+        openAccordion(0);
+      }
     })();
 
     (function() {
