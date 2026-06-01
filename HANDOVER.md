@@ -88,7 +88,7 @@ The HTML shell for the dossier is static (nav buttons + panel article). JS rende
 ## Remaining work
 
 ### Medium priority
-- [ ] **AI Work carousel — Job Builder and Relay content**: slides exist but are placeholders. Fill in when Lee provides copy.
+- All 6 AI Work carousel slides have final copy.
 - [ ] **Timeline mobile UX**: at <980px the dossier stacks to single column (nav on top, panel below). Verify this works cleanly across 390px and 360px viewports.
 
 ### Low priority
