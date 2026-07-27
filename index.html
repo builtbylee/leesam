@@ -1293,6 +1293,33 @@
       color: var(--muted);
     }
 
+    .numbers-hero-value .pct {
+      font-size: 0.45em;
+      font-weight: 500;
+      color: var(--orange);
+      letter-spacing: -0.02em;
+      margin-left: 2px;
+      vertical-align: 0.6em;
+    }
+
+    /* Sub-block divider — separates Delivery / Representation / Locations stories within Numbers */
+    .stats-divider {
+      height: 1px;
+      background: var(--line);
+      margin: 56px 0 40px;
+    }
+
+    .stats-note {
+      margin: 18px 0 0;
+      max-width: 720px;
+      font-family: Manrope, Inter, sans-serif;
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .stats-note b { color: var(--ink); font-weight: 600; }
+
     /* Maple Leaf Award callout */
     .award {
       margin-top: 22px;
@@ -2324,7 +2351,59 @@
             <div class="stat-value">34</div>
             <div class="stat-label">Specialist hires placed personally — alongside leading the team</div>
           </div>
+          <div class="stat">
+            <div class="stat-year">2018 – 2025</div>
+            <div class="stat-value">11</div>
+            <div class="stat-label">EMEA markets today — UK, Germany, France, Portugal, Belgium, Netherlands, Sweden, Switzerland, Italy, Spain, UAE — up from London alone in 2018</div>
+          </div>
         </div>
+
+        <div class="stats-divider"></div>
+
+        <!-- Sub-block: gender representation trend -->
+        <div class="numbers-hero">
+          <div>
+            <div class="numbers-hero-meta"><b>2018 — 2025</b> · Women in Management</div>
+            <div class="numbers-hero-value">29.4<span class="pct">%</span></div>
+            <p class="numbers-hero-label">Representation of women in management roles more than doubled over seven years — from a 13% baseline in 2018 to a historical peak of 29.4% in early 2025.</p>
+          </div>
+          <div>
+            <div class="trend-bars">
+              <div class="trend-bar" data-h="44" style="height:44%"><span class="bv">13.0%</span></div>
+              <div class="trend-bar" data-h="44" style="height:44%"><span class="bv">13.0%</span></div>
+              <div class="trend-bar" data-h="51" style="height:51%"><span class="bv">15.0%</span></div>
+              <div class="trend-bar" data-h="54" style="height:54%"><span class="bv">16.0%</span></div>
+              <div class="trend-bar" data-h="54" style="height:54%"><span class="bv">16.0%</span></div>
+              <div class="trend-bar" data-h="80" style="height:80%"><span class="bv">23.5%</span></div>
+              <div class="trend-bar" data-h="99" style="height:99%"><span class="bv">29.2%</span></div>
+              <div class="trend-bar" data-h="100" style="height:100%"><span class="bv">29.4%</span></div>
+            </div>
+            <div class="trend-labels">
+              <span>'18</span><span>'19</span><span>'20</span><span>'21</span><span>'22</span><span>'23</span><span>'24</span><span>'25</span>
+            </div>
+            <div class="trend-yoy">↑ +126% since 2018 · representation more than doubled</div>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat">
+            <div class="stat-year">2018 – 2025</div>
+            <div class="stat-value">32.1<span class="pct">%</span></div>
+            <div class="stat-label">Female representation across all EMEA roles, up from 22.0% in 2018</div>
+          </div>
+          <div class="stat">
+            <div class="stat-year">2018 – 2025</div>
+            <div class="stat-value">32.0<span class="pct">%</span></div>
+            <div class="stat-label">Female representation at IC level, up from 24.0% in 2018</div>
+          </div>
+          <div class="stat">
+            <div class="stat-year">2018 – 2025</div>
+            <div class="stat-value">29.4<span class="pct">%</span></div>
+            <div class="stat-label">Tech &amp; R&amp;D management — peak reached March 2025, up from 0% in 2018–19; eased to 26.5% by mid-2025</div>
+          </div>
+        </div>
+
+        <p class="stats-note"><b>How:</b> formal UGI leadership targets (32% global), expanded ERG partnerships, dedicated diversity-sourcing sprints, and a talent-advisor model that challenges non-inclusive interview panels.</p>
 
         <!-- Maple Leaf Award -->
         <aside class="award" aria-label="Maple Leaf Award recognition">
