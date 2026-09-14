@@ -100,7 +100,6 @@ When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ## Remaining work
 
-- [ ] **Executive Recruiting role copy tense:** its bullets and note are in present tense ("Lead VP+ executive search…") although Lee left Cloudflare in July 2026. Other roles use past tense. Awaiting Lee's decision.
 - [ ] **Logo quality:** review logos at 28px (timeline) and 64px (panel); replace any that read poorly.
 
 ---
