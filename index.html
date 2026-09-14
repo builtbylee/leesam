@@ -14,1044 +14,234 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a2540'/%3E%3Ctext x='16' y='22' font-family='Inter,sans-serif' font-size='15' font-weight='600' fill='%23fff' text-anchor='middle'%3ELS%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@700;800&family=Barlow:wght@300;400;500;600&family=Fraunces:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --bg-2: #f6f9fc;
-      --panel: #ffffff;
-      --panel-2: #f6f9fc;
-      --ink: #0a2540;
-      --ink-dark: #0a2540;
-      --muted: #425466;
-      --muted-dark: #6b7c93;
-      --line: #e6ebf1;
-      --line-dark: #d9e2ec;
-      --orange: #2563eb;
-      --green: #00a884;
-      --blue: #00d4ff;
-      --rose: #ff80b5;
+      --navy: #0a2540;
+      --ink: #0f2540;
+      --muted: #4a5a6d;
+      --blue: #2563eb;
+      --blue-soft: #e8efff;
+      --bar: #b9cdf7;
+      --line: #e3e8ef;
+      --paper: #f5f8fb;
+      --white: #ffffff;
+      --shadow: 0 32px 70px -50px rgba(10, 37, 64, 0.35);
       --ease: cubic-bezier(0.32, 0.72, 0, 1);
+      --sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+      --serif: "Instrument Serif", Georgia, serif;
     }
 
     * { box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: Inter, system-ui, sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: 20;
-      pointer-events: none;
-      opacity: 0.08;
-      mix-blend-mode: multiply;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .meta-row,
-    .meta-row strong,
-    .console-head,
-    .console-eyebrow,
-    .metric-card span,
-    .section-label,
-    .practice-card .num,
-    .stat .year,
-    .stat strong sup {
-      font-style: normal;
-      font-weight: 400;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.001ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.001ms !important;
-      }
-    }
-
-    .chrome {
-      position: fixed;
-      top: 18px;
-      left: 24px;
-      right: 24px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .chrome nav {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      font-family: Inter, sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: -0.005em;
-    }
-
-    .chrome nav a {
-      padding: 7px 12px;
-      border-radius: 99px;
-      color: var(--muted);
-      transition: color 200ms var(--ease), background 200ms var(--ease);
-    }
-
-    .chrome nav a:hover,
-    .chrome nav a.active {
-      color: var(--ink);
-      background: rgba(37, 99, 235, 0.08);
-    }
-
-    .chrome nav .cta {
-      background: var(--ink);
-      color: #fff;
-      padding: 8px 16px;
-    }
-
-    .chrome nav .cta:hover {
-      background: var(--orange);
-      color: #fff;
-    }
-
-    .shell {
-      width: min(1320px, calc(100% - 48px));
-      margin: 0 auto;
-    }
-
-    .hero {
-      min-height: 100dvh;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: end;
-      padding: 118px 0 70px;
-      background:
-        radial-gradient(ellipse 60% 50% at 85% 15%, rgba(37, 99, 235, 0.12), transparent 60%),
-        radial-gradient(ellipse 70% 60% at 10% 90%, rgba(37, 99, 235, 0.06), transparent 70%),
-        linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(10, 37, 64, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(10, 37, 64, 0.04) 1px, transparent 1px);
-      background-size: 88px 88px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent 88%);
-    }
-
-    .stamp {
-      position: absolute;
-      right: -40px;
-      top: 46%;
-      transform: translateY(-50%);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-weight: 700;
-      font-size: clamp(220px, 38vw, 560px);
-      line-height: 0.8;
-      color: rgba(37, 99, 235, 0.05);
-      letter-spacing: -0.06em;
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.65fr);
-      gap: 56px;
-      align-items: end;
-    }
-
-    .meta-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      border-top: 1px solid rgba(10, 37, 64, 0.14);
-      padding-top: 18px;
-      margin-bottom: 44px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .meta-row strong {
-      display: block;
-      margin-top: 6px;
-      color: var(--ink);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 17px;
-      font-weight: 400;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      margin: 0;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-weight: 600;
-      font-size: clamp(76px, 12vw, 168px);
-      line-height: 0.95;
-      letter-spacing: -0.04em;
-    }
-
-    .subhead {
-      margin: 22px 0 0;
-      max-width: 820px;
-      font-family: "Instrument Serif", serif;
-      font-weight: 400;
-      font-size: clamp(24px, 2.6vw, 34px);
-      line-height: 1.3;
-      letter-spacing: -0.012em;
-      color: var(--muted);
-    }
-
-    .hero-copy {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      margin-top: 46px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(10, 37, 64, 0.14);
-      max-width: 820px;
-      align-items: start;
-    }
-
-    .hero-copy p {
-      margin: 0;
-      max-width: 360px;
-      color: var(--ink);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 17px;
-      font-weight: 400;
-      line-height: 1.5;
-      letter-spacing: -0.008em;
-    }
-
-    .console {
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.82);
-      padding: 7px;
-      box-shadow: 0 50px 100px -20px rgba(50,50,93,0.24), 0 30px 60px -30px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.9);
-    }
-
-    .console-inner {
-      border: 1px solid rgba(10, 37, 64, 0.08);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.94);
-      overflow: hidden;
-    }
-
-    .hero-portrait-card .console-inner {
-      position: relative;
-      aspect-ratio: 4 / 5;
-      background: #ffffff;
-    }
-
-    .hero-portrait-card .console-inner::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: linear-gradient(160deg, rgba(37, 99, 235, 0.18) 0%, rgba(37, 99, 235, 0.04) 50%, rgba(10, 37, 64, 0.12) 100%);
-      mix-blend-mode: multiply;
-    }
-
-    .hero-portrait {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: center;
-    }
-
-    .console-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 17px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.06em;
-    }
-
-    .live {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      color: var(--green);
-    }
-
-    .live::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 14px rgba(0, 168, 132, 0.35);
-    }
-
-    .console-body { padding: 22px; }
-
-    .console-eyebrow {
-      color: var(--orange);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .console-title {
-      margin: 10px 0 18px;
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: -0.025em;
-      line-height: 1.08;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .metric-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 15px;
-      background: var(--bg-2);
-    }
-
-    .metric-card strong {
-      display: block;
-      font-family: Anton, sans-serif;
-      font-size: 42px;
-      font-weight: 400;
-      line-height: 0.9;
-      letter-spacing: -0.035em;
-    }
-
-    .metric-card span {
-      display: block;
-      margin-top: 10px;
-      color: var(--muted);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .bar-chart {
-      display: flex;
-      align-items: end;
-      gap: 5px;
-      height: 86px;
-      margin-top: 22px;
-    }
-
-    .bar {
-      flex: 1;
-      min-height: 14px;
-      border-radius: 3px 3px 0 0;
-      background: linear-gradient(180deg, var(--orange), rgba(0, 212, 255, 0.2));
-    }
-
-    .brand-strip {
-      background: #ffffff;
-      color: var(--ink-dark);
-      border-bottom: 1px solid var(--line-dark);
-      padding: 30px 0;
-    }
-
-    .brand-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 36px;
-    }
-
-    .brand-inner p {
-      max-width: 210px;
-      margin: 0;
-      color: var(--muted-dark);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .brand-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
-      justify-content: flex-end;
-      color: rgba(10,37,64,0.56);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-
-    .light {
-      background: var(--bg-2);
-      color: var(--ink-dark);
-      padding: 120px 0;
-    }
-
-    .dark-section {
-      background: #ffffff;
-      color: var(--ink);
-      padding: 130px 0;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-grid {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 78px;
-      align-items: start;
-    }
-
-    .section-label {
-      color: var(--orange);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    .section-label::before {
-      content: "";
-      display: block;
-      width: 44px;
-      height: 2px;
-      margin-bottom: 18px;
-      background: currentColor;
-    }
-
-    .section-title {
-      margin: 0 0 24px;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(54px, 8vw, 112px);
-      font-weight: 600;
-      line-height: 0.95;
-      letter-spacing: -0.035em;
-    }
-
-    .section-title em {
-      font-style: normal;
-      color: inherit;
-    }
-
-    .brief-copy {
-      max-width: 850px;
-      margin: 0;
-      color: var(--muted);
-      font-family: "Instrument Serif", serif;
-      font-size: clamp(22px, 2.2vw, 32px);
-      font-weight: 400;
-      line-height: 1.35;
-      letter-spacing: -0.012em;
-    }
-
-    .brief-copy + .brief-copy {
-      margin-top: 20px;
-      color: var(--muted);
-    }
-
-    .record-subhead {
-      max-width: none;
-      margin: -4px 0 42px;
-      color: var(--muted);
-      font-family: "Instrument Serif", serif;
-      font-size: clamp(20px, 1.8vw, 27px);
-      font-weight: 400;
-      line-height: 1.35;
-      letter-spacing: -0.012em;
-    }
-
-    .practice-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      margin-top: 52px;
-      background: var(--line-dark);
-      border: 1px solid var(--line-dark);
-    }
-
-    .practice-card {
-      min-height: 230px;
-      padding: 28px;
-      background: #ffffff;
-    }
-
-    .practice-card .num {
-      display: block;
-      color: var(--orange);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      margin-bottom: 36px;
-    }
-
-    .practice-card h3 {
-      margin: 0 0 12px;
-      font-size: 22px;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-    }
-
-    .practice-card p {
-      max-width: 420px;
-      margin: 0;
-      color: var(--muted-dark);
-      font-size: 15px;
-      line-height: 1.55;
-    }
-
-    /* AI Work carousel */
-
-    .ai-carousel {
-      position: relative;
-      margin-top: 36px;
-      min-width: 0;
-    }
-
-    #ai-work { padding-top: 80px; }
-
-    .ai-carousel:focus-visible {
-      outline: none;
-    }
-
-    .ai-carousel-viewport {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: #ffffff;
-      box-shadow: 0 30px 80px -56px rgba(10,37,64,0.55);
-      min-width: 0;
-    }
-
-    .ai-carousel-track {
-      display: flex;
-      transition: transform 600ms var(--ease);
-      will-change: transform;
-    }
-
-    .ai-slide {
-      flex: 0 0 100%;
-      width: 100%;
-      display: grid;
-      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-      gap: 64px;
-      padding: 64px;
-      min-height: 540px;
-      align-items: center;
-    }
-
-    .ai-slide.is-web,
-    .ai-slide.is-placeholder {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    }
-
-    .ai-slide-visual {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .ai-slide-copy {
-      max-width: 460px;
-    }
-
-    .ai-slide-meta {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 22px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .ai-slide-meta b {
-      color: var(--orange);
-      font-weight: 500;
-    }
-
-    .ai-slide-meta .sep {
-      width: 3px;
-      height: 3px;
-      border-radius: 50%;
-      background: var(--line-dark);
-    }
-
-    .ai-slide h3 {
-      margin: 0 0 16px;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(40px, 4.4vw, 64px);
-      font-weight: 600;
-      line-height: 1;
-      letter-spacing: -0.035em;
-      color: var(--ink);
-    }
-
-    .ai-slide p {
-      margin: 0;
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 17px;
-      line-height: 1.55;
-      letter-spacing: -0.005em;
-      color: var(--muted);
-    }
-
-    .placeholder-visual {
-      width: 100%;
-      max-width: 480px;
-      aspect-ratio: 4 / 3;
-      border: 1px dashed var(--line-dark);
-      border-radius: 18px;
-      background:
-        repeating-linear-gradient(135deg, rgba(37,99,235,0.04) 0 10px, transparent 10px 20px),
-        var(--bg-2);
-      display: grid;
-      place-items: center;
-      color: var(--muted-dark);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    /* workshop photo visual — used inside slides */
-
-    .workshop-visual {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      aspect-ratio: 4 / 3;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      overflow: hidden;
-      background: #ffffff;
-      box-shadow: 0 24px 58px -44px rgba(10,37,64,0.62);
-    }
-
-    .workshop-visual img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      border-radius: 18px;
-      opacity: 0;
-      animation: workshopFade 10s infinite;
-    }
-
-    .workshop-visual img:nth-child(1) { animation-delay: 0s; }
-    .workshop-visual img:nth-child(2) { animation-delay: 5s; }
-
-    @keyframes workshopFade {
-      0%, 42% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
-
-    /* phone mockup — used inside slides */
-
-    .phone-mockup {
-      position: relative;
-      width: min(260px, 100%);
-      aspect-ratio: 9 / 19.5;
-      padding: 9px;
-      border: 1px solid #2f3540;
-      border-radius: 43px;
-      background:
-        linear-gradient(145deg, #2b303a 0%, #050608 12%, #050608 88%, #2a3038 100%);
-      box-shadow:
-        inset 0 0 0 2px #11151b,
-        inset 0 0 0 4px #000000,
-        0 42px 86px -48px rgba(10,37,64,0.85),
-        0 18px 34px -24px rgba(10,37,64,0.65);
-    }
-
-    .phone-mockup::before,
-    .phone-mockup::after {
-      content: "";
-      position: absolute;
-      width: 3px;
-      border-radius: 999px;
-      background: #11151b;
-      box-shadow: inset 1px 0 0 rgba(255,255,255,0.08);
-    }
-
-    .phone-mockup::before {
-      left: -4px;
-      top: 24%;
-      height: 52px;
-    }
-
-    .phone-mockup::after {
-      right: -4px;
-      top: 31%;
-      height: 72px;
-    }
-
-    .phone-screen {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 34px;
-      background: #050505;
-      box-shadow:
-        inset 0 0 0 1px rgba(0,0,0,0.85),
-        inset 0 0 28px rgba(0,0,0,0.65);
-    }
-
-    .phone-screen::before {
-      content: "";
-      position: absolute;
-      top: 9px;
-      left: 50%;
-      z-index: 2;
-      width: 68px;
-      height: 21px;
-      border-radius: 999px;
-      background: #000000;
-      box-shadow: 0 1px 0 rgba(255,255,255,0.08);
-      transform: translateX(-50%);
-    }
-
-    .phone-screen::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 9px;
-      z-index: 2;
-      width: 74px;
-      height: 4px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.9);
-      transform: translateX(-50%);
-    }
-
-    .phone-screen img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: contain;
-      object-position: top center;
-      opacity: 0;
-      animation: ryvalCarousel 18s infinite;
-    }
-
-    .phone-screen img:nth-child(1) { animation-delay: 0s; }
-    .phone-screen img:nth-child(2) { animation-delay: 6s; }
-    .phone-screen img:nth-child(3) { animation-delay: 12s; }
-
-    .pinr-phone img {
-      animation-name: pinrCarousel;
-    }
-
-    .execue-phone img {
-      animation-name: execueCarousel;
-    }
-
-    @keyframes ryvalCarousel {
-      0%, 28% { opacity: 1; }
-      33%, 100% { opacity: 0; }
-    }
-
-    @keyframes pinrCarousel {
-      0%, 28% { opacity: 1; }
-      33%, 100% { opacity: 0; }
-    }
-
-    @keyframes execueCarousel {
-      0%, 28% { opacity: 1; }
-      33%, 100% { opacity: 0; }
-    }
-
-    .web-preview {
-      width: 100%;
-      max-width: 560px;
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #f6f9fc;
-      box-shadow: 0 24px 58px -44px rgba(10,37,64,0.62);
-    }
-
-    .web-preview-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--line);
-      background: #ffffff;
-      color: var(--muted);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 9px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .web-dots {
-      display: inline-flex;
-      gap: 5px;
-    }
-
-    .web-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--line-dark);
-    }
-
-    .web-stage {
-      position: relative;
-      aspect-ratio: 16 / 11;
-      background: #f6f9fc;
-    }
-
-    .web-stage img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      padding: 14px;
-      object-fit: contain;
-      opacity: 0;
-      animation: webCarousel 18s infinite;
-    }
-
-    .web-stage img:nth-child(1) { animation-delay: 0s; }
+    body { margin: 0; overflow-x: hidden; color: var(--ink); background: var(--white); font-family: var(--sans); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    h1, h2, h3, p, ul, figure { margin: 0; }
+    a { color: inherit; }
+    button { font: inherit; }
+    img { max-width: 100%; }
+
+    .skip { position: absolute; left: -999px; top: 8px; z-index: 100; padding: 8px 12px; border-radius: 6px; background: var(--navy); color: var(--white); }
+    .skip:focus { left: 12px; }
+    .shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
+    section[id] { scroll-margin-top: 84px; }
+    button:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* ---- top bar ---- */
+    .topbar { position: sticky; top: 0; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 68px; padding: 0 max(24px, calc((100vw - 1180px) / 2)); background: rgba(255, 255, 255, 0.92); border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 600; letter-spacing: -0.01em; color: var(--navy); line-height: 1.15; }
+    .brand small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+    .mark { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 10px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; }
+    .topbar nav { display: flex; gap: 2px; }
+    .topbar nav a { padding: 7px 11px; border-radius: 8px; text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .topbar nav a:hover { color: var(--ink); background: var(--paper); }
+    .topbar nav a.on { color: var(--blue); font-weight: 600; }
+    .topbar-end { display: flex; align-items: center; gap: 10px; }
+    .cta { display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px; border-radius: 8px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 600; text-decoration: none; transition: background 160ms var(--ease); }
+    .cta:hover { background: var(--blue); }
+    .navtoggle { display: none; align-items: center; gap: 7px; min-height: 44px; padding: 0 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--navy); font-size: 13.5px; font-weight: 600; cursor: pointer; }
+    .navtoggle-label { color: var(--muted); font-weight: 500; }
+    .navtoggle svg { transition: transform 160ms var(--ease); }
+    .navtoggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+    .mobile-nav { position: fixed; top: 68px; left: 0; right: 0; z-index: 39; display: grid; gap: 2px; padding: 8px; background: var(--white); border-bottom: 1px solid var(--line); box-shadow: 0 18px 30px -18px rgba(10, 37, 64, 0.55); }
+    .mobile-nav[hidden] { display: none; }
+    .mobile-nav a { display: flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 8px; color: var(--ink); font-size: 15px; font-weight: 500; text-decoration: none; }
+    .mobile-nav a.on { background: var(--blue-soft); color: var(--blue); font-weight: 600; }
+
+    /* ---- hero ---- */
+    .hero { padding: 88px 0 80px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 64px; align-items: end; }
+    h1 { font-weight: 500; font-size: clamp(56px, 8vw, 104px); line-height: 0.95; letter-spacing: -0.045em; color: var(--navy); }
+    .lede { max-width: 720px; margin-top: 24px; font-family: var(--serif); font-size: clamp(22px, 2.4vw, 28px); line-height: 1.35; color: var(--ink); }
+    .thesis { max-width: 640px; margin-top: 22px; }
+    .thesis p { font-size: 17px; color: var(--muted); }
+    .thesis p + p { margin-top: 12px; }
+    .hero-facts { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 48px; border-top: 1px solid var(--line); }
+    .hero-facts > div { padding: 20px 20px 0 0; border-right: 1px solid var(--line); }
+    .hero-facts > div + div { padding-left: 20px; }
+    .hero-facts > div:last-child { border-right: 0; }
+    .hero-facts span { display: block; font-size: 13px; color: var(--muted); }
+    .hero-facts b { display: block; margin-top: 4px; font-weight: 600; font-size: 18px; letter-spacing: -0.015em; line-height: 1.3; color: var(--navy); }
+    .portrait { overflow: hidden; aspect-ratio: 4 / 5; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); box-shadow: var(--shadow); }
+    .portrait img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ---- sections ---- */
+    .section { padding: 88px 0; }
+    .section.paper { background: var(--paper); border-block: 1px solid var(--line); }
+    .head { display: grid; grid-template-columns: 64px 1fr; gap: 0 24px; align-items: start; margin-bottom: 44px; max-width: 900px; }
+    .head .num { grid-row: 1 / span 2; padding-top: 12px; font-size: 14px; font-weight: 500; color: var(--blue); }
+    h2 { font-weight: 600; font-size: clamp(30px, 3.6vw, 44px); line-height: 1.08; letter-spacing: -0.03em; color: var(--navy); }
+    .head p { margin-top: 14px; max-width: 66ch; font-size: 17px; color: var(--muted); }
+
+    /* ---- experience dossier ---- */
+    .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+    .timeline-dossier { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 40px; align-items: start; }
+    /* the list is a vertical timeline: company logos and role dots sit on one spine */
+    .timeline-nav { position: relative; padding: 4px 0; }
+    .timeline-nav::before { content: ""; position: absolute; left: 14px; top: 18px; bottom: 22px; width: 1px; background: #cfd8e3; }
+    @media (min-width: 981px) and (min-height: 820px) { .timeline-nav { position: sticky; top: 92px; } }
+    .tl-company + .tl-company { margin-top: 10px; }
+    .tl-company-head { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 6px 0; }
+    .tl-company-head .logo { z-index: 1; flex-basis: 28px; width: 28px; height: 28px; font-size: 9px; }
+    .tl-company-head .logo img { filter: grayscale(1) contrast(1.15); opacity: 0.9; transition: filter 200ms var(--ease), opacity 200ms var(--ease); }
+    .tl-company-head .logo-salesforce img, .tl-company-head .logo-twitter img, .tl-company-head .logo-boa img, .tl-company-head .logo-ey img { padding: 3px; }
+    .tl-company.is-active .tl-company-head .logo img, .tl-company:hover .tl-company-head .logo img { filter: none; opacity: 1; }
+    .tl-company-name { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--navy); }
+    .tl-company-years { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .timeline-role { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: baseline; width: calc(100% - 28px); margin-left: 28px; padding: 8px 12px; border: 0; border-left: 2px solid transparent; border-radius: 0 8px 8px 0; background: transparent; color: var(--ink); text-align: left; cursor: pointer; transition: background 160ms var(--ease), border-color 160ms var(--ease); }
+    .timeline-role::before { content: ""; position: absolute; left: -19.5px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border: 1.5px solid #b3c0cf; border-radius: 50%; background: var(--paper); }
+    .timeline-role:hover { background: var(--white); }
+    .timeline-role[aria-selected="true"] { background: var(--blue-soft); border-left-color: var(--blue); }
+    .timeline-role[aria-selected="true"]::before { border-color: var(--blue); background: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+    .timeline-role:focus-visible { outline-offset: -2px; }
+    .timeline-role-title { font-size: 14.5px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+    .timeline-role[aria-selected="true"] .timeline-role-title { color: var(--blue); }
+    .timeline-role-meta { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .timeline-panel { padding: 36px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    .timeline-panel-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
+    .timeline-panel-meta { margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--blue); }
+    .timeline-panel-title { font-size: clamp(28px, 3vw, 38px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; color: var(--navy); }
+    .timeline-panel-summary { max-width: 66ch; margin-top: 12px; font-size: 17px; color: var(--muted); }
+    .timeline-proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-bottom: 32px; border-top: 1px solid var(--line); }
+    .timeline-proof { padding: 20px 20px 4px 0; border-right: 1px solid var(--line); }
+    .timeline-proof + .timeline-proof { padding-left: 20px; }
+    .timeline-proof:last-child { border-right: 0; }
+    .timeline-proof strong { display: block; font-size: 32px; font-weight: 600; line-height: 1; letter-spacing: -0.035em; color: var(--navy); }
+    .timeline-proof span { display: block; margin-top: 8px; font-size: 14px; color: var(--muted); }
+    .timeline-detail-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.9fr); gap: 40px; }
+    .timeline-detail-block { padding-top: 20px; border-top: 1px solid var(--line); }
+    .timeline-detail-block h3 { margin-bottom: 14px; font-size: 15px; font-weight: 600; color: var(--navy); }
+    .timeline-bullets { display: grid; gap: 10px; padding: 0; list-style: none; }
+    .timeline-bullets li { position: relative; padding-left: 18px; font-size: 15px; color: var(--ink); }
+    .timeline-bullets li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+    .timeline-note { font-size: 15px; color: var(--muted); }
+    .logo { position: relative; display: inline-grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; overflow: hidden; border: 1px solid var(--line); border-radius: 50%; background: var(--white); color: var(--navy); font-size: 11px; font-weight: 600; }
+    .logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .timeline-panel-logo { flex: 0 0 64px; width: 64px; height: 64px; }
+    .logo-salesforce img, .logo-twitter img, .logo-boa img { object-fit: contain; padding: 4px; }
+    .logo-ey img { object-fit: contain; padding: 5px; }
+    .logo-fallback { display: none; }
+    .logo img[hidden] + .logo-fallback { display: inline; }
+    .timeline-accordion { display: none; }
+
+    /* ---- AI work carousel ---- */
+    .ai-carousel { position: relative; min-width: 0; }
+    .ai-carousel:focus-visible { outline-offset: 6px; }
+    .ai-carousel-viewport { overflow: hidden; min-width: 0; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    .ai-carousel-track { display: flex; transition: transform 600ms var(--ease); will-change: transform; }
+    .ai-slide { flex: 0 0 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; width: 100%; min-height: 500px; padding: 48px; }
+    .ai-slide.is-web { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+    .ai-slide-visual { display: flex; align-items: center; justify-content: center; }
+    .ai-slide-copy { max-width: 460px; }
+    .ai-slide-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 14px; font-weight: 500; color: var(--muted); }
+    .ai-slide-meta b { font-weight: 600; color: var(--blue); }
+    .ai-slide-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: #9aa8b8; }
+    .ai-slide h3 { margin-bottom: 14px; font-size: clamp(30px, 3.2vw, 40px); font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; color: var(--navy); }
+    .ai-slide p { font-size: 16px; line-height: 1.6; color: var(--muted); }
+
+    .web-preview { width: 100%; max-width: 540px; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: 0 24px 50px -40px rgba(10, 37, 64, 0.45); }
+    .web-preview-bar { display: flex; align-items: center; gap: 14px; padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--white); font-size: 12px; color: var(--muted); }
+    .web-dots { display: inline-flex; gap: 5px; }
+    .web-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line); }
+    .web-stage { position: relative; aspect-ratio: 16 / 11; background: var(--paper); }
+    .web-stage img { position: absolute; inset: 0; width: 100%; height: 100%; padding: 14px; object-fit: contain; opacity: 0; animation: webCarousel 18s infinite; }
     .web-stage img:nth-child(2) { animation-delay: 6s; }
     .web-stage img:nth-child(3) { animation-delay: 12s; }
+    .web-stage-2 img { animation-name: webCarousel2; animation-duration: 12s; }
+    @keyframes webCarousel { 0%, 30% { opacity: 1; } 31%, 100% { opacity: 0; } }
+    @keyframes webCarousel2 { 0%, 45% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-    .web-stage-2 img {
-      animation: webCarousel2 12s infinite;
-    }
+    .workshop-visual { position: relative; width: 100%; max-width: 480px; aspect-ratio: 4 / 3; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); box-shadow: 0 24px 50px -40px rgba(10, 37, 64, 0.45); }
+    .workshop-visual img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: workshopFade 10s infinite; }
+    .workshop-visual img:nth-child(2) { animation-delay: 5s; }
+    @keyframes workshopFade { 0%, 42% { opacity: 1; } 50%, 100% { opacity: 0; } }
 
-    .web-stage-2 img:nth-child(1) { animation-delay: 0s; }
-    .web-stage-2 img:nth-child(2) { animation-delay: 6s; }
+    .phone-mockup { position: relative; width: min(250px, 100%); aspect-ratio: 9 / 19.5; padding: 9px; border: 1px solid #2f3540; border-radius: 42px; background: linear-gradient(145deg, #2b303a 0%, #050608 12%, #050608 88%, #2a3038 100%); box-shadow: inset 0 0 0 2px #11151b, inset 0 0 0 4px #000, 0 36px 60px -44px rgba(10, 37, 64, 0.7); }
+    .phone-screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 33px; background: #050505; }
+    .phone-screen::before { content: ""; position: absolute; top: 9px; left: 50%; z-index: 2; width: 66px; height: 20px; border-radius: 999px; background: #000; transform: translateX(-50%); }
+    .phone-screen img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; object-position: top center; opacity: 0; animation: phoneCarousel 18s infinite; }
+    .phone-screen img:nth-child(2) { animation-delay: 6s; }
+    .phone-screen img:nth-child(3) { animation-delay: 12s; }
+    @keyframes phoneCarousel { 0%, 28% { opacity: 1; } 33%, 100% { opacity: 0; } }
 
-    @keyframes webCarousel2 {
-      0%, 45% { opacity: 1; }
-      50%, 100% { opacity: 0; }
-    }
+    .ai-carousel-controls { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; }
+    .ai-carousel-counter { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .ai-carousel-counter b { font-weight: 600; color: var(--navy); }
+    .ai-carousel-counter .sep { margin: 0 6px; color: #9aa8b8; }
+    .ai-carousel-dots { display: flex; align-items: center; gap: 8px; }
+    .ai-carousel-dot { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: #c9d3e0; cursor: pointer; transition: background 200ms var(--ease), width 200ms var(--ease); }
+    .ai-carousel-dot.active { width: 24px; background: var(--blue); }
+    .ai-carousel-buttons { display: flex; gap: 8px; }
+    .ai-carousel-btn { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--white); color: var(--navy); font-size: 16px; cursor: pointer; transition: background 160ms var(--ease), color 160ms var(--ease), border-color 160ms var(--ease); }
+    .ai-carousel-btn:hover { background: var(--navy); border-color: var(--navy); color: var(--white); }
 
-    /* carousel controls */
+    /* ---- numbers ---- */
+    .numbers-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 0.8fr); gap: 48px; align-items: end; padding: 32px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    .numbers-hero-meta { margin-bottom: 12px; font-size: 14px; color: var(--muted); }
+    .numbers-hero-meta b { font-weight: 600; color: var(--blue); }
+    .numbers-hero-value { font-size: clamp(64px, 8vw, 104px); font-weight: 600; line-height: 0.95; letter-spacing: -0.045em; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .pct { margin-left: 2px; font-size: 0.5em; font-weight: 500; letter-spacing: -0.02em; color: var(--muted); }
+    .numbers-hero-label { max-width: 46ch; margin-top: 14px; font-size: 16px; color: var(--muted); }
+    .trend-bars { display: flex; align-items: flex-end; gap: 8px; height: 170px; margin-top: 28px; border-bottom: 1px solid var(--line); }
+    .trend-bar { position: relative; flex: 1; min-height: 12px; border-radius: 4px 4px 0 0; background: var(--bar); }
+    .trend-bar:last-child { background: var(--blue); }
+    .trend-bar .bv { position: absolute; top: -20px; left: 50%; font-size: 11.5px; font-weight: 600; color: var(--ink); white-space: nowrap; transform: translateX(-50%); }
+    .trend-labels { display: flex; gap: 8px; margin-top: 8px; }
+    .trend-labels span { flex: 1; text-align: center; font-size: 12px; color: var(--muted); }
+    .trend-yoy { margin-top: 14px; font-size: 13.5px; font-weight: 600; color: var(--blue); }
 
-    .ai-carousel-controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      margin-top: 28px;
-    }
+    .stats-grid { display: grid; margin-top: 32px; border-top: 1px solid var(--line); }
+    .stats-grid.five { grid-template-columns: repeat(5, 1fr); }
+    .stats-grid.three { grid-template-columns: repeat(3, 1fr); }
+    .stat { display: flex; flex-direction: column; gap: 8px; padding: 24px 22px 8px 0; border-right: 1px solid var(--line); }
+    .stat + .stat { padding-left: 22px; }
+    .stat:last-child { border-right: 0; }
+    .stat-year { font-size: 13px; font-weight: 600; color: var(--blue); }
+    .stat-value { font-size: 44px; font-weight: 600; line-height: 1; letter-spacing: -0.04em; color: var(--navy); font-variant-numeric: tabular-nums; }
+    .stat-label { font-size: 14px; color: var(--muted); }
+    .stats-divider { height: 1px; margin: 72px 0 56px; background: var(--line); }
+    .stats-note { max-width: 78ch; margin-top: 28px; padding-left: 18px; border-left: 2px solid var(--blue); font-size: 15px; color: var(--muted); }
+    .stats-note b { font-weight: 600; color: var(--navy); }
 
-    .ai-carousel-counter {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      letter-spacing: 0.04em;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-    }
+    .award { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-top: 48px; padding: 22px 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--white); }
+    .award-mark { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 12px; background: var(--paper); }
+    .award-mark img { display: block; width: 36px; height: 36px; object-fit: contain; }
+    .award-meta { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+    .award-meta b { font-weight: 600; color: var(--blue); }
+    .award-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: #9aa8b8; }
+    .award-title { margin-top: 2px; font-size: 20px; font-weight: 600; line-height: 1.2; letter-spacing: -0.02em; color: var(--navy); }
+    .award-desc { max-width: 60ch; margin-top: 4px; font-size: 14.5px; color: var(--muted); }
+    .award-pill { padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); font-size: 13px; font-weight: 600; color: var(--navy); white-space: nowrap; }
 
-    .ai-carousel-counter b {
-      color: var(--ink);
-      font-weight: 500;
-    }
-
-    .ai-carousel-counter .sep {
-      margin: 0 6px;
-      color: var(--line-dark);
-    }
-
-    .ai-carousel-dots {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .ai-carousel-dot {
-      width: 8px;
-      height: 8px;
-      padding: 0;
-      border: none;
-      border-radius: 999px;
-      background: var(--line-dark);
-      cursor: pointer;
-      transition: background 240ms var(--ease), width 240ms var(--ease);
-    }
-
-    .ai-carousel-dot.active {
-      width: 24px;
-      background: var(--orange);
-    }
-
-    .ai-carousel-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .ai-carousel-btn {
-      width: 44px;
-      height: 44px;
-      padding: 0;
-      border: 1px solid var(--line-dark);
-      border-radius: 999px;
-      background: #ffffff;
-      color: var(--ink);
-      font-size: 16px;
-      display: grid;
-      place-items: center;
-      cursor: pointer;
-      transition: background 200ms var(--ease), color 200ms var(--ease), border-color 200ms var(--ease);
-    }
-
-    .ai-carousel-btn:hover {
-      background: var(--ink);
-      color: #ffffff;
-      border-color: var(--ink);
-    }
-
-    @keyframes webCarousel {
-      0%, 30% { opacity: 1; }
-      31%, 100% { opacity: 0; }
-    }
-
-    .personal-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
-      gap: 56px;
-      align-items: end;
-    }
-
-    .personal-copy {
-      max-width: 640px;
-    }
-
-    .personal-copy p {
-      margin: 0;
-      color: var(--muted);
-      font-family: "Instrument Serif", serif;
-      font-size: clamp(20px, 1.8vw, 27px);
-      font-weight: 400;
-      line-height: 1.4;
-      letter-spacing: -0.012em;
-    }
-
-    .personal-copy p + p {
-      margin-top: 20px;
-    }
-
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 0.78fr;
-      gap: 14px;
-      align-items: stretch;
-    }
-
-    .photo-slot {
-      min-height: 360px;
-      overflow: hidden;
-      display: flex;
-      align-items: end;
-      border: 7px solid #ffffff;
-      border-radius: 24px;
-      background:
-        linear-gradient(135deg, rgba(37,99,235,0.16), rgba(0,212,255,0.08)),
-        var(--bg-2);
-      box-shadow: 0 30px 70px -46px rgba(10,37,64,0.55);
-    }
-
-    .photo-slot.small {
-      min-height: 173px;
-    }
-
-    .photo-column {
-      display: grid;
-      gap: 14px;
-    }
-
-    .photo-caption {
-      width: 100%;
-      padding: 18px;
-      color: var(--ink);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.76);
-      border-top: 1px solid rgba(10,37,64,0.08);
-    }
-
-    .memory-carousel {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      background: #ffffff;
-      box-shadow: 0 34px 80px -58px rgba(10,37,64,0.7);
-    }
-
-    .memory-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 14px 18px;
-      border-bottom: 1px solid var(--line);
-      color: var(--muted);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .memory-stage {
-      position: relative;
-      aspect-ratio: 1 / 1;
-      background:
-        linear-gradient(135deg, rgba(37,99,235,0.08), rgba(0,212,255,0.08)),
-        var(--bg-2);
-    }
-
-    .memory-slide {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      align-items: center;
-      padding: 18px;
-      opacity: 0;
-      animation: memoryCarousel 45s infinite;
-    }
-
-    .memory-slide:nth-child(1) { animation-delay: 0s; }
+    /* ---- outside work ---- */
+    .personal-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
+    .personal-layout .head { margin-bottom: 28px; }
+    .personal-copy p { max-width: 34ch; font-family: var(--serif); font-size: clamp(21px, 2vw, 26px); line-height: 1.4; color: var(--ink); }
+    .personal-copy p + p { margin-top: 16px; color: var(--muted); }
+    .personal-text { padding-left: 88px; }
+    .memory-carousel { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    .memory-head { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 14px 18px; border-bottom: 1px solid var(--line); font-size: 13px; font-weight: 500; color: var(--muted); }
+    .memory-stage { position: relative; aspect-ratio: 1 / 1; background: var(--paper); }
+    .memory-slide { position: absolute; inset: 0; opacity: 0; animation: memoryCarousel 45s infinite; }
     .memory-slide:nth-child(2) { animation-delay: 5s; }
     .memory-slide:nth-child(3) { animation-delay: 10s; }
     .memory-slide:nth-child(4) { animation-delay: 15s; }
@@ -1060,1255 +250,412 @@
     .memory-slide:nth-child(7) { animation-delay: 30s; }
     .memory-slide:nth-child(8) { animation-delay: 35s; }
     .memory-slide:nth-child(9) { animation-delay: 40s; }
-
-    .memory-slide img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      border-radius: 20px;
-      object-fit: contain;
-      background: #ffffff;
-      box-shadow: 0 24px 60px -48px rgba(10,37,64,0.8);
-    }
-
-    .memory-slide figcaption {
-      position: absolute;
-      left: 34px;
-      right: 34px;
-      bottom: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      padding: 14px 16px;
-      border: 1px solid rgba(255,255,255,0.48);
-      border-radius: 999px;
-      background: rgba(255,255,255,0.86);
-      color: var(--ink);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      box-shadow: 0 18px 50px -36px rgba(10,37,64,0.9);
-    }
-
-    .memory-slide figcaption span:last-child {
-      color: var(--orange);
-    }
-
-    @keyframes memoryCarousel {
-      0%, 9% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-
-      11%, 100% {
-        opacity: 0;
-        transform: translateY(8px) scale(0.985);
-      }
-    }
-
-    .stats-head {
-      display: flex;
-      justify-content: space-between;
-      gap: 48px;
-      align-items: end;
-      padding-bottom: 36px;
-      margin-bottom: 1px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .stats-label {
-      margin-bottom: 34px;
-    }
-
-    .stats-head p {
-      max-width: 320px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-      text-align: right;
-    }
-
-    /* Hero stat — large cumulative number + bar chart */
-    .numbers-hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(240px, 0.55fr);
-      gap: 48px;
-      align-items: end;
-      padding: 44px 48px;
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 14px;
-    }
-    .numbers-hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--orange), #60a5fa);
-    }
-    .numbers-hero-meta {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-    .numbers-hero-meta b { color: var(--orange); font-weight: 500; }
-    .numbers-hero-value {
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(88px, 12vw, 168px);
-      font-weight: 700;
-      line-height: 0.88;
-      letter-spacing: -0.05em;
-      color: var(--ink);
-      font-variant-numeric: tabular-nums;
-    }
-    .numbers-hero-label {
-      margin: 16px 0 0;
-      max-width: 440px;
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      color: var(--muted);
-    }
-
-    /* Trend bar chart */
-    .trend-bars {
-      display: flex;
-      align-items: end;
-      gap: 12px;
-      height: 160px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--line);
-    }
-    .trend-bar {
-      flex: 1;
-      background: linear-gradient(180deg, var(--orange), rgba(37, 99, 235, 0.22));
-      border-radius: 3px 3px 0 0;
-      min-height: 12px;
-      position: relative;
-    }
-    .trend-bar .bv {
-      position: absolute;
-      top: -22px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: "Instrument Sans", sans-serif;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: -0.012em;
-      white-space: nowrap;
-    }
-    .trend-labels {
-      display: flex;
-      gap: 12px;
-      margin-top: 8px;
-    }
-    .trend-labels span {
-      flex: 1;
-      text-align: center;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .trend-yoy {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 16px;
-      padding: 5px 10px;
-      border-radius: 99px;
-      background: rgba(0, 168, 132, 0.08);
-      color: var(--green);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-    }
-
-    /* Supporting stats grid */
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 14px;
-    }
-
-    .stat {
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      min-height: 200px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-year {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--orange);
-      font-weight: 500;
-    }
-
-    .stat-value {
-      margin: 0;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(54px, 6.5vw, 80px);
-      font-weight: 600;
-      line-height: 0.9;
-      letter-spacing: -0.04em;
-      color: var(--ink);
-      font-variant-numeric: tabular-nums;
-    }
-
-    .stat-value .pct {
-      font-family: "Instrument Sans", sans-serif;
-      font-size: 0.4em;
-      font-weight: 500;
-      color: var(--orange);
-      letter-spacing: -0.02em;
-      margin-left: 2px;
-      vertical-align: 0.55em;
-    }
-
-    .stat-label {
-      margin-top: auto;
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 14px;
-      line-height: 1.45;
-      color: var(--muted);
-    }
-
-    .numbers-hero-value .pct {
-      font-size: 0.45em;
-      font-weight: 500;
-      color: var(--orange);
-      letter-spacing: -0.02em;
-      margin-left: 2px;
-      vertical-align: 0.6em;
-    }
-
-    /* Sub-block divider — separates Delivery / Representation / Locations stories within Numbers */
-    .stats-divider {
-      height: 1px;
-      background: var(--line);
-      margin: 56px 0 40px;
-    }
-
-    .stats-note {
-      margin: 18px 0 0;
-      max-width: 720px;
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: var(--muted);
-    }
-
-    .stats-note b { color: var(--ink); font-weight: 600; }
-
-    /* Maple Leaf Award callout */
-    .award {
-      margin-top: 22px;
-      display: grid;
-      grid-template-columns: 56px minmax(0, 1fr) auto;
-      gap: 24px;
-      align-items: center;
-      padding: 22px 28px;
-      background: var(--bg-2);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      position: relative;
-      overflow: hidden;
-    }
-    .award::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; bottom: 0;
-      width: 3px;
-      background: linear-gradient(180deg, #d97706, #f59e0b);
-    }
-    .award-mark {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, #fef3c7, #fde68a);
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-    .award-mark img { width: 38px; height: 38px; object-fit: contain; display: block; }
-    .award-body { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-    .award-meta {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10.5px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .award-meta b { color: #b45309; font-weight: 500; }
-    .award-meta .sep { width: 3px; height: 3px; background: var(--line-dark); border-radius: 50%; }
-    .award-title {
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.022em;
-      line-height: 1.2;
-      color: var(--ink);
-    }
-    .award-desc {
-      margin: 4px 0 0;
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 14px;
-      line-height: 1.5;
-      color: var(--muted);
-      max-width: 560px;
-    }
-    .award-pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 6px 12px;
-      border-radius: 99px;
-      background: rgba(217, 119, 6, 0.1);
-      color: #b45309;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10.5px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .timeline-dossier {
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      gap: 20px;
-      margin-top: 52px;
-      align-items: stretch;
-    }
-
-    .timeline-nav {
-      display: grid;
-      align-content: start;
-      gap: 1px;
-      border: 1px solid var(--line-dark);
-      background: var(--line-dark);
-      border-radius: 28px;
-      overflow: hidden;
-    }
-
-    .timeline-role {
-      display: grid;
-      grid-template-columns: 52px minmax(0, 1fr);
-      gap: 14px;
-      align-items: center;
-      width: 100%;
-      min-height: 94px;
-      padding: 18px;
-      border: 0;
-      background: #ffffff;
-      color: var(--ink);
-      text-align: left;
-      cursor: pointer;
-      transition: background 320ms var(--ease), color 320ms var(--ease), transform 320ms var(--ease);
-    }
-
-    .timeline-role:hover {
-      background: rgba(37, 99, 235, 0.06);
-    }
-
-    .timeline-role[aria-selected="true"] {
-      background: var(--ink);
-      color: #ffffff;
-    }
-
-    .timeline-role:focus-visible {
-      outline: 2px solid var(--orange);
-      outline-offset: -4px;
-    }
-
-    .timeline-role-title {
-      display: block;
-      color: inherit;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 1.25;
-      letter-spacing: -0.02em;
-    }
-
-    .timeline-role-meta {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted-dark);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      font-weight: 400;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .timeline-role[aria-selected="true"] .timeline-role-meta {
-      color: rgba(255, 255, 255, 0.68);
-    }
-
-    .timeline-panel {
-      min-height: 100%;
-      border: 1px solid var(--line-dark);
-      border-radius: 28px;
-      background: #ffffff;
-      padding: clamp(28px, 4vw, 52px);
-    }
-
-    .timeline-panel-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 30px;
-      align-items: flex-start;
-      margin-bottom: 34px;
-    }
-
-    .timeline-panel-meta {
-      margin-bottom: 14px;
-      color: var(--orange);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 13px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .timeline-panel-title {
-      margin: 0;
-      color: var(--ink);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(36px, 3.5vw, 54px);
-      font-weight: 600;
-      line-height: 1.0;
-      letter-spacing: -0.045em;
-    }
-
-    .timeline-panel-summary {
-      max-width: 900px;
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: clamp(15px, 1.1vw, 17px);
-      line-height: 1.55;
-      letter-spacing: -0.01em;
-    }
-
-    .timeline-proof-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      margin: 32px 0 34px;
-      border: 1px solid var(--line-dark);
-      border-radius: 22px;
-      overflow: hidden;
-      background: var(--line-dark);
-    }
-
-    .timeline-proof {
-      min-height: 110px;
-      padding: 18px 20px;
-      background: var(--bg-2);
-    }
-
-    .timeline-proof strong {
-      display: block;
-      color: var(--ink);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(32px, 3.5vw, 54px);
-      font-weight: 700;
-      line-height: 0.95;
-      letter-spacing: -0.05em;
-    }
-
-    .timeline-proof span {
-      display: block;
-      margin-top: 12px;
-      color: var(--muted-dark);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-    }
-
-    .timeline-detail-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-      gap: 34px;
-    }
-
-    .timeline-detail-block {
-      border-top: 1px solid var(--line-dark);
-      padding-top: 20px;
-    }
-
-    .timeline-detail-block h3 {
-      margin: 0 0 18px;
-      color: var(--ink);
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .timeline-bullets {
-      display: grid;
-      gap: 13px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .timeline-bullets li {
-      position: relative;
-      padding-left: 20px;
-      color: var(--ink-dark);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 15px;
-      line-height: 1.55;
-      letter-spacing: -0.005em;
-    }
-
-    .timeline-bullets li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.7em;
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--orange);
-    }
-
-    .timeline-note {
-      margin: 0;
-      color: var(--muted);
-      font-family: Manrope, Inter, sans-serif;
-      font-size: 15px;
-      line-height: 1.55;
-      letter-spacing: -0.005em;
-    }
-
-    .logo {
-      position: relative;
-      display: inline-grid;
-      place-items: center;
-      width: 52px;
-      height: 52px;
-      flex: 0 0 52px;
-      border: 1px solid var(--line-dark);
-      border-radius: 999px;
-      background: #ffffff;
-      overflow: hidden;
-      color: var(--ink);
-      font-family: "JetBrains Mono", monospace;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.06em;
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .timeline-panel-logo {
-      width: 92px;
-      height: 92px;
-      flex: 0 0 92px;
-    }
-
-    /* Mobile accordion — hidden on desktop */
-    .timeline-accordion { display: none; }
-
-    .logo-salesforce img {
-      object-fit: contain;
-      padding: 5px;
-    }
-
-    .logo-twitter img {
-      object-fit: contain;
-      padding: 5px;
-    }
-
-    .logo-boa img {
-      object-fit: contain;
-      padding: 5px;
-    }
-
-    .logo-ey img {
-      object-fit: contain;
-      padding: 6px;
-    }
-
-    .logo-fallback { display: none; }
-
-    .logo img[hidden] + .logo-fallback { display: inline; }
-
-    .final {
-      padding: 126px 0 92px;
-      text-align: center;
-      background:
-        radial-gradient(circle at 50% 0%, rgba(99,91,255,0.16), transparent 26rem),
-        linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
-    }
-
-    .final h2 {
-      margin: 0;
-      font-family: "Instrument Sans", Inter, sans-serif;
-      font-size: clamp(74px, 13vw, 180px);
-      font-weight: 600;
-      line-height: 0.95;
-      letter-spacing: -0.045em;
-    }
-
-    .final h2 em {
-      font-family: "Instrument Serif", serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--orange);
-      letter-spacing: -0.01em;
-    }
-
-    .final p {
-      max-width: 570px;
-      margin: 28px auto 32px;
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.6;
-    }
-
-    .button-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      border-radius: 999px;
-      padding: 16px 32px;
-      background: var(--ink);
-      color: #ffffff;
-      font-size: 16px;
-      font-weight: 600;
-      transition: transform 500ms var(--ease), background 500ms var(--ease);
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      background: #1b3a5e;
-    }
-
-    .button.secondary {
-      border: 1px solid var(--line);
-      background: transparent;
-      color: var(--ink);
-    }
-
-    .ticker {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 11;
-      height: 32px;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      background: var(--ink);
-      color: #ffffff;
-      border-top: 1px solid rgba(10,37,64,0.12);
-      font-family: Anton, sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .ticker-track {
-      display: flex;
-      gap: 46px;
-      white-space: nowrap;
-      animation: scroll 32s linear infinite;
-    }
-
-    .ticker span::after {
-      content: "●";
-      margin-left: 46px;
-      font-size: 8px;
-    }
-
-    @keyframes scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
+    .memory-slide img { position: absolute; inset: 16px; display: block; width: calc(100% - 32px); height: calc(100% - 32px); border-radius: 12px; object-fit: contain; }
+    .memory-slide figcaption { position: absolute; left: 28px; right: 28px; bottom: 28px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 10px; background: rgba(255, 255, 255, 0.94); font-size: 13.5px; font-weight: 600; color: var(--navy); }
+    .memory-slide figcaption span:last-child { font-weight: 500; color: var(--muted); font-variant-numeric: tabular-nums; }
+    @keyframes memoryCarousel { 0%, 9% { opacity: 1; } 11%, 100% { opacity: 0; } }
+
+    /* ---- contact ---- */
+    .final { padding: 104px 0; background: var(--navy); color: var(--white); }
+    .final h2 { font-weight: 500; font-size: clamp(56px, 8vw, 104px); line-height: 0.95; letter-spacing: -0.045em; color: var(--white); }
+    .final h2 em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; color: #8fb0ff; }
+    .final p { max-width: 60ch; margin: 24px 0 32px; font-size: 17px; color: #b9c6d8; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .button { display: inline-flex; align-items: center; min-height: 48px; padding: 0 20px; border: 1px solid transparent; border-radius: 10px; background: var(--white); color: var(--navy); font-size: 15px; font-weight: 600; text-decoration: none; transition: background 160ms var(--ease); }
+    .button:hover { background: var(--blue-soft); }
+    .button.secondary { border-color: rgba(255, 255, 255, 0.28); background: transparent; color: var(--white); }
+    .button.secondary:hover { background: rgba(255, 255, 255, 0.08); }
+    .final a:focus-visible { outline-color: #8fb0ff; }
+
+    /* ---- responsive ---- */
+    @media (max-width: 1040px) {
+      .hero-grid { grid-template-columns: minmax(0, 1fr) 300px; gap: 40px; }
+      .numbers-hero { grid-template-columns: 1fr; gap: 24px; }
+      .stats-grid.five, .stats-grid.three { grid-template-columns: 1fr 1fr; column-gap: 32px; }
+      .stat, .stat + .stat { padding: 20px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .ai-slide { gap: 40px; padding: 40px; }
+      .personal-text { padding-left: 0; }
     }
 
     @media (max-width: 980px) {
-      .chrome nav { display: none; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .portrait { max-width: 420px; }
+      .personal-layout { grid-template-columns: 1fr; gap: 40px; }
+      .ai-slide, .ai-slide.is-web { grid-template-columns: 1fr; gap: 32px; min-height: 0; padding: 36px 28px; }
+      .ai-slide-visual { order: -1; }
+      .phone-mockup { width: min(220px, 70%); }
+      .workshop-visual { max-width: 100%; }
 
-      .hero-grid,
-      .section-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .hero-copy,
-      .stats-grid,
-      .practice-grid,
-      .personal-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .photo-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .ai-slide,
-      .ai-slide.is-web,
-      .ai-slide.is-placeholder {
-        grid-template-columns: 1fr;
-        gap: 32px;
-        padding: 40px 28px;
-        min-height: 0;
-      }
-
-      .ai-slide-visual {
-        order: -1;
-      }
-
-      .phone-mockup {
-        width: min(220px, 70%);
-      }
-
-      .placeholder-visual {
-        max-width: 100%;
-        aspect-ratio: 16 / 10;
-      }
-
-      .workshop-visual {
-        max-width: 100%;
-      }
-
-      .brand-inner {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .brand-list {
-        justify-content: flex-start;
-      }
-
-      .section-label {
-        position: static;
-      }
-
-      .stats-head {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .stats-head p {
-        text-align: left;
-      }
-
-      .numbers-hero {
-        grid-template-columns: 1fr;
-        padding: 32px 28px;
-        gap: 32px;
-      }
-
-      .award {
-        grid-template-columns: 1fr;
-        gap: 16px;
-        padding: 20px;
-      }
-
-      .award-mark { width: 44px; height: 44px; }
-      .award-pill { align-self: flex-start; }
-
-      .timeline-dossier,
-      .timeline-detail-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .timeline-panel-top {
-        display: grid;
-      }
-
-      /* Mobile accordion */
+      /* experience becomes an accordion */
+      .timeline-dossier, .timeline-detail-grid { grid-template-columns: 1fr; }
       .timeline-panel { display: none; }
-
-      .timeline-nav {
-        display: block;
-        background: #ffffff;
-      }
-
-      .timeline-role {
-        grid-template-columns: 52px minmax(0, 1fr) 20px;
-        border-bottom: 1px solid var(--line-dark);
-      }
-
-      .timeline-role::after {
-        content: '';
-        width: 7px;
-        height: 7px;
-        border-right: 2px solid currentColor;
-        border-bottom: 2px solid currentColor;
-        transform: rotate(-45deg);
-        transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
-        opacity: 0.45;
-        align-self: center;
-        justify-self: center;
-      }
-
-      .timeline-role[aria-selected="true"]::after {
-        transform: rotate(45deg);
-        opacity: 0.85;
-      }
-
-      .timeline-accordion {
-        display: block;
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 420ms cubic-bezier(0.22, 1, 0.36, 1);
-      }
-
-      .timeline-accordion.open {
-        max-height: 3200px;
-      }
-
-      .timeline-accordion-inner {
-        padding: 24px 20px 30px;
-        background: var(--bg-2);
-        border-bottom: 1px solid var(--line-dark);
-      }
-
-      .mob-acc-title {
-        font-family: "Instrument Sans", Inter, sans-serif;
-        font-size: clamp(26px, 7vw, 36px);
-        font-weight: 600;
-        letter-spacing: -0.03em;
-        line-height: 1.05;
-        color: var(--ink);
-        margin: 8px 0 14px;
-      }
-
+      .timeline-role { grid-template-columns: minmax(0, 1fr) auto 16px; align-items: center; min-height: 44px; }
+      .timeline-role::after { content: ""; justify-self: center; width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; opacity: 0.45; transform: rotate(-45deg); transition: transform 320ms var(--ease); }
+      .timeline-role[aria-selected="true"]::after { color: var(--blue); opacity: 0.85; transform: rotate(45deg); }
+      .timeline-accordion { display: block; max-height: 0; margin-left: 28px; overflow: hidden; transition: max-height 420ms var(--ease); }
+      .timeline-accordion.open { max-height: 3200px; }
+      .timeline-accordion-inner { margin: 8px 0 12px; padding: 22px 18px 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
+      .mob-acc-title { margin: 0 0 12px; font-size: clamp(24px, 6vw, 30px); font-weight: 600; line-height: 1.1; letter-spacing: -0.025em; color: var(--navy); }
       .mob-acc-proofs { margin: 20px 0 24px; }
       .mob-acc-note { margin-top: 20px; }
     }
 
-    @media (max-width: 680px) {
-      .shell {
-        width: min(100% - 28px, 1320px);
-      }
+    @media (max-width: 860px) {
+      .topbar nav { display: none; }
+      .navtoggle { display: inline-flex; }
+    }
+    @media (min-width: 861px) { .mobile-nav { display: none !important; } }
 
-      .hero {
-        padding: 96px 0 48px;
-      }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      .topbar { padding-inline: 16px; }
+      .brand small, .navtoggle-label { display: none; }
+      .hero { padding: 56px 0 56px; }
+      .section { padding: 64px 0; }
+      .final { padding: 72px 0; }
+      .head { grid-template-columns: 1fr; margin-bottom: 32px; }
+      .head .num { grid-row: auto; padding: 0 0 8px; }
+      .hero-facts, .stats-grid.five, .stats-grid.three, .timeline-proof-grid { grid-template-columns: 1fr; }
+      .hero-facts > div, .hero-facts > div + div { padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .timeline-proof, .timeline-proof + .timeline-proof { padding: 16px 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .timeline-proof strong { font-size: 28px; }
+      .numbers-hero { padding: 24px 20px; }
+      .award { grid-template-columns: 1fr; gap: 14px; padding: 20px; }
+      .award-pill { justify-self: start; }
+      .ai-slide, .ai-slide.is-web { padding: 28px 20px; gap: 24px; }
+      .ai-carousel-controls { flex-wrap: wrap; justify-content: center; gap: 14px; }
+      .ai-carousel-counter { order: 1; }
+      .ai-carousel-dots { order: 2; gap: 6px; }
+      .ai-carousel-buttons { order: 3; }
+      .ai-carousel-dot { width: 6px; height: 6px; }
+      .ai-carousel-dot.active { width: 18px; }
+      .memory-slide figcaption { left: 24px; right: 24px; bottom: 24px; }
+    }
 
-      .meta-row,
-      .metric-grid,
-      .timeline-proof-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .meta-row div {
-        text-align: left !important;
-      }
-
-      .console-body {
-        padding: 18px;
-      }
-
-      .ai-slide {
-        padding: 32px 22px;
-        gap: 26px;
-      }
-
-      .ai-slide h3 {
-        font-size: clamp(34px, 9vw, 48px);
-      }
-
-      .ai-carousel-controls {
-        flex-wrap: wrap;
-        gap: 14px;
-        justify-content: center;
-      }
-
-      .ai-carousel-buttons {
-        order: 3;
-      }
-
-      .ai-carousel-counter {
-        order: 1;
-      }
-
-      .ai-carousel-dots {
-        order: 2;
-        gap: 6px;
-      }
-
-      .ai-carousel-dot {
-        width: 6px;
-        height: 6px;
-      }
-
-      .ai-carousel-dot.active {
-        width: 18px;
-      }
-
-      .photo-slot,
-      .photo-slot.small {
-        min-height: 260px;
-      }
-
-      .light,
-      .dark-section {
-        padding: 76px 0;
-      }
-
-      .timeline-dossier {
-        margin-top: 34px;
-      }
-
-      .timeline-role {
-        min-height: 82px;
-        padding: 14px;
-      }
-
-      .timeline-panel {
-        padding: 24px;
-      }
-
-      .timeline-panel-title {
-        font-size: clamp(38px, 12vw, 58px);
-      }
-
-      .timeline-panel-summary {
-        font-size: 18px;
-      }
-
-      .timeline-panel-logo {
-        width: 72px;
-        height: 72px;
-      }
-
-      .ticker {
-        position: static;
-      }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.001ms !important; }
+      .web-stage img, .workshop-visual img, .phone-screen img, .memory-slide { animation: none !important; opacity: 0; }
+      .web-stage img:first-child, .workshop-visual img:first-child, .phone-screen img:first-child, .memory-slide:first-child { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <header class="chrome">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">LS</span><span>Lee Sam<small>Recruiting leadership</small></span></a>
     <nav aria-label="Primary">
       <a href="#experience">Experience</a>
       <a href="#ai-work">AI Work</a>
       <a href="#numbers">Numbers</a>
       <a href="#outside-work">Outside Work</a>
-      <a class="cta" href="#contact">Contact →</a>
     </nav>
+    <div class="topbar-end">
+      <a class="cta" href="#contact">Contact</a>
+      <button type="button" class="navtoggle" id="navToggle" aria-expanded="false" aria-controls="mobileNav">
+        <span class="navtoggle-label">Section</span><span id="navCurrent">Menu</span>
+        <svg viewBox="0 0 12 8" width="11" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </header>
+  <nav class="mobile-nav" id="mobileNav" aria-label="Sections" hidden>
+    <a href="#experience">Experience</a>
+    <a href="#ai-work">AI Work</a>
+    <a href="#numbers">Numbers</a>
+    <a href="#outside-work">Outside Work</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <main>
+  <main id="main" tabindex="-1">
     <section class="hero" id="top">
-      <div class="stamp">26</div>
       <div class="shell hero-grid">
         <div>
-          <div class="meta-row">
-            <div><span>Focus</span><strong style="font-size:11px;letter-spacing:0">EMEA GTM and Engineering Recruiting</strong></div>
-            <div style="text-align:center"><span>Based</span><strong>London, UK</strong></div>
-            <div style="text-align:right"><span>Company</span><strong>Cloudflare</strong></div>
-          </div>
           <h1>Lee Sam</h1>
-          <p class="subhead">The recruiting leader for the AI era.</p>
-          <div class="hero-copy">
-            <div>
-              <p>Companies are rearchitecting for the AI era. The way they find, assess, and hire will change too.</p>
-            </div>
-            <div>
-              <p>Navigating that shift requires an AI-native recruiting leader — one who understands both the work and the tools required to do it differently.</p>
-            </div>
+          <p class="lede">The recruiting leader for the AI era.</p>
+          <div class="thesis">
+            <p>Companies are rearchitecting for the AI era. The way they find, assess, and hire will change too.</p>
+            <p>Navigating that shift requires an AI-native recruiting leader — one who understands both the work and the tools required to do it differently.</p>
+          </div>
+          <div class="hero-facts">
+            <div><span>Focus</span><b>EMEA GTM and Engineering Recruiting</b></div>
+            <div><span>Based</span><b>London, UK</b></div>
+            <div><span>Most recently at</span><b>Cloudflare</b></div>
           </div>
         </div>
-
-        <aside class="console hero-portrait-card" aria-label="Portrait of Lee Sam">
-          <div class="console-inner">
-            <img class="hero-portrait" src="assets/lee-sam-hero.jpeg" alt="Lee Sam seated by a London office window">
-          </div>
-        </aside>
+        <div class="portrait">
+          <img src="assets/lee-sam-hero.jpeg" alt="Lee Sam seated by a London office window">
+        </div>
       </div>
     </section>
 
-    <section class="light" id="experience">
-      <div class="shell section-grid">
-        <div class="section-label">02 / Experience</div>
-        <div>
-          <h2 class="section-title">Timeline.</h2>
-          <p class="record-subhead">Twenty years across the world's category-defining technology companies.</p>
-        </div>
-      </div>
+    <section class="section paper" id="experience">
       <div class="shell">
-          <div class="timeline-dossier" data-timeline-dossier>
-            <div class="timeline-nav" role="tablist" aria-label="Experience timeline">
+        <div class="head"><span class="num">02</span><h2>Timeline.</h2>
+          <p>Twenty years across the world's category-defining technology companies.</p></div>
+        <div class="timeline-dossier" data-timeline-dossier>
+          <div class="timeline-nav" role="tablist" aria-label="Experience timeline" aria-orientation="vertical">
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
+                <span class="tl-company-name">Cloudflare</span><span class="tl-company-years">2018 — 2026</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="true" aria-controls="timeline-panel" data-role-index="0">
-                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
-                <span><span class="timeline-role-title">Executive Recruiting &amp; AI</span><span class="timeline-role-meta">2026</span></span>
+                <span class="timeline-role-title">Executive Recruiting<span class="sr-only"> at Cloudflare</span></span><span class="timeline-role-meta">2026</span>
               </button>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="1">
-                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
-                <span><span class="timeline-role-title">Head of Recruiting, EMEA</span><span class="timeline-role-meta">2022 — 2026</span></span>
+                <span class="timeline-role-title">Head of Recruiting, EMEA<span class="sr-only"> at Cloudflare</span></span><span class="timeline-role-meta">2022 — 2026</span>
               </button>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="2">
-                <span class="logo logo-cloudflare"><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" onerror="this.hidden=true"><span class="logo-fallback">CF</span></span>
-                <span><span class="timeline-role-title">Recruiter to Manager</span><span class="timeline-role-meta">2018 — 2022</span></span>
+                <span class="timeline-role-title">Recruiter to Manager<span class="sr-only"> at Cloudflare</span></span><span class="timeline-role-meta">2018 — 2022</span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-okta"><img src="assets/logos/okta.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>
+                <span class="tl-company-name">Okta</span><span class="tl-company-years">2018</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="3">
-                <span class="logo logo-okta"><img src="assets/logos/okta.png" alt="Okta logo" onerror="this.hidden=true"><span class="logo-fallback">OK</span></span>
-                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">Okta · 2018</span></span>
+                <span class="timeline-role-title">Senior Recruiter<span class="sr-only"> at Okta, 2018</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-snap"><img src="assets/logos/snap-clean.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>
+                <span class="tl-company-name">Snap</span><span class="tl-company-years">2017</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="4">
-                <span class="logo logo-snap"><img src="assets/logos/snap-clean.png" alt="Snap Inc. logo" onerror="this.hidden=true"><span class="logo-fallback">SN</span></span>
-                <span><span class="timeline-role-title">Senior Business Recruiter</span><span class="timeline-role-meta">Snap · 2017</span></span>
+                <span class="timeline-role-title">Senior Business Recruiter<span class="sr-only"> at Snap, 2017</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-salesforce"><img src="assets/logos/salesforce-clean.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>
+                <span class="tl-company-name">Salesforce</span><span class="tl-company-years">2015 — 2016</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="5">
-                <span class="logo logo-salesforce"><img src="assets/logos/salesforce-clean.png" alt="Salesforce logo" onerror="this.hidden=true"><span class="logo-fallback">SF</span></span>
-                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">2015 — 2016</span></span>
+                <span class="timeline-role-title">Senior Recruiter<span class="sr-only"> at Salesforce, 2015 to 2016</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>
+                <span class="tl-company-name">Twitter</span><span class="tl-company-years">2013 — 2015</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="6">
-                <span class="logo logo-twitter"><img src="assets/logos/twitter.png" alt="Twitter logo" onerror="this.hidden=true"><span class="logo-fallback">TW</span></span>
-                <span><span class="timeline-role-title">Senior Recruiter</span><span class="timeline-role-meta">Twitter · 2013 — 2015</span></span>
+                <span class="timeline-role-title">Senior Recruiter<span class="sr-only"> at Twitter, 2013 to 2015</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-boa"><img src="assets/logos/boa.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>
+                <span class="tl-company-name">BoA Merrill Lynch</span><span class="tl-company-years">2011 — 2013</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="7">
-                <span class="logo logo-boa"><img src="assets/logos/boa.png" alt="Bank of America logo" onerror="this.hidden=true"><span class="logo-fallback">BA</span></span>
-                <span><span class="timeline-role-title">Technology Recruiter</span><span class="timeline-role-meta">2011 — 2013</span></span>
+                <span class="timeline-role-title">Technology Recruiter<span class="sr-only"> at BoA Merrill Lynch, 2011 to 2013</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-ey"><img src="assets/logos/ey.png" alt="" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>
+                <span class="tl-company-name">EY</span><span class="tl-company-years">2010 — 2011</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="8">
-                <span class="logo logo-ey"><img src="assets/logos/ey.png" alt="EY logo" onerror="this.hidden=true"><span class="logo-fallback">EY</span></span>
-                <span><span class="timeline-role-title">Recruiter, IT Advisory</span><span class="timeline-role-meta">EY · 2010 — 2011</span></span>
+                <span class="timeline-role-title">Recruiter, IT Advisory<span class="sr-only"> at EY, 2010 to 2011</span></span>
               </button>
+            </div>
+            <div class="tl-company" role="presentation">
+              <div class="tl-company-head" aria-hidden="true">
+                <span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>
+                <span class="tl-company-name">Hewlett Packard</span><span class="tl-company-years">2007 — 2010</span>
+              </div>
               <button class="timeline-role" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" data-role-index="9">
-                <span class="logo logo-hp"><img src="assets/logos/hp.svg" alt="HP logo" onerror="this.hidden=true"><span class="logo-fallback">HP</span></span>
-                <span><span class="timeline-role-title">In-House Recruiter</span><span class="timeline-role-meta">2007 — 2010</span></span>
+                <span class="timeline-role-title">In-House Recruiter<span class="sr-only"> at Hewlett Packard, 2007 to 2010</span></span>
               </button>
             </div>
-
-            <article class="timeline-panel" id="timeline-panel" role="tabpanel" aria-live="polite">
-              <div class="timeline-panel-top">
-                <div>
-                  <div class="timeline-panel-meta" data-role-meta>Cloudflare · EMEA · 2018 — 2026</div>
-                  <h3 class="timeline-panel-title" data-role-title>Executive Recruiting &amp; AI</h3>
-                  <p class="timeline-panel-summary" data-role-summary>A role positioned around the work companies now need from recruiting leadership: senior search judgment, talent-market fluency, AI-enabled operations, and practical systems thinking.</p>
-                </div>
-                <span class="logo timeline-panel-logo logo-cloudflare" data-role-logo-wrap><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" data-role-logo onerror="this.hidden=true"><span class="logo-fallback" data-role-logo-fallback>CF</span></span>
-              </div>
-              <div class="timeline-proof-grid" data-role-proofs></div>
-              <div class="timeline-detail-grid">
-                <div class="timeline-detail-block">
-                  <h3>Responsibilities</h3>
-                  <ul class="timeline-bullets" data-role-bullets></ul>
-                </div>
-                <div class="timeline-detail-block">
-                  <h3 data-role-note-title>AI-era work</h3>
-                  <p class="timeline-note" data-role-note></p>
-                </div>
-              </div>
-            </article>
-          </div>
-      </div>
-    </section>
-
-    <section class="dark-section" id="ai-work">
-      <div class="shell section-grid">
-        <div class="section-label">03 / AI Work</div>
-        <div>
-          <h2 class="section-title">AI-era work and personal projects.</h2>
-          <p class="brief-copy">Practical tools I've built at Cloudflare to solve problems big and small, and personal apps I've built on the side to sharpen my agentic coding skills.</p>
-
-          <div class="ai-carousel" tabindex="0" aria-roledescription="carousel" aria-label="AI work portfolio">
-            <div class="ai-carousel-viewport">
-              <div class="ai-carousel-track">
-
-                <article class="ai-slide is-web" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="web-preview" aria-label="Candidate Intelligence screenshots">
-                      <div class="web-preview-bar">
-                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                        <span>candidate-intel.cloudflare.io</span>
-                      </div>
-                      <div class="web-stage">
-                        <img src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen">
-                        <img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence upload screen">
-                        <img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match result">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
-                    <h3>Candidate Intelligence</h3>
-                    <p>Popular roles can attract hundreds of applications at Cloudflare — many never seen by a hiring manager due to the volume. The Candidate Intelligence tool allows candidates to upload their CV and a role link; the tool then assesses their profile against the job requirements and, if there's a suitable fit, they can opt to share their details directly to the hiring team.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide is-web" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="web-preview" aria-label="Job Builder screenshots">
-                      <div class="web-preview-bar">
-                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                        <span>job-builder.cloudflare.io</span>
-                      </div>
-                      <div class="web-stage web-stage-2">
-                        <img src="assets/apps/job-builder-overview.jpg" alt="Job Builder overview showing job basics and interview stages">
-                        <img src="assets/apps/job-builder-submit.jpg" alt="Job Builder review and submit screen">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
-                    <h3>Job Builder</h3>
-                    <p>Replaces an 11-page manual interview plan template with a guided flow that connects to Greenhouse via the Harvest API, pre-loads templates, and submits a fully configured job in minutes instead of days. Secured behind Cloudflare Access.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide is-web" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="web-preview" aria-label="Relay screenshots">
-                      <div class="web-preview-bar">
-                        <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                        <span>relay.cloudflare.io</span>
-                      </div>
-                      <div class="web-stage web-stage-2">
-                        <img src="assets/apps/relay-import.jpg" alt="Relay import view showing roles pulled from Greenhouse">
-                        <img src="assets/apps/relay-handover.jpg" alt="Relay handover document with role status and candidate details">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Recruiter automation</div>
-                    <h3>Relay</h3>
-                    <p>Automates recruiter-to-recruiter handovers. Connects to Greenhouse via the Harvest API, imports role status with one tap, and generates a clean handover document that can be exported to PDF and shared immediately.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide is-web" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="workshop-visual" aria-label="Agentic coding workshop photos">
-                      <img src="assets/apps/workshop-close.jpg" alt="Lee Sam co-hosting the agentic coding workshop at Cloudflare London">
-                      <img src="assets/apps/workshop-wide.jpg" alt="Attendees building projects during the agentic coding workshop">
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Workshop · Feb 2026</div>
-                    <h3>Coding Workshop</h3>
-                    <p>Co-hosted a hands-on agentic coding workshop at Cloudflare's London office introducing non-technical employees to building with AI. Attendees used Windsurf to build their own personal and work-related projects in the session.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="phone-mockup execue-phone" aria-label="Execue mobile app">
-                      <div class="phone-screen">
-                        <img src="assets/apps/execue-report.jpg" alt="Execue job match report">
-                        <img src="assets/apps/execue-generating.jpg" alt="Execue generating analysis">
-                        <img src="assets/apps/execue-home.jpg" alt="Execue home screen">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
-                    <h3>Execue</h3>
-                    <p>A React Native mobile app that lets users upload their CV and any job posting URL, then receive tailored role-fit analysis and detailed interview prep support.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="phone-mockup pinr-phone" aria-label="Pinr mobile app">
-                      <div class="phone-screen">
-                        <img src="assets/apps/pinr-map.jpg" alt="Pinr map">
-                        <img src="assets/apps/pinr-profile.jpg" alt="Pinr profile">
-                        <img src="assets/apps/pinr-place.jpg" alt="Pinr destination detail">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
-                    <h3>Pinr</h3>
-                    <p>A React Native travel app that lets users pin their favourite travel photos on a live globe, connect with friends, explore new destinations, and play games. Live on the Google Play and Apple App stores.</p>
-                  </div>
-                </article>
-
-                <article class="ai-slide" aria-roledescription="slide">
-                  <div class="ai-slide-visual">
-                    <div class="phone-mockup" aria-label="Ryval mobile app">
-                      <div class="phone-screen">
-                        <img src="assets/apps/ryval-workout.jpg" alt="Ryval workout">
-                        <img src="assets/apps/ryval-home.jpg" alt="Ryval home dashboard">
-                        <img src="assets/apps/ryval-detail.jpg" alt="Ryval workout detail">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="ai-slide-copy">
-                    <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
-                    <h3>Ryval</h3>
-                    <p>A React Native gym workout app that displays live heart rate during sessions when connected to a monitor. Compete against your own previous workouts or a friend's by overlaying heart rate data in real time. Android approved for Google Play; iOS in final development.</p>
-                  </div>
-                </article>
-
-              </div>
-            </div>
-
-            <div class="ai-carousel-controls">
-              <div class="ai-carousel-counter">
-                <b class="current">01</b><span class="sep">/</span><span class="total">07</span>
-              </div>
-              <div class="ai-carousel-dots" role="tablist"></div>
-              <div class="ai-carousel-buttons">
-                <button class="ai-carousel-btn ai-carousel-btn-prev" aria-label="Previous slide">←</button>
-                <button class="ai-carousel-btn ai-carousel-btn-next" aria-label="Next slide">→</button>
-              </div>
-            </div>
           </div>
 
+          <article class="timeline-panel" id="timeline-panel" role="tabpanel" aria-live="polite">
+            <div class="timeline-panel-top">
+              <div>
+                <div class="timeline-panel-meta" data-role-meta>Cloudflare · EMEA · 2026</div>
+                <h3 class="timeline-panel-title" data-role-title>Executive Recruiting</h3>
+                <p class="timeline-panel-summary" data-role-summary>A role positioned around the work companies now need from recruiting leadership: senior search judgment, talent-market fluency, AI-enabled operations, and practical systems thinking.</p>
+              </div>
+              <span class="logo timeline-panel-logo logo-cloudflare" data-role-logo-wrap><img src="assets/logos/cloudflare.png" alt="Cloudflare logo" data-role-logo onerror="this.hidden=true"><span class="logo-fallback" data-role-logo-fallback>CF</span></span>
+            </div>
+            <div class="timeline-proof-grid" data-role-proofs></div>
+            <div class="timeline-detail-grid">
+              <div class="timeline-detail-block">
+                <h3>Responsibilities</h3>
+                <ul class="timeline-bullets" data-role-bullets></ul>
+              </div>
+              <div class="timeline-detail-block">
+                <h3 data-role-note-title>AI-era work</h3>
+                <p class="timeline-note" data-role-note></p>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="dark-section" id="numbers">
+    <section class="section" id="ai-work">
       <div class="shell">
-        <div class="section-label stats-label">04 / Numbers</div>
-        <div class="stats-head">
-          <h2 class="section-title">Delivery, in numbers.</h2>
-          <p>EMEA recruiting at Cloudflare, 2018 to 2026. Volume, quality, and independence — measured.</p>
+        <div class="head"><span class="num">03</span><h2>AI-era work and personal projects.</h2>
+          <p>Practical tools I've built at Cloudflare to solve problems big and small, and personal apps I've built on the side to sharpen my agentic coding skills.</p></div>
+
+        <div class="ai-carousel" tabindex="0" aria-roledescription="carousel" aria-label="AI work portfolio">
+          <div class="ai-carousel-viewport">
+            <div class="ai-carousel-track">
+
+              <article class="ai-slide is-web" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="web-preview" aria-label="Candidate Intelligence screenshots">
+                    <div class="web-preview-bar">
+                      <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                      <span>candidate-intel.cloudflare.io</span>
+                    </div>
+                    <div class="web-stage">
+                      <img src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen">
+                      <img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence upload screen">
+                      <img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match result">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
+                  <h3>Candidate Intelligence</h3>
+                  <p>Popular roles can attract hundreds of applications at Cloudflare — many never seen by a hiring manager due to the volume. The Candidate Intelligence tool allows candidates to upload their CV and a role link; the tool then assesses their profile against the job requirements and, if there's a suitable fit, they can opt to share their details directly to the hiring team.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide is-web" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="web-preview" aria-label="Job Builder screenshots">
+                    <div class="web-preview-bar">
+                      <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                      <span>job-builder.cloudflare.io</span>
+                    </div>
+                    <div class="web-stage web-stage-2">
+                      <img src="assets/apps/job-builder-overview.jpg" alt="Job Builder overview showing job basics and interview stages">
+                      <img src="assets/apps/job-builder-submit.jpg" alt="Job Builder review and submit screen">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Internal tool</div>
+                  <h3>Job Builder</h3>
+                  <p>Replaces an 11-page manual interview plan template with a guided flow that connects to Greenhouse via the Harvest API, pre-loads templates, and submits a fully configured job in minutes instead of days. Secured behind Cloudflare Access.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide is-web" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="web-preview" aria-label="Relay screenshots">
+                    <div class="web-preview-bar">
+                      <span class="web-dots" aria-hidden="true"><span></span><span></span><span></span></span>
+                      <span>relay.cloudflare.io</span>
+                    </div>
+                    <div class="web-stage web-stage-2">
+                      <img src="assets/apps/relay-import.jpg" alt="Relay import view showing roles pulled from Greenhouse">
+                      <img src="assets/apps/relay-handover.jpg" alt="Relay handover document with role status and candidate details">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Recruiter automation</div>
+                  <h3>Relay</h3>
+                  <p>Automates recruiter-to-recruiter handovers. Connects to Greenhouse via the Harvest API, imports role status with one tap, and generates a clean handover document that can be exported to PDF and shared immediately.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide is-web" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="workshop-visual" aria-label="Agentic coding workshop photos">
+                    <img src="assets/apps/workshop-close.jpg" alt="Lee Sam co-hosting the agentic coding workshop at Cloudflare London">
+                    <img src="assets/apps/workshop-wide.jpg" alt="Attendees building projects during the agentic coding workshop">
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Cloudflare</b><span class="sep"></span>Workshop · Feb 2026</div>
+                  <h3>Coding Workshop</h3>
+                  <p>Co-hosted a hands-on agentic coding workshop at Cloudflare's London office introducing non-technical employees to building with AI. Attendees used Windsurf to build their own personal and work-related projects in the session.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="phone-mockup" aria-label="Execue mobile app">
+                    <div class="phone-screen">
+                      <img src="assets/apps/execue-report.jpg" alt="Execue job match report">
+                      <img src="assets/apps/execue-generating.jpg" alt="Execue generating analysis">
+                      <img src="assets/apps/execue-home.jpg" alt="Execue home screen">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                  <h3>Execue</h3>
+                  <p>A React Native mobile app that lets users upload their CV and any job posting URL, then receive tailored role-fit analysis and detailed interview prep support.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="phone-mockup" aria-label="Pinr mobile app">
+                    <div class="phone-screen">
+                      <img src="assets/apps/pinr-map.jpg" alt="Pinr map">
+                      <img src="assets/apps/pinr-profile.jpg" alt="Pinr profile">
+                      <img src="assets/apps/pinr-place.jpg" alt="Pinr destination detail">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                  <h3>Pinr</h3>
+                  <p>A React Native travel app that lets users pin their favourite travel photos on a live globe, connect with friends, explore new destinations, and play games. Live on the Google Play and Apple App stores.</p>
+                </div>
+              </article>
+
+              <article class="ai-slide" aria-roledescription="slide">
+                <div class="ai-slide-visual">
+                  <div class="phone-mockup" aria-label="Ryval mobile app">
+                    <div class="phone-screen">
+                      <img src="assets/apps/ryval-workout.jpg" alt="Ryval workout">
+                      <img src="assets/apps/ryval-home.jpg" alt="Ryval home dashboard">
+                      <img src="assets/apps/ryval-detail.jpg" alt="Ryval workout detail">
+                    </div>
+                  </div>
+                </div>
+                <div class="ai-slide-copy">
+                  <div class="ai-slide-meta"><b>Personal</b><span class="sep"></span>Mobile app</div>
+                  <h3>Ryval</h3>
+                  <p>A React Native gym workout app that displays live heart rate during sessions when connected to a monitor. Compete against your own previous workouts or a friend's by overlaying heart rate data in real time. Android approved for Google Play; iOS in final development.</p>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <div class="ai-carousel-controls">
+            <div class="ai-carousel-counter">
+              <b class="current">01</b><span class="sep">/</span><span class="total">07</span>
+            </div>
+            <div class="ai-carousel-dots" role="tablist"></div>
+            <div class="ai-carousel-buttons">
+              <button class="ai-carousel-btn ai-carousel-btn-prev" type="button" aria-label="Previous slide">←</button>
+              <button class="ai-carousel-btn ai-carousel-btn-next" type="button" aria-label="Next slide">→</button>
+            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section paper" id="numbers">
+      <div class="shell">
+        <div class="head"><span class="num">04</span><h2>Delivery, in numbers.</h2>
+          <p>EMEA recruiting at Cloudflare, 2018 to 2026. Volume, quality, and independence — measured.</p></div>
 
         <!-- Hero stat: cumulative hires + year-on-year bar chart -->
         <div class="numbers-hero">
@@ -2331,14 +678,14 @@
         </div>
 
         <!-- Supporting stats -->
-        <div class="stats-grid">
+        <div class="stats-grid five">
           <div class="stat">
-            <div class="stat-year">2018 – Present</div>
+            <div class="stat-year">2018 – 2026</div>
             <div class="stat-value">89<span class="pct">%</span></div>
             <div class="stat-label">Offer acceptance rate across all EMEA hires</div>
           </div>
           <div class="stat">
-            <div class="stat-year">2018 – Present</div>
+            <div class="stat-year">2018 – 2026</div>
             <div class="stat-value">2.2<span class="pct">%</span></div>
             <div class="stat-label">Only 76 of 3,329 hires made through agencies</div>
           </div>
@@ -2386,7 +733,7 @@
           </div>
         </div>
 
-        <div class="stats-grid">
+        <div class="stats-grid three">
           <div class="stat">
             <div class="stat-year">2018 – 2025</div>
             <div class="stat-value">32.1<span class="pct">%</span></div>
@@ -2411,7 +758,7 @@
           <div class="award-mark" aria-hidden="true">
             <img src="assets/awards/maple-leaf.png" alt="">
           </div>
-          <div class="award-body">
+          <div>
             <div class="award-meta"><b>Cloudflare</b><span class="sep"></span>2021</div>
             <div class="award-title">Maple Leaf Award</div>
             <p class="award-desc">The first member of the Recruiting team to receive Cloudflare's internal recognition for outstanding contribution to the company.</p>
@@ -2421,13 +768,14 @@
       </div>
     </section>
 
-    <section class="light" id="outside-work">
+    <section class="section" id="outside-work">
       <div class="shell personal-layout">
         <div class="personal-copy">
-          <div class="section-label">05 / Outside Work</div>
-          <h2 class="section-title">Travel and basketball.</h2>
-          <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
-          <p>A Milwaukee Bucks fan who's flown to Wisconsin to prove it.</p>
+          <div class="head"><span class="num">05</span><h2>Travel and basketball.</h2></div>
+          <div class="personal-text">
+            <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
+            <p>A Milwaukee Bucks fan who's flown to Wisconsin to prove it.</p>
+          </div>
         </div>
         <div class="memory-carousel" aria-label="Travel and Milwaukee Bucks photo carousel">
           <div class="memory-head">
@@ -2488,13 +836,6 @@
     </section>
   </main>
 
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker-track">
-      <span>LEE SAM</span><span>EMEA EXECUTIVE RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>3,329 HIRES · 2018–2026</span><span>LONDON</span>
-      <span>LEE SAM</span><span>EMEA EXECUTIVE RECRUITING</span><span>AI INNOVATION</span><span>CLOUDFLARE</span><span>3,329 HIRES · 2018–2026</span><span>LONDON</span>
-    </div>
-  </div>
-
   <script>
     (function() {
       const root = document.querySelector('[data-timeline-dossier]');
@@ -2502,8 +843,8 @@
 
       const roles = [
         {
-          meta: 'Cloudflare · EMEA · 2018 — 2026',
-          title: 'Executive Recruiting & AI',
+          meta: 'Cloudflare · EMEA · 2026',
+          title: 'Executive Recruiting',
           summary: 'A data-led, relationship-driven approach to executive hiring — combining market intelligence, inclusive pipeline development, AI-enabled operations, and structured search execution.',
           logo: 'assets/logos/cloudflare.png',
           logoClass: 'logo-cloudflare',
@@ -2751,6 +1092,13 @@
 
       let openAccordionIndex = -1;
 
+      // Show the company logo in colour when one of its roles is selected
+      function syncCompanies() {
+        root.querySelectorAll('.tl-company').forEach(function(group) {
+          group.classList.toggle('is-active', !!group.querySelector('.timeline-role[aria-selected="true"]'));
+        });
+      }
+
       // Desktop: render into the right-hand panel
       function renderRole(index) {
         const role = roles[index] || roles[0];
@@ -2773,6 +1121,7 @@
         bullets.innerHTML = role.bullets.map(function(item) {
           return '<li>' + item + '</li>';
         }).join('');
+        syncCompanies();
       }
 
       // Mobile: build accordion HTML for a role
@@ -2796,12 +1145,14 @@
         accordions[index].classList.add('open');
         buttons[index].setAttribute('aria-selected', 'true');
         openAccordionIndex = index;
+        syncCompanies();
       }
 
       function closeAccordion(index) {
         accordions[index].classList.remove('open');
         buttons[index].setAttribute('aria-selected', 'false');
         if (openAccordionIndex === index) openAccordionIndex = -1;
+        syncCompanies();
       }
 
       buttons.forEach(function(button) {
@@ -2850,8 +1201,11 @@
       const nextBtn = carousel.querySelector('.ai-carousel-btn-next');
       const dotsContainer = carousel.querySelector('.ai-carousel-dots');
       const counterCurrent = carousel.querySelector('.ai-carousel-counter .current');
+      const counterTotal = carousel.querySelector('.ai-carousel-counter .total');
       const total = slides.length;
       let current = 0;
+
+      counterTotal.textContent = String(total).padStart(2, '0');
 
       slides.forEach(function(_, i) {
         const dot = document.createElement('button');
@@ -2894,27 +1248,62 @@
   </script>
 
   <script>
-    // Nav active state on scroll
+    // Section navigation: scrollspy + mobile navigator
     (function() {
-      var sectionIds = ['experience', 'ai-work', 'numbers', 'outside-work', 'contact'];
-      var sections = sectionIds.map(function(id) { return document.getElementById(id); });
-      var links = sectionIds.map(function(id) {
-        return document.querySelector('.chrome nav a[href="#' + id + '"]');
-      });
+      var SECTIONS = ['experience', 'ai-work', 'numbers', 'outside-work', 'contact'];
+      var links = Array.from(document.querySelectorAll('.topbar nav a, .mobile-nav a'));
+      var current = document.getElementById('navCurrent');
+      var toggle = document.getElementById('navToggle');
+      var panel = document.getElementById('mobileNav');
+      var nodes = SECTIONS.map(function(id) { return document.getElementById(id); }).filter(Boolean);
 
-      function update() {
-        var mid = window.scrollY + window.innerHeight * 0.4;
-        var active = -1;
-        sections.forEach(function(s, i) {
-          if (s && s.offsetTop <= mid) active = i;
+      var active = null;
+      function setActive(id) {
+        if (id === active) return;
+        active = id;
+        links.forEach(function(a) {
+          var on = a.getAttribute('href') === '#' + id;
+          a.classList.toggle('on', on);
+          if (on) a.setAttribute('aria-current', 'location'); else a.removeAttribute('aria-current');
         });
-        links.forEach(function(link, i) {
-          if (link) link.classList.toggle('active', i === active);
-        });
+        var link = links.find(function(a) { return a.getAttribute('href') === '#' + id; });
+        if (current) current.textContent = link ? link.textContent.trim() : 'Menu';
       }
 
+      // The active section is the last one whose top has passed below the sticky header.
+      var LINE = 100;
+      function pick() {
+        var best = '';
+        nodes.forEach(function(n) { if (n.getBoundingClientRect().top <= LINE) best = n.id; });
+        if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2 && nodes.length) {
+          best = nodes[nodes.length - 1].id;
+        }
+        return best;
+      }
+
+      var queued = false;
+      function update() {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(function() { queued = false; setActive(pick()); });
+      }
       window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update, { passive: true });
       update();
+
+      if (!toggle || !panel) return;
+      function open(on) {
+        panel.hidden = !on;
+        toggle.setAttribute('aria-expanded', String(on));
+      }
+      toggle.addEventListener('click', function() { open(panel.hidden); });
+      panel.addEventListener('click', function(e) { if (e.target.tagName === 'A') open(false); });
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !panel.hidden) { open(false); toggle.focus(); }
+      });
+      document.addEventListener('click', function(e) {
+        if (!panel.hidden && !panel.contains(e.target) && !toggle.contains(e.target)) open(false);
+      });
     })();
 
     // Numbers section: count-up stat + bar chart grow on scroll
@@ -2922,7 +1311,8 @@
       var heroValue = document.querySelector('.numbers-hero-value');
       var bars = document.querySelectorAll('.trend-bar[data-h]');
       var section = document.getElementById('numbers');
-      if (!section || !bars.length) return;
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!section || !bars.length || reduced || !('IntersectionObserver' in window)) return;
 
       // Collapse bars to 0 ready for animation
       bars.forEach(function(bar) {
@@ -2951,15 +1341,14 @@
           var startTime = null;
           function tick(now) {
             if (!startTime) startTime = now;
-            var elapsed = now - startTime;
-            var progress = Math.min(elapsed / duration, 1);
+            var progress = Math.min((now - startTime) / duration, 1);
             var eased = 1 - Math.pow(1 - progress, 3);
             heroValue.textContent = Math.round(eased * target).toLocaleString('en-GB');
             if (progress < 1) requestAnimationFrame(tick);
           }
           requestAnimationFrame(tick);
         }
-      }, { threshold: 0.25 });
+      }, { threshold: 0.1 });
 
       obs.observe(section);
     })();

@@ -1,16 +1,16 @@
-# leesam.pages.dev — Handover Context
+# talentbylee.com — Handover Context
 
-Personal digital CV for Lee Sam. Live at **https://leesam.pages.dev**.
+Personal digital CV for Lee Sam. Live at **https://talentbylee.com** (also `www.talentbylee.com` and `leesam.pages.dev`).
 
 ---
 
 ## The site
 
-A single-file static site (`index.html`, ~2680 lines). All CSS and JavaScript is inline — no build step, no framework, no dependencies. The `assets/` folder holds images only.
+A single-file static site (`index.html`). All CSS and JavaScript is inline — no build step, no framework, no dependencies. The `assets/` folder holds images only.
 
-Deploy from the repo root:
+**Deploy:** the Cloudflare Pages project `leesam` is connected to GitHub (`builtbylee/leesam`). Pushing to `main` triggers a production build — no manual upload needed. Check progress with:
 ```bash
-npx wrangler pages deploy . --project-name leesam --branch main --commit-dirty=true
+npx wrangler pages deployment list --project-name leesam
 ```
 
 ---
@@ -20,6 +20,7 @@ npx wrangler pages deploy . --project-name leesam --branch main --commit-dirty=t
 ```
 index.html          — entire site (HTML + inline CSS + inline JS)
 assets/
+  lee-sam-hero.jpeg — hero portrait
   logos/            — company logos (PNG + SVG, used in Experience timeline)
   apps/             — app screenshots (used in AI Work carousel)
   outside-work/     — travel and Bucks photos (used in Outside Work carousel)
@@ -31,109 +32,94 @@ assets/
 
 ## Design system
 
-| Token | Value | Notes |
+September 2026 redesign, aligned with verda.talentbylee.com: navy and blue only, hairline dividers, one soft shadow reserved for the object that matters in each section.
+
+| Token | Value | Use |
 |---|---|---|
-| `--orange` | `#2563eb` | Stripe blue — named `--orange` for historical reasons, don't rename |
-| `--ink` | `#0a2540` | Primary text |
-| `--muted` | `#425466` | Secondary text |
-| `--bg-2` | `#f6f9fc` | Light tinted background |
-| `--line` | `#e6ebf1` | Borders |
-| `--green` | `#00a884` | Used for YoY pill, live indicator |
+| `--navy` | `#0a2540` | Headings, brand mark, Contact band |
+| `--ink` | `#0f2540` | Body text |
+| `--muted` | `#4a5a6d` | Secondary text |
+| `--blue` | `#2563eb` | Accent: section numbers, active nav, selected role, peak bars |
+| `--blue-soft` | `#e8efff` | Selected-role background, mobile nav active |
+| `--bar` | `#b9cdf7` | Non-peak chart bars |
+| `--line` | `#e3e8ef` | Borders and dividers |
+| `--paper` | `#f5f8fb` | Alternate section background |
+| `--shadow` | soft navy drop | Portrait, timeline panel, carousels, numbers cards only |
 
-**Typography:**
-- `Instrument Sans` — headings, UI labels, role titles, stat values
-- `Instrument Serif` — three uses: (1) hero subhead `.subhead` ("The recruiting leader for the AI era."), (2) section subheads (`.record-subhead`, `.ai-section-subhead`, `.outside-subhead`), (3) decorative italic in Contact ("talk."). The `section-title em` neutralisation does NOT affect these — they are separate elements.
-- `JetBrains Mono` — eyebrows, metadata labels, section counters
-- `Manrope` — body/paragraph text, bullet copy, descriptive text
+**Typography (two families only):**
+- `Instrument Sans` — everything: headings, body, labels, stats
+- `Instrument Serif` — hero lede, Outside Work copy, italic "talk." in Contact
 
-The `section-title em` CSS rule is neutralised (`font-style: normal; color: inherit`) — section titles should be plain Instrument Sans throughout with no italic blue accent.
+No monospace, no uppercase eyebrows. Labels are sentence case.
 
-**Shell:** `min(1320px, calc(100% - 48px))` — 1320px max, centred, 24px gutters each side.
+**Shell:** `min(1180px, calc(100% - 48px))` (24px gutters); 16px gutters under 640px.
+
+**Section heads:** `.head` = small blue number beside an `h2` (30–44px) with optional intro paragraph.
 
 ---
 
 ## Sections
 
-| # | ID | Notes |
-|---|---|---|
-| 01 | `#hero` | 2-col grid. Portrait card right. Instrument Serif subhead ("The recruiting leader for the AI era."). Two hero copy paragraphs: AI-era rearchitecting narrative + Lee as the AI-native leader for that shift. |
-| 02 | `#experience` | Two-pane dossier (JS-driven). Header above dossier; dossier spans full shell width. |
-| 03 | `#ai-work` | Carousel, 6 slides (Candidate Intelligence, Job Builder, Relay, Execue, Pinr, Ryval). |
-| 04 | `#numbers` | Hero stat 3,329 + bar chart + 4 stat cards + Maple Leaf Award callout. |
-| 05 | `#outside-work` | Photo carousel, 9 images. |
-| — | `#contact` | "Let's talk." full-width close. |
+| # | ID | Background | Notes |
+|---|---|---|---|
+| — | `.topbar` | white, sticky | LS mark + name + "Recruiting leadership"; section links highlight on scroll; Contact button. Under 860px the links collapse into a Menu button (`#navToggle` / `#mobileNav`). |
+| 01 | `#top` | white | Name, serif lede, two thesis paragraphs, Focus / Based / Most recently at strip, portrait. |
+| 02 | `#experience` | paper | Grouped vertical timeline (left) + detail panel (right). See below. |
+| 03 | `#ai-work` | white | Carousel, 7 slides (Candidate Intelligence, Job Builder, Relay, Coding Workshop, Execue, Pinr, Ryval). Counter total is computed from the slide count. |
+| 04 | `#numbers` | paper | Two headline cards (3,329 hires; 29.4% women in management) with bar charts, hairline stat rows (5 then 3), "How" note, Maple Leaf Award. Count-up and bar growth run once on scroll (skipped under reduced motion). |
+| 05 | `#outside-work` | white | Serif copy + 9-photo cross-fade carousel. |
+| — | `#contact` | navy | "Let's talk." left-aligned, email + back-to-top buttons. |
+
+The old fixed bottom ticker was removed in the redesign.
 
 ---
 
 ## Experience timeline
 
-The two-pane dossier is built entirely in JavaScript. The data lives in a `roleData` array near the bottom of `index.html` (search for `const roles = [`). Each entry has:
+**Left list (static HTML):** roles are grouped by company in `.tl-company` blocks. Each block has a `.tl-company-head` (28px greyscale logo, company name, years) followed by one `button.timeline-role` per role, newest first. A 1px spine (`.timeline-nav::before`) runs through the logos; each role has a dot (`.timeline-role::before`) on it. The selected role gets `aria-selected="true"` → pale blue background, blue left rule, blue title, filled dot. `syncCompanies()` adds `.is-active` to the company block of the selected role so its logo shows in colour. The list is sticky (`top: 92px`) on desktops at least 820px tall.
+
+Buttons keep their `data-role-index`, which must match the order of the `roles` array. Multi-role companies show years on each role row; single-role companies show years only on the company head. Each button carries a `.sr-only` suffix with company (and years) for screen readers, because the company heads are `aria-hidden`.
+
+**Right panel (JS-rendered):** data lives in `const roles = [` near the bottom of `index.html`:
 
 ```js
 {
-  title, meta, summary,
-  proofs: [{ value, label }, ...],   // up to 3 — shown in the EMEA/AI/Exec-style grid
-  bullets: [...],                     // responsibilities list
-  noteTitle, note,                    // right column (AI-era work, or similar)
-  logo, logoClass, logoFallback
+  meta, title, summary,
+  logo, logoClass, logoAlt, fallback,
+  proofs: [['EMEA', 'VP+ leadership searches'], ...],  // 3 value/label pairs
+  bullets: [...],                                      // responsibilities
+  noteTitle, note                                      // right column
 }
 ```
 
-The HTML shell for the dossier is static (nav buttons + panel article). JS renders content into `data-role-*` attributes on click.
+**Mobile (≤980px):** the panel is hidden; each role button expands an accordion inserted after it (one open at a time, first opened on load).
 
-**Layout:** Left nav is `260px` fixed. Right panel gets the remainder of the 1320px shell. The dossier is placed in its own `<div class="shell">` below the section header — it does NOT sit inside the `.section-grid` layout, so it gets full shell width.
+When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ---
 
 ## Remaining work
 
-### Medium priority
-- All 6 AI Work carousel slides have final copy.
-- [ ] **Timeline mobile UX**: at <980px the dossier stacks to single column (nav on top, panel below). Verify this works cleanly across 390px and 360px viewports.
-
-### Low priority
-- [ ] **Logo quality**: logos at `assets/logos/` render at 52px nav circles with `object-fit: cover`. Review all logos and replace any that look poor at that size.
-- [ ] **Section transition consistency**: check all section padding/border-top treatments are consistent between `light` and `dark-section` classes.
+- [ ] **Executive Recruiting role copy tense:** its bullets and note are in present tense ("Lead VP+ executive search…") although Lee left Cloudflare in July 2026. Other roles use past tense. Awaiting Lee's decision.
+- [ ] **Logo quality:** review logos at 28px (timeline) and 64px (panel); replace any that read poorly.
 
 ---
 
 ## Visual testing
 
-Playwright is available at `/tmp/node_modules/playwright` (Chromium installed). Write scripts to `/tmp/test-xyz.js` and run:
-```bash
-node /tmp/test-xyz.js
-```
-
-Example to screenshot the experience section:
-```js
-const { chromium } = require('/tmp/node_modules/playwright');
-(async () => {
-  const browser = await chromium.launch();
-  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
-  const page = await ctx.newPage();
-  await page.goto('file:///path/to/production/index.html', { waitUntil: 'networkidle' });
-  await page.evaluate(() => document.fonts.ready);
-  await page.evaluate(() => document.getElementById('experience').scrollIntoView({ block: 'start' }));
-  await page.waitForTimeout(500);
-  await page.screenshot({ path: '/tmp/screenshot.png' });
-  await browser.close();
-})();
-```
-
-Test at these 5 viewports before every deploy: `1920`, `1440`, `768`, `390`, `360`.
+Test at 1440, 768, 390 and 360 widths before every push: no horizontal overflow, no console errors, timeline click/arrow keys, mobile accordion, Menu button, carousel controls. Any local Playwright install works; load `file:///…/index.html`, wait for `document.fonts.ready`, and use `scrollTo({ behavior: 'instant' })` when measuring positions (the page uses smooth scrolling).
 
 ---
 
 ## Key technical notes
 
-- **CSS variable `--orange` = Stripe blue `#2563eb`** — do not rename, it is referenced throughout
-- **`section-title em`** is neutralised — `font-style: normal; color: inherit` — titles are plain Instrument Sans. Do not re-add italic blue to section titles.
-- **Carousel overflow**: `.ai-carousel` and `.ai-carousel-viewport` have `min-width: 0` — required to prevent horizontal overflow on mobile. Do not remove.
-- **Section grid vs full-width**: most sections use `<div class="shell section-grid">` (280px label column + content). The Experience section intentionally uses a separate full-width `<div class="shell">` for the dossier — this is deliberate so the two-pane layout isn't starved of width.
-- **No build step**: edit `index.html` directly. There is no bundler, no npm install needed to edit the file.
+- **Carousel overflow:** `.ai-carousel` and `.ai-carousel-viewport` have `min-width: 0` — required to prevent horizontal overflow on mobile.
+- **Sticky header offset:** `section[id] { scroll-margin-top: 84px }` keeps anchored sections clear of the 68px top bar.
+- **Reduced motion:** photo/screenshot cross-fades show only the first image; count-up and bar animations are skipped.
+- **No build step:** edit `index.html` directly.
 
 ---
 
 ## About Lee
 
-Lee Sam is EMEA Leadership Recruiting & AI Innovation lead at Cloudflare (based in London). 18 years in recruiting across category-defining tech companies. This site is a creative digital CV — not a developer portfolio. Writing tone should reflect a senior recruiting leader, not an engineer.
+Lee Sam is a London-based recruiting leader with twenty years across category-defining tech companies. Most recently at Cloudflare (2018 — July 2026): Recruiter to Manager, Head of Recruiting EMEA, then Executive Recruiting. This site is a creative digital CV — not a developer portfolio. Writing tone should reflect a senior recruiting leader, not an engineer.
