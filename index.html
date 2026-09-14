@@ -271,21 +271,6 @@
     .button.secondary:hover { background: rgba(255, 255, 255, 0.08); }
     .final a:focus-visible { outline-color: #8fb0ff; }
 
-    /* ---- career span (experience) ---- */
-    .career-span { margin-bottom: 36px; }
-    .span-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; margin-bottom: 10px; }
-    .span-readout { font-size: 14px; color: var(--muted); }
-    .span-readout b { font-weight: 600; color: var(--navy); }
-    .span-axis { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .span-track { display: flex; gap: 3px; }
-    .span-seg { position: relative; flex: var(--w) 1 0; min-width: 0; height: 40px; padding: 0; border: 0; border-radius: 4px; background: transparent; cursor: pointer; }
-    .span-seg::before { content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 12px; border-radius: 3px; background: var(--bar); transition: background 160ms var(--ease); }
-    .span-seg span { position: absolute; left: 0; right: 0; top: 21px; overflow: hidden; font-size: 11.5px; font-weight: 500; line-height: 1.3; text-align: left; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
-    .span-seg:hover::before { background: #8fb0f5; }
-    .span-seg.on::before { background: var(--blue); }
-    .span-seg.on span { font-weight: 600; color: var(--blue); }
-    .span-seg:focus-visible { outline-offset: 2px; }
-
     /* ---- representation comparison (numbers) ---- */
     .rep { margin-top: 32px; padding: 28px 32px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
     .rep-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 24px; }
@@ -349,7 +334,6 @@
       .rep-body { grid-template-columns: 1fr; gap: 28px; }
     }
     @media (max-width: 640px) {
-      .span-seg.sm-hide span { visibility: hidden; }
       .rep { padding: 22px 20px; }
       .rep .seg { grid-auto-flow: row; grid-template-columns: 1fr 1fr; width: 100%; }
       .rep-row { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
@@ -486,22 +470,6 @@
       <div class="shell">
         <div class="head"><span class="num">02</span><h2>Timeline.</h2>
           <p>Twenty years across the world's category-defining technology companies.</p></div>
-        <div class="career-span">
-          <div class="span-top">
-            <p class="span-readout" data-span-readout><b>Cloudflare</b> · 2018 — 2026</p>
-            <span class="span-axis">2007 — 2026</span>
-          </div>
-          <div class="span-track" role="group" aria-label="Career by company, 2007 to 2026">
-            <button type="button" class="span-seg" style="--w:3" data-key="Hewlett Packard" data-years="2007 — 2010" data-span-role="9" aria-pressed="false" aria-label="Hewlett Packard, 2007 to 2010"><span>HP</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:1" data-key="EY" data-years="2010 — 2011" data-span-role="8" aria-pressed="false" aria-label="EY, 2010 to 2011"><span>EY</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:2" data-key="BoA Merrill Lynch" data-years="2011 — 2013" data-span-role="7" aria-pressed="false" aria-label="BoA Merrill Lynch, 2011 to 2013"><span>BoA</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:2" data-key="Twitter" data-years="2013 — 2015" data-span-role="6" aria-pressed="false" aria-label="Twitter, 2013 to 2015"><span>Twitter</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:1" data-key="Salesforce" data-years="2015 — 2016" data-span-role="5" aria-pressed="false" aria-label="Salesforce, 2015 to 2016"><span>Salesforce</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:1" data-key="Snap" data-years="2017" data-span-role="4" aria-pressed="false" aria-label="Snap, 2017"><span>Snap</span></button>
-            <button type="button" class="span-seg sm-hide" style="--w:0.6" data-key="Okta" data-years="2018" data-span-role="3" aria-pressed="false" aria-label="Okta, 2018"><span>Okta</span></button>
-            <button type="button" class="span-seg on" style="--w:8" data-key="Cloudflare" data-years="2018 — 2026" data-span-role="0" aria-pressed="true" aria-label="Cloudflare, 2018 to 2026"><span>Cloudflare</span></button>
-          </div>
-        </div>
         <div class="timeline-dossier" data-timeline-dossier>
           <div class="timeline-nav" role="tablist" aria-label="Experience timeline" aria-orientation="vertical">
             <div class="tl-company" role="presentation">
@@ -1253,31 +1221,6 @@
         root.querySelectorAll('.tl-company').forEach(function(group) {
           group.classList.toggle('is-active', !!group.querySelector('.timeline-role[aria-selected="true"]'));
         });
-        syncSpan();
-      }
-
-      // Career span bar: one segment per company, linked to the role list
-      const spanSegs = Array.from(document.querySelectorAll('[data-span-role]'));
-      const spanReadout = document.querySelector('[data-span-readout]');
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function setReadout(seg) {
-        if (!spanReadout) return;
-        const name = document.createElement('b');
-        name.textContent = seg.dataset.key;
-        spanReadout.replaceChildren(name, ' · ' + seg.dataset.years);
-      }
-
-      function syncSpan() {
-        const selected = buttons.find(function(b) { return b.getAttribute('aria-selected') === 'true'; });
-        const group = selected ? selected.closest('.tl-company') : null;
-        const key = group ? group.querySelector('.tl-company-name').textContent : '';
-        spanSegs.forEach(function(seg) {
-          const on = seg.dataset.key === key;
-          seg.classList.toggle('on', on);
-          seg.setAttribute('aria-pressed', String(on));
-          if (on) setReadout(seg);
-        });
       }
 
       // Desktop: render into the right-hand panel
@@ -1363,28 +1306,6 @@
           buttons[next].focus();
           if (window.innerWidth > 980) renderRole(next);
         });
-      });
-
-      spanSegs.forEach(function(seg) {
-        seg.addEventListener('click', function() {
-          const index = Number(seg.dataset.spanRole);
-          if (window.innerWidth <= 980) {
-            if (openAccordionIndex !== index) {
-              if (openAccordionIndex >= 0) closeAccordion(openAccordionIndex);
-              openAccordion(index);
-            }
-            // Wait for any collapsing accordion above to settle, then bring the role into view
-            setTimeout(function() {
-              window.scrollTo({ top: buttons[index].getBoundingClientRect().top + window.scrollY - 84, behavior: reduceMotion ? 'auto' : 'smooth' });
-            }, reduceMotion ? 0 : 440);
-          } else {
-            renderRole(index);
-          }
-        });
-        seg.addEventListener('mouseenter', function() { setReadout(seg); });
-        seg.addEventListener('focus', function() { setReadout(seg); });
-        seg.addEventListener('mouseleave', syncSpan);
-        seg.addEventListener('blur', syncSpan);
       });
 
       renderRole(0);

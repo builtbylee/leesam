@@ -64,7 +64,7 @@ No monospace, no uppercase eyebrows. Labels are sentence case.
 |---|---|---|---|
 | — | `.topbar` | white, sticky | LS mark + name + "Recruiting leadership"; section links highlight on scroll; Contact button. Under 860px the links collapse into a Menu button (`#navToggle` / `#mobileNav`). |
 | 01 | `#top` | white | Name, serif lede, two thesis paragraphs, Focus / Based / Most recently at strip, portrait. |
-| 02 | `#experience` | paper | Career bar (`.career-span`) above a grouped vertical timeline (left) + detail panel (right). See below. |
+| 02 | `#experience` | paper | Grouped vertical timeline (left) + detail panel (right). See below. |
 | 03 | `#ai-work` | white | Carousel, 7 slides (Candidate Intelligence, Job Builder, Relay, Coding Workshop, Execue, Pinr, Ryval). Counter total is computed from the slide count. The three tool slides have numbered screen steps; Candidate Intelligence also has a flow diagram. See Interactions. |
 | 04 | `#numbers` | paper | Two headline cards (3,329 hires; 29.4% women in management) with bar charts, a 5-stat hairline row, the representation switcher (`[data-rep]`), "How" note, Maple Leaf Award. Count-up and bar growth run once on scroll (skipped under reduced motion). |
 | 05 | `#outside-work` | white | Serif copy + 9-photo cross-fade carousel. |
@@ -100,7 +100,6 @@ When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ## Interactions
 
-- **Career bar** (`.career-span`, Experience): one `button.span-seg` per company, oldest left. `--w` is the flex weight (years as listed; single-year roles = 1, Okta = 0.6), so widths are approximate. `data-key` must equal the company's `.tl-company-name` text; `data-span-role` is the `roles` index of that company's most recent role. Click selects that role (mobile: opens its accordion and scrolls to it); hover/focus shows company and years in `[data-span-readout]`. Linked through `syncSpan()`, called from `syncCompanies()`. Labels marked `.sm-hide` are hidden under 640px.
 - **Representation switcher** (`[data-rep]`, Numbers): four `.rep-row`s, each carrying `data-value`, `data-delta`, `data-label` and chart positions `--a` / `--b` (/ `--m`) on a 0–40% axis, where position = percentage × 2.5. Buttons with `data-rep-view` highlight a row and update the readout. If a figure changes, update the row's data attributes, its `--a`/`--b`, and its `.rep-vals` text.
 - **Screen steps** (`[data-steps]`, AI Work): `.web-step` buttons map by order to `.web-stage img`; the visible image has `.on`. Auto-advances every 6s only while visible and not hovered/focused; no auto-advance under reduced motion.
 - **Candidate Intelligence flow** (`.ci-flow`): CSS dot animation, switched on by adding `.run` while the diagram is at least 60% on screen.
@@ -116,7 +115,7 @@ When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ## Visual testing
 
-Test at 1440, 768, 390 and 360 widths before every push: no horizontal overflow, no console errors, timeline click/arrow keys, mobile accordion, career bar click/hover, representation switcher, screen steps, Copy email, Menu button, carousel controls. Any local Playwright install works; load `file:///…/index.html`, wait for `document.fonts.ready`, and use `scrollTo({ behavior: 'instant' })` when measuring positions (the page uses smooth scrolling).
+Test at 1440, 768, 390 and 360 widths before every push: no horizontal overflow, no console errors, timeline click/arrow keys, mobile accordion, representation switcher, screen steps, Copy email, Menu button, carousel controls. Any local Playwright install works; load `file:///…/index.html`, wait for `document.fonts.ready`, and use `scrollTo({ behavior: 'instant' })` when measuring positions (the page uses smooth scrolling).
 
 ---
 
