@@ -94,6 +94,8 @@ Buttons keep their `data-role-index`, which must match the order of the `roles` 
 
 **Mobile (≤980px):** the panel is hidden; each role button expands an accordion inserted after it (one open at a time, first opened on load).
 
+**Selection animation (desktop):** JS inserts one `.tl-indicator` into `.timeline-nav` and adds `.has-indicator`; `placeIndicator()` slides it (with its spine dot) to the selected row using sub-pixel `getBoundingClientRect` positions, and re-places it on `document.fonts.ready` and resize. `renderRole()` measures the panel height before swapping content, then `slidePanel()` eases the height and slides the three panel parts in from the direction of travel (down the list = from below), staggered 45ms. Mobile accordions fade their content up on open. Nothing animates on first render or under reduced motion.
+
 When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ---
@@ -102,7 +104,7 @@ When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 - **Representation switcher** (`[data-rep]`, Numbers): four `.rep-row`s, each carrying `data-value`, `data-delta`, `data-label` and chart positions `--a` / `--b` (/ `--m`) on a 0–40% axis, where position = percentage × 2.5. Buttons with `data-rep-view` highlight a row and update the readout. If a figure changes, update the row's data attributes, its `--a`/`--b`, and its `.rep-vals` text.
 - **Screen steps** (`[data-steps]`, AI Work): `.web-step` buttons map by order to `.web-stage img`; the visible image has `.on`. Auto-advances every 6s only while visible and not hovered/focused; no auto-advance under reduced motion.
-- **Candidate Intelligence flow** (`.ci-flow`): CSS dot animation, switched on by adding `.run` while the diagram is at least 60% on screen.
+- **Candidate Intelligence flow** (`.ci-flow`): one dot per arrow on a 4.8s loop — the first arrow's dot runs in the first half, the second's (delayed 2.4s) in the second half, so it reads as one candidate moving through. Switched on by adding `.run` while the diagram is at least 60% on screen.
 - **Copy email** (`[data-copy-email]`): reads the address from the contact `mailto:` link (Cloudflare email obfuscation decodes it on load), falls back to `execCommand('copy')`, and announces the result in `[data-copy-status]`.
 
 ---

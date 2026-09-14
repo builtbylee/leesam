@@ -116,7 +116,15 @@
     .timeline-role-title { font-size: 14.5px; font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
     .timeline-role[aria-selected="true"] .timeline-role-title { color: var(--blue); }
     .timeline-role-meta { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .timeline-panel { padding: 36px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
+    /* desktop: one highlight slides along the spine to the selected role (added by JS) */
+    .tl-indicator { position: absolute; top: 0; left: 28px; right: 0; z-index: 0; display: none; height: 0; border-left: 2px solid var(--blue); border-radius: 0 8px 8px 0; background: var(--blue-soft); pointer-events: none; transition: transform 380ms var(--ease), height 380ms var(--ease); }
+    .tl-indicator::before { content: ""; position: absolute; left: -19.5px; top: 50%; width: 7px; height: 7px; margin-top: -3.5px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+    .has-indicator .tl-indicator { display: block; }
+    .has-indicator .timeline-role { z-index: 1; }
+    .has-indicator .timeline-role-title { transition: color 220ms var(--ease); }
+    .has-indicator .timeline-role[aria-selected="true"], .has-indicator .timeline-role[aria-selected="true"]:hover { background: transparent; border-left-color: transparent; }
+    .has-indicator .timeline-role[aria-selected="true"]::before { opacity: 0; }
+    .timeline-panel { overflow: hidden; padding: 36px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); box-shadow: var(--shadow); }
     .timeline-panel-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; margin-bottom: 28px; }
     .timeline-panel-meta { margin-bottom: 8px; font-size: 14px; font-weight: 600; color: var(--blue); }
     .timeline-panel-title { font-size: clamp(28px, 3vw, 38px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; color: var(--navy); }
@@ -321,11 +329,10 @@
     .ci-link { position: relative; height: 2px; margin: 0 8px; background: var(--line); }
     .ci-link::after { content: ""; position: absolute; right: 0; top: -3px; width: 6px; height: 6px; border-top: 2px solid #c9d3e0; border-right: 2px solid #c9d3e0; transform: rotate(45deg); }
     .ci-link i { position: absolute; top: -2px; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); opacity: 0; }
-    .ci-flow.run .ci-link i { animation: ciFlow 2.4s linear infinite; }
-    .ci-flow.run .ci-link.in i:nth-child(2) { animation-delay: 0.8s; }
-    .ci-flow.run .ci-link.in i:nth-child(3) { animation-delay: 1.6s; }
-    .ci-flow.run .ci-link.out i { animation-delay: 1.2s; }
-    @keyframes ciFlow { 0% { left: 0; opacity: 0; } 15%, 85% { opacity: 1; } 100% { left: calc(100% - 6px); opacity: 0; } }
+    /* one dot crosses the first arrow, then one crosses the second: a single candidate moving through */
+    .ci-flow.run .ci-link i { animation: ciFlow 4.8s linear infinite; }
+    .ci-flow.run .ci-link.out i { animation-delay: 2.4s; }
+    @keyframes ciFlow { 0% { left: 0; opacity: 0; } 6%, 42% { opacity: 1; } 50% { left: calc(100% - 6px); opacity: 0; } 100% { left: calc(100% - 6px); opacity: 0; } }
 
     .workshop-visual:hover img, .phone-mockup:hover img { animation-play-state: paused; }
     button.button { cursor: pointer; }
@@ -613,7 +620,7 @@
                   <p>Popular roles can attract hundreds of applications at Cloudflare — many never seen by a hiring manager due to the volume. The Candidate Intelligence tool allows candidates to upload their CV and a role link; the tool then assesses their profile against the job requirements and, if there's a suitable fit, they can opt to share their details directly to the hiring team.</p>
                   <div class="ci-flow" role="img" aria-label="How it works: a candidate submits a CV and role link, the tool assesses the profile against the job requirements, and suitable candidates can opt to share their details with the hiring team.">
                     <div class="ci-node"><b>Candidate</b>CV + role link</div>
-                    <div class="ci-link in"><i></i><i></i><i></i></div>
+                    <div class="ci-link in"><i></i></div>
                     <div class="ci-node tool"><b>Assessment</b>Profile vs job requirements</div>
                     <div class="ci-link out"><i></i></div>
                     <div class="ci-node"><b>Hiring team</b>Suitable fits, by opt-in</div>
@@ -895,8 +902,8 @@
         <div class="personal-copy">
           <div class="head"><span class="num">05</span><h2>Travel and basketball.</h2></div>
           <div class="personal-text">
-            <p>Outside work, I make time for travel, live sport, and the kind of trips that become stories.</p>
-            <p>A Milwaukee Bucks fan who's flown to Wisconsin to prove it.</p>
+            <p>Outside work, I make time for travel and usually have an exciting trip planned.</p>
+            <p>A Milwaukee Bucks fan who has flown to Wisconsin to catch live games in person, and the proud owner of a Pomeranian called Max.</p>
           </div>
         </div>
         <div class="memory-carousel" aria-label="Travel and Milwaukee Bucks photo carousel">
@@ -1204,6 +1211,17 @@
       const bullets = root.querySelector('[data-role-bullets]');
       const noteTitle = root.querySelector('[data-role-note-title]');
       const note = root.querySelector('[data-role-note]');
+      const nav = root.querySelector('.timeline-nav');
+      const panel = root.querySelector('.timeline-panel');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const EASE = 'cubic-bezier(0.32, 0.72, 0, 1)';
+      let ready = false; // no animation until the initial render is done
+
+      // Desktop: a single highlight that slides along the timeline to the selected role
+      const indicator = document.createElement('span');
+      indicator.className = 'tl-indicator';
+      indicator.setAttribute('aria-hidden', 'true');
+      nav.prepend(indicator);
 
       // Create one accordion div per role, inserted after each nav button
       const accordions = buttons.map(function(btn) {
@@ -1223,9 +1241,44 @@
         });
       }
 
+      function placeIndicator(animate) {
+        const desktop = window.innerWidth > 980;
+        nav.classList.toggle('has-indicator', desktop);
+        const selected = buttons.find(function(b) { return b.getAttribute('aria-selected') === 'true'; });
+        if (!desktop || !selected) return;
+        if (!animate) indicator.style.transition = 'none';
+        // Sub-pixel measurements, so the highlight never sits a pixel off its row
+        const row = selected.getBoundingClientRect();
+        const top = row.top - nav.getBoundingClientRect().top;
+        indicator.style.transform = 'translateY(' + top + 'px)';
+        indicator.style.height = row.height + 'px';
+        if (!animate) {
+          void indicator.offsetHeight; // apply the jump before restoring the transition
+          indicator.style.transition = '';
+        }
+      }
+
+      // Desktop: slide the new content in from the direction of travel and ease the panel height
+      let panelAnimations = [];
+      function slidePanel(direction, startHeight) {
+        panelAnimations.forEach(function(a) { a.cancel(); });
+        const endHeight = panel.offsetHeight;
+        panelAnimations = [panel.animate([{ height: startHeight + 'px' }, { height: endHeight + 'px' }], { duration: 420, easing: EASE })];
+        Array.prototype.forEach.call(panel.children, function(part, i) {
+          panelAnimations.push(part.animate([
+            { opacity: 0, transform: 'translateY(' + (direction * 18) + 'px)' },
+            { opacity: 1, transform: 'none' }
+          ], { duration: 420, delay: i * 45, easing: EASE, fill: 'backwards' }));
+        });
+      }
+
       // Desktop: render into the right-hand panel
       function renderRole(index) {
         const role = roles[index] || roles[0];
+        const previous = buttons.findIndex(function(b) { return b.getAttribute('aria-selected') === 'true'; });
+        const animate = ready && !reduceMotion && previous !== -1 && previous !== index &&
+          window.innerWidth > 980 && typeof panel.animate === 'function';
+        const startHeight = panel.offsetHeight; // measured before the content changes
         buttons.forEach(function(button, i) {
           button.setAttribute('aria-selected', i === index ? 'true' : 'false');
         });
@@ -1246,6 +1299,9 @@
           return '<li>' + item + '</li>';
         }).join('');
         syncCompanies();
+        placeIndicator(ready && !reduceMotion);
+        // Moving down the list (to an older role) brings content up from below, and vice versa
+        if (animate) slidePanel(index > previous ? 1 : -1, startHeight);
       }
 
       // Mobile: build accordion HTML for a role
@@ -1265,11 +1321,19 @@
       }
 
       function openAccordion(index) {
-        accordions[index].querySelector('.timeline-accordion-inner').innerHTML = buildAccordionHTML(roles[index]);
+        const inner = accordions[index].querySelector('.timeline-accordion-inner');
+        inner.innerHTML = buildAccordionHTML(roles[index]);
         accordions[index].classList.add('open');
         buttons[index].setAttribute('aria-selected', 'true');
         openAccordionIndex = index;
         syncCompanies();
+        // Mobile: content rises into place as the accordion slides open
+        if (ready && !reduceMotion && typeof inner.animate === 'function') {
+          inner.animate([
+            { opacity: 0, transform: 'translateY(10px)' },
+            { opacity: 1, transform: 'none' }
+          ], { duration: 380, delay: 80, easing: EASE, fill: 'backwards' });
+        }
       }
 
       function closeAccordion(index) {
@@ -1314,6 +1378,13 @@
       if (window.innerWidth <= 980) {
         openAccordion(0);
       }
+      ready = true;
+
+      // Keep the highlight aligned once fonts load and whenever the layout resizes
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function() { placeIndicator(false); });
+      }
+      window.addEventListener('resize', function() { placeIndicator(false); }, { passive: true });
     })();
 
     (function() {
