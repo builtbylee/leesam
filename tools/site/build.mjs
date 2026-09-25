@@ -2,7 +2,6 @@
 import fs from 'fs';
 
 const OUT = process.argv[2];
-const maps = JSON.parse(fs.readFileSync(new URL('../geo/maps.json', import.meta.url)));
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 // ---------------------------------------------------------------- content
@@ -175,17 +174,18 @@ const chapter = co => `
             </div>
           </article>`;
 
-const shot = (p, i) => {
-  const imgs = p.imgs.map((im, k) => `<img${k === 0 ? ' class="on"' : ''} src="assets/apps/${im[0]}" alt="${esc(im[1])}" loading="lazy">`).join('');
+const shot = (p) => {
+  const img = (im, on) => `<img${on ? ' class="on"' : ''} src="assets/apps/${im[0]}" alt="${esc(im[1])}" loading="lazy">`;
   let inner;
-  if (p.kind === 'web') inner = `<div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>${p.url}</span></div><div class="browser-stage">${imgs}</div></div>`;
-  else if (p.kind === 'phone') inner = `<div class="phone"><div class="phone-screen">${imgs}</div></div>`;
-  else inner = `<div class="photo-stage">${imgs}</div>`;
-  const pips = p.imgs.length > 1 ? `<span class="pips" aria-hidden="true">${p.imgs.map((_, k) => `<i${k === 0 ? ' class="on"' : ''}></i>`).join('')}</span>` : '';
-  const next = p.imgs.length > 1 ? `<button type="button" class="shot-next" aria-label="Next ${esc(p.title)} screen"></button>` : '';
+  if (p.kind === 'web') inner = `<span class="browser"><span class="browser-bar"><i></i><i></i><i></i><span>${p.url}</span></span><span class="browser-stage">${p.imgs.map((im, k) => img(im, k === 0)).join('')}</span></span>`;
+  else if (p.kind === 'phone') inner = `<span class="phones">${p.imgs.map(im => `<span class="phone"><span class="phone-screen">${img(im, true)}</span></span>`).join('')}</span>`;
+  else inner = `<span class="photo-stage">${p.imgs.map((im, k) => img(im, k === 0)).join('')}</span>`;
+  const cycles = p.kind !== 'phone' && p.imgs.length > 1;
+  const pips = cycles ? `<span class="pips" aria-hidden="true">${p.imgs.map((_, k) => `<i${k === 0 ? ' class="on"' : ''}></i>`).join('')}</span>` : '';
+  const what = p.kind === 'photo' ? 'photos' : 'screens';
   return `
-            <article class="card" data-card>
-              <div class="shot kind-${p.kind}">${inner}${pips}${next}</div>
+            <article class="card" data-card${cycles ? ' data-cycle' : ''}>
+              <button type="button" class="shot kind-${p.kind}" data-view aria-label="View ${esc(p.title)} ${what} full size">${inner}${pips}<span class="zoom" aria-hidden="true"></span></button>
               <div class="card-body">
                 <p class="card-meta mono"><b>${esc(p.org)}</b> · ${esc(p.type)}</p>
                 <h3>${esc(p.title)}</h3>
@@ -195,18 +195,16 @@ const shot = (p, i) => {
 };
 
 const tile = (ph, i) => `
-            <button type="button" class="tile" data-place="${ph[0]}" aria-pressed="${i === 0}" aria-label="${esc(ph[2])}: show on the map">
-              <img src="assets/outside-work/${ph[1]}" alt="${esc(ph[3])}" loading="lazy">
-              <span class="tile-cap"><span>${esc(ph[2])}</span><span class="mono">${String(i + 1).padStart(2, '0')}</span></span>
-            </button>`;
+            <figure class="tile${i === 0 ? ' feature' : ''}">
+              <button type="button" data-photo aria-label="View the ${esc(ph[2])} photo full size"><img src="assets/outside-work/${ph[1]}" alt="${esc(ph[3])}" loading="lazy"></button>
+              <figcaption>${esc(ph[2])}</figcaption>
+            </figure>`;
 
 // ---------------------------------------------------------------- page
 const html = fs.readFileSync(new URL('./page.html', import.meta.url), 'utf8')
   .replace('<!--CHAPTERS-->', companies.map(chapter).join(''))
   .replace('<!--CARDS-->', projects.map(shot).join(''))
-  .replace('<!--TILES-->', photos.map(tile).join(''))
-  .replace('__EMEA_D__', maps.emea.d)
-  .replace('__WORLD_D__', maps.world.d);
-if (/<!--[A-Z]+-->|__[A-Z]+_D__/.test(html)) throw new Error('unfilled placeholder');
+  .replace('<!--TILES-->', photos.map(tile).join(''));
+if (/<!--[A-Z]+-->/.test(html)) throw new Error('unfilled placeholder');
 fs.writeFileSync(OUT, html);
 console.log('wrote', OUT, html.length, 'bytes');
