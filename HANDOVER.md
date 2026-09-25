@@ -67,8 +67,7 @@ The thread is an SVG inside `.journey`. It is a straight line from the Career he
 
 ## Remaining work
 
-- [ ] **Agency figure:** the card says 2.2%, but 76 ÷ 3,329 = 2.28%, which rounds to 2.3%. Confirm with Lee.
-- [ ] **iPhone Safari:** not yet tested on WebKit (not installed on the build machine).
+- Nothing outstanding. The agency figure is 2.3% (76 ÷ 3,329 = 2.28%, rounded up; confirmed by Lee 2026-09-25), and Lee checked the site in Safari on 2026-09-25.
 
 ---
 
