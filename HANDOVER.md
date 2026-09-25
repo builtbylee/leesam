@@ -33,20 +33,24 @@ assets/
 
 ## Design: "Star search" (September 2026)
 
-**The idea.** Great people are "star talent", and the work is finding the one in a sky full of them. The site is a night sky: starlight text on a deep midnight ground, blue for what is current, and gold only for "the one" (the found star, the selected role's dot, the FY25 record year, home on the maps, the primary Contact button).
+**The idea.** Great people are "star talent", and the work is finding the one in a sky full of them. Drawn as a star chart on paper (light theme — Lee prefers light; a dark night-sky version was tried and rejected on 2026-09-25): navy ink stars on a cool white ground, blue for what is current, and gold only for "the one" (the found star, the selected role's dot, the FY25 record year, home on the maps, the primary email button). Token names (`--night`, `--deep`) are historical; they now hold the light grounds.
 
 | Token | Value | Use |
 |---|---|---|
-| `--night` | `#050a16` | Page ground |
-| `--deep` | `#08101f` | Alternate section ground (Experience, Numbers) |
-| `--panel` / `--panel-2` | `#0d1629` / `#121e36` | Cards, panels |
-| `--ink` | `#eaf0fb` | Text |
-| `--muted` | `#95a4c0` | Secondary text (7:1 on `--night`) |
-| `--faint` | `#5a6883` | Marks only, never text |
-| `--star` | `#cfe0ff` | Stars, galaxy points |
-| `--blue` / `--blue-2` | `#5b8cff` / `#9dbbff` | Current / selected, routes |
-| `--gold` | `#ffcb6b` | "The one" — used sparingly |
-| `--land` | `#2c4577` | Map land dots |
+| `--night` | `#f6f8fc` | Page ground |
+| `--deep` | `#edf1f8` | Alternate section ground (Experience, Numbers) |
+| `--panel` | `#ffffff` | Cards, panels |
+| `--ink` | `#0b1b33` | Text |
+| `--muted` | `#4c5b72` | Secondary text |
+| `--faint` | `#a3aec0` | Marks only, never text |
+| `--star` | `#1e3a66` | Stars, galaxy points |
+| `--blue` / `--blue-2` | `#2458e6` / `#1d4ed8` | Current / selected, routes; `--blue-2` for text on `--blue-soft` |
+| `--gold` | `#f0a81c` | "The one" as a mark, fill or glow — never small text |
+| `--gold-ink` | `#9a5f00` | Gold as small text (≥ 4.5:1) |
+| `--gold-display` | `#c27a06` | Gold as large text only ("AI era.", "talk.", ≥ 3:1) |
+| `--land` | `#c7d3e8` | Map land dots |
+
+Canvas colours are set in the scripts (`STAR`, `GOLD`, `BLUE` in `Sky`; the galaxy's `fillStyle`s) and must be changed there too if the palette moves.
 
 **Type:** `Schibsted Grotesk` (400–800) for headings and text; `Newsreader` italic for Lee's own voice (lede, Outside Work copy, timeline notes, "talk."); `Martian Mono` at 87.5% width for labels, dates, coordinates and data.
 
