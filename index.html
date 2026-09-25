@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://talentbylee.com">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="theme-color" content="#ffffff">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230e1116'/%3E%3Cpath d='M9 22 C12 10 20 22 23 10' fill='none' stroke='%232f45ff' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='10' r='3' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%230e1116'/%3E%3Cpath d='M9 22 C12 10 20 22 23 10' fill='none' stroke='%232563eb' stroke-width='3' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='10' r='3' fill='%23fff'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500..800&family=Hanken+Grotesk:ital,wght@0,400..700;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -33,9 +33,9 @@
       --muted: #5f6775;
       --line: #e6e8ec;
       --line-2: #d4d8df;
-      --accent: #2f45ff;
-      --accent-ink: #2336e0;
-      --accent-soft: #eef0ff;
+      --accent: #2563eb;
+      --accent-ink: #1d4ed8;
+      --accent-soft: #e8efff;
       --land: #d3dae6;
       --out: cubic-bezier(0.16, 1, 0.3, 1);
       --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -91,8 +91,6 @@
     .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }
     .w > span { display: inline-block; }
     .loop { position: relative; display: inline-block; white-space: nowrap; color: var(--accent); }
-    .loop-svg { position: absolute; left: -15%; top: -16%; width: 128%; height: 138%; overflow: visible; pointer-events: none; }
-    .loop-svg path { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 
     .thesis { margin-top: 56px; }
     .thesis p { max-width: 36ch; font-size: clamp(21px, 1.9vw, 26px); line-height: 1.4; letter-spacing: -0.01em; color: var(--ink); }
@@ -100,13 +98,6 @@
     .facts { display: grid; grid-template-columns: repeat(3, auto); justify-content: start; gap: 12px 44px; margin-top: 44px; }
     .facts dt { font-family: var(--mono); font-size: 12px; color: var(--muted); }
     .facts dd { margin-top: 4px; font-weight: 600; font-size: 17px; }
-    .follow { display: inline-flex; align-items: center; gap: 12px; margin-top: 48px; min-height: 44px; font-weight: 600; text-decoration: none; }
-    .follow i { position: relative; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-soft); }
-    .follow i::before { content: ""; position: absolute; left: 50%; top: 9px; width: 2px; height: 16px; margin-left: -1px; border-radius: 2px; background: var(--accent); }
-    .follow i::after { content: ""; position: absolute; left: 50%; top: 18px; width: 8px; height: 8px; margin-left: -4px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg); }
-    .follow:hover i { background: var(--accent); }
-    .follow:hover i::before { background: #fff; }
-    .follow:hover i::after { border-color: #fff; }
     .hero-portrait { position: relative; margin-top: 70px; }
     .hero-portrait .frame { overflow: hidden; aspect-ratio: 4 / 5; border-radius: 28px; background: var(--bg-2); }
     .hero-portrait img { width: 100%; height: 100%; object-fit: cover; }
@@ -115,7 +106,6 @@
     /* hero load */
     .js .w > span { animation: wordUp 1000ms var(--out) both; animation-delay: calc(120ms + var(--i) * 70ms); }
     @keyframes wordUp { from { transform: translateY(105%); } }
-    .js .loop-svg path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1100ms var(--out) 950ms forwards; }
     @keyframes draw { to { stroke-dashoffset: 0; } }
     .js .hero [data-load] { animation: fadeUp 900ms var(--out) both; animation-delay: var(--d, 700ms); }
     @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } }
@@ -184,7 +174,7 @@
     .more summary i::before, .more summary i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 10px; height: 2px; margin: -1px 0 0 -5px; border-radius: 2px; background: var(--accent); }
     .more summary i::after { transform: rotate(90deg); transition: transform 400ms var(--out); }
     .more[open] summary i::after { transform: rotate(0); }
-    .more summary:hover i { background: #dfe3ff; }
+    .more summary:hover i { background: #d8e3ff; }
     .more-body { padding: 8px 0 6px; }
     .js .more[open] .more-body { animation: fadeUp 500ms var(--out); }
     .more ul { display: grid; gap: 10px; padding: 0; list-style: none; }
@@ -197,7 +187,7 @@
     .big { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 64px; align-items: end; }
     .eyebrow { color: var(--muted); }
     .eyebrow b { font-weight: 500; color: var(--accent-ink); }
-    .huge, .panel p.huge { margin-top: 12px; font-family: var(--display); font-weight: 800; font-size: clamp(96px, 15vw, 220px); line-height: 0.82; letter-spacing: -0.06em; color: var(--ink); }
+    .huge, .panel p.huge { margin-top: 30px; font-family: var(--display); font-weight: 800; font-size: clamp(96px, 15vw, 220px); line-height: 0.82; letter-spacing: -0.06em; color: var(--ink); }
     .huge .u { font-size: 0.4em; letter-spacing: -0.02em; color: var(--muted); }
     .big-label { max-width: 42ch; margin-top: 26px; font-size: 18px; color: var(--ink-2); }
     .bars { display: flex; align-items: flex-end; gap: 14px; height: 230px; border-bottom: 1px solid var(--line-2); }
@@ -307,7 +297,7 @@
     .browser-stage img.on, .photo-stage img.on, .phone-screen img.on { opacity: 1; }
     .photo-stage { position: absolute; inset: 0; }
     .photo-stage img { object-fit: cover; }
-    .phone { height: 88%; aspect-ratio: 9 / 19.5; padding: 6px; border-radius: 30px; background: #0e1116; box-shadow: 0 24px 40px -24px rgba(14, 17, 22, 0.5); }
+    .phone { position: absolute; top: 6%; bottom: 6%; left: 50%; transform: translateX(-50%); aspect-ratio: 9 / 19.5; padding: 6px; border-radius: 30px; background: #0e1116; box-shadow: 0 24px 40px -24px rgba(14, 17, 22, 0.5); }
     .phone-screen { position: relative; width: 100%; height: 100%; border-radius: 24px; overflow: hidden; background: #000; }
     .phone-screen img { object-fit: contain; object-position: top; }
     .pips { position: absolute; left: 50%; bottom: 12px; display: flex; gap: 6px; transform: translateX(-50%); }
@@ -328,8 +318,8 @@
 
     /* ---- beyond work ---- */
     .beyond { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 56px; align-items: start; }
-    .beyond-text p { max-width: 30ch; font-size: clamp(22px, 2.1vw, 28px); line-height: 1.35; letter-spacing: -0.015em; }
-    .beyond-text p + p { margin-top: 18px; color: var(--ink-2); }
+    .beyond-text p { max-width: 56ch; font-size: 19px; line-height: 1.6; color: var(--ink-2); }
+    .beyond-text p + p { margin-top: 16px; }
     .route-card { margin-top: 44px; padding: 20px 20px 16px; border-radius: 24px; background: #fff; box-shadow: 0 0 0 1px var(--line); }
     .route-card .mono { display: flex; justify-content: space-between; margin-top: 10px; color: var(--muted); }
     .route-card .mono b { font-weight: 500; color: var(--ink); }
@@ -418,7 +408,6 @@
       html { scroll-behavior: auto; }
       *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
       .js [data-reveal] { opacity: 1; transform: none; }
-      .js .loop-svg path { stroke-dashoffset: 0; }
     }
   </style>
 </head>
@@ -456,7 +445,7 @@
         <p class="kicker mono" data-load style="--d:80ms">Recruiting leadership · EMEA · London, UK</p>
         <h1 class="headline">
           <span class="hl-name" data-load style="--d:120ms">Lee Sam</span>
-          <span class="hl-line"><span class="w"><span style="--i:0">The</span></span> <span class="w"><span style="--i:1">recruiting</span></span> <span class="w"><span style="--i:2">leader</span></span> <span class="w"><span style="--i:3">for</span></span> <span class="w"><span style="--i:4">the</span></span> <span class="loop"><span class="w"><span style="--i:5">AI</span></span> <span class="w"><span style="--i:6">era.</span></span><svg class="loop-svg" viewBox="0 0 300 120" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M232 111 C170 119 80 115 42 99 C10 85 14 45 58 27 C110 7 214 7 262 25 C300 41 300 85 262 101 C246 107 226 111 206 113"/></svg></span></span>
+          <span class="hl-line"><span class="w"><span style="--i:0">The</span></span> <span class="w"><span style="--i:1">recruiting</span></span> <span class="w"><span style="--i:2">leader</span></span> <span class="w"><span style="--i:3">for</span></span> <span class="w"><span style="--i:4">the</span></span> <span class="loop"><span class="w"><span style="--i:5">AI</span></span> <span class="w"><span style="--i:6">era.</span></span></span></span>
         </h1>
             <div class="thesis" data-load style="--d:900ms">
               <p>Companies are rearchitecting for the AI era. The way they find, assess, and hire will change too.</p>
@@ -467,7 +456,6 @@
               <div><dt>Based</dt><dd>London, UK</dd></div>
               <div><dt>Most recently at</dt><dd>Cloudflare</dd></div>
             </dl>
-            <a class="follow" href="#career" data-load style="--d:1200ms"><i aria-hidden="true"></i>Follow the line from 2007</a>
         </div>
         <figure class="hero-portrait">
           <div class="frame"><img src="assets/lee-sam-hero.jpeg" alt="Lee Sam seated by a London office window"></div>
@@ -798,7 +786,7 @@
           <div class="rail-wrap" data-reveal>
             <div class="rail" data-rail tabindex="0" role="region" aria-label="Projects, scroll sideways">
             <article class="card" data-card>
-              <div class="shot web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>candidate-intel.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen" loading="lazy"><img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence upload screen" loading="lazy"><img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match result" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Candidate Intelligence screen"></button></div>
+              <div class="shot kind-web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>candidate-intel.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/candidate-intel-start.jpg" alt="Candidate Intelligence start screen" loading="lazy"><img src="assets/apps/candidate-intel-upload.jpg" alt="Candidate Intelligence upload screen" loading="lazy"><img src="assets/apps/candidate-intel-result.jpg" alt="Candidate Intelligence match result" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Candidate Intelligence screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Cloudflare</b> · Internal tool</p>
                 <h3>Candidate Intelligence</h3>
@@ -806,7 +794,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>job-builder.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/job-builder-overview.jpg" alt="Job Builder overview showing job basics and interview stages" loading="lazy"><img src="assets/apps/job-builder-submit.jpg" alt="Job Builder review and submit screen" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Job Builder screen"></button></div>
+              <div class="shot kind-web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>job-builder.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/job-builder-overview.jpg" alt="Job Builder overview showing job basics and interview stages" loading="lazy"><img src="assets/apps/job-builder-submit.jpg" alt="Job Builder review and submit screen" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Job Builder screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Cloudflare</b> · Internal tool</p>
                 <h3>Job Builder</h3>
@@ -814,7 +802,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>relay.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/relay-import.jpg" alt="Relay import view showing roles pulled from Greenhouse" loading="lazy"><img src="assets/apps/relay-handover.jpg" alt="Relay handover document with role status and candidate details" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Relay screen"></button></div>
+              <div class="shot kind-web"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i><span>relay.cloudflare.io</span></div><div class="browser-stage"><img class="on" src="assets/apps/relay-import.jpg" alt="Relay import view showing roles pulled from Greenhouse" loading="lazy"><img src="assets/apps/relay-handover.jpg" alt="Relay handover document with role status and candidate details" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Relay screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Cloudflare</b> · Recruiter automation</p>
                 <h3>Relay</h3>
@@ -822,7 +810,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot photo"><div class="photo-stage"><img class="on" src="assets/apps/workshop-close.jpg" alt="Lee Sam co-hosting the agentic coding workshop at Cloudflare London" loading="lazy"><img src="assets/apps/workshop-wide.jpg" alt="Attendees building projects during the agentic coding workshop" loading="lazy"></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Coding Workshop screen"></button></div>
+              <div class="shot kind-photo"><div class="photo-stage"><img class="on" src="assets/apps/workshop-close.jpg" alt="Lee Sam co-hosting the agentic coding workshop at Cloudflare London" loading="lazy"><img src="assets/apps/workshop-wide.jpg" alt="Attendees building projects during the agentic coding workshop" loading="lazy"></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i></span><button type="button" class="shot-next" aria-label="Next Coding Workshop screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Cloudflare</b> · Workshop · Feb 2026</p>
                 <h3>Coding Workshop</h3>
@@ -830,7 +818,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/execue-report.jpg" alt="Execue job match report" loading="lazy"><img src="assets/apps/execue-generating.jpg" alt="Execue generating analysis" loading="lazy"><img src="assets/apps/execue-home.jpg" alt="Execue home screen" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Execue screen"></button></div>
+              <div class="shot kind-phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/execue-report.jpg" alt="Execue job match report" loading="lazy"><img src="assets/apps/execue-generating.jpg" alt="Execue generating analysis" loading="lazy"><img src="assets/apps/execue-home.jpg" alt="Execue home screen" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Execue screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Personal</b> · Mobile app</p>
                 <h3>Execue</h3>
@@ -838,7 +826,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/pinr-map.jpg" alt="Pinr map" loading="lazy"><img src="assets/apps/pinr-profile.jpg" alt="Pinr profile" loading="lazy"><img src="assets/apps/pinr-place.jpg" alt="Pinr destination detail" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Pinr screen"></button></div>
+              <div class="shot kind-phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/pinr-map.jpg" alt="Pinr map" loading="lazy"><img src="assets/apps/pinr-profile.jpg" alt="Pinr profile" loading="lazy"><img src="assets/apps/pinr-place.jpg" alt="Pinr destination detail" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Pinr screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Personal</b> · Mobile app</p>
                 <h3>Pinr</h3>
@@ -846,7 +834,7 @@
               </div>
             </article>
             <article class="card" data-card>
-              <div class="shot phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/ryval-workout.jpg" alt="Ryval workout" loading="lazy"><img src="assets/apps/ryval-home.jpg" alt="Ryval home dashboard" loading="lazy"><img src="assets/apps/ryval-detail.jpg" alt="Ryval workout detail" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Ryval screen"></button></div>
+              <div class="shot kind-phone"><div class="phone"><div class="phone-screen"><img class="on" src="assets/apps/ryval-workout.jpg" alt="Ryval workout" loading="lazy"><img src="assets/apps/ryval-home.jpg" alt="Ryval home dashboard" loading="lazy"><img src="assets/apps/ryval-detail.jpg" alt="Ryval workout detail" loading="lazy"></div></div><span class="pips" aria-hidden="true"><i class="on"></i><i></i><i></i></span><button type="button" class="shot-next" aria-label="Next Ryval screen"></button></div>
               <div class="card-body">
                 <p class="card-meta mono"><b>Personal</b> · Mobile app</p>
                 <h3>Ryval</h3>

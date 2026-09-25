@@ -185,7 +185,7 @@ const shot = (p, i) => {
   const next = p.imgs.length > 1 ? `<button type="button" class="shot-next" aria-label="Next ${esc(p.title)} screen"></button>` : '';
   return `
             <article class="card" data-card>
-              <div class="shot ${p.kind}">${inner}${pips}${next}</div>
+              <div class="shot kind-${p.kind}">${inner}${pips}${next}</div>
               <div class="card-body">
                 <p class="card-meta mono"><b>${esc(p.org)}</b> · ${esc(p.type)}</p>
                 <h3>${esc(p.title)}</h3>
