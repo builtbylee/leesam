@@ -17,24 +17,27 @@ npx wrangler pages deployment list --project-name leesam
 
 ---
 
-## Design: "The thread" (September 2026)
+## Design: the original Verda site, merged with "The thread" (25 September 2026)
 
-**The idea.** A career told as one continuous line. A single cobalt thread starts at 2007 and runs down the page, drawn as the reader scrolls: through every company in order, through the results and the projects, and ends in a dot above "Let's talk." Nodes light up as the line reaches each chapter and section. Light theme (Lee prefers light), clean and professional; one accent.
+**The idea.** Lee's preferred look is the original Verda-style site (commit `e4829f3`), so the page shell comes from it: the LS header, the "Lee Sam" hero with its serif line, navy and blue colours, and the navy "Let's talk." panel. Some parts of the later "The thread" redesign (commits aa0c640 to 88b1e23) were kept, and Lee approved each section's merge from a side-by-side review:
+- **01 Career:** the current timeline in the original colours and font. It has the scroll-drawn line and dots, one node per company, full role blocks and the sticky year counter. The line **stops at the end of Career**, where an end dot lights up. It does not run on through the rest of the page.
+- **02 Results:** the original layout (white cards on the pale ground, five-stat row, divider, Women in Management card, Representation card, How note, award card), with the animated graphics: the count-up, growing bars, line chart and drawn representation lines.
+- **03 Built with AI and 04 Beyond work:** the Thread versions, set in the original font.
 
-Earlier the same day two other directions were shipped and replaced: a dark "Star search" night sky (rejected: Lee prefers light) and its light recolour (rejected: too close to the previous structure). This version changes the structure, not just the surface.
+Rejected along the way: a dark "Star search" theme, its light recolour, a bolder cobalt, the loop around "AI era.", the career bar, and the dot-matrix maps.
 
 | Token | Value | Use |
 |---|---|---|
-| `--bg` / `--bg-2` | `#ffffff` / `#f4f5f7` | Page / alternate section ground |
-| `--ink` / `--ink-2` | `#0e1116` / `#394150` | Text / secondary text |
-| `--muted` | `#5f6775` | Labels, captions |
-| `--line` / `--line-2` | `#e6e8ec` / `#d4d8df` | Hairlines, borders, the thread's dotted route |
-| `--accent` | `#2563eb` | The thread, nodes, year counter, current nav, key figures, primary button (the original site blue; Lee rejected a bolder cobalt) |
-| `--accent-ink` / `--accent-soft` | `#1d4ed8` / `#e8efff` | Accent text / soft accent fills |
+| `--navy` / `--ink` | `#0a2540` / `#0f2540` | Headings, header mark, contact panel / text |
+| `--muted` (= `--ink-2`) | `#4a5a6d` | Secondary text, labels |
+| `--bg` / `--bg-2` | `#ffffff` / `#f5f8fb` | Page / alternate section ground (Results, Beyond work) |
+| `--line` / `--line-2` | `#e3e8ef` / `#cfd8e3` | Hairlines / the thread's dotted route |
+| `--accent` / `--accent-soft` | `#2563eb` / `#e8efff` | The thread, nodes, year counter, labels / soft fills |
+| `--bar` | `#b9cdf7` | Non-peak FY bars |
 
-**Type:** `Epilogue` (700–800) for display and figures; `Hanken Grotesk` for text; `Spline Sans Mono` for years, dates and small labels.
+**Type:** `Instrument Sans` everywhere (600 for headings and figures); `Instrument Serif` for the hero line and the italic "talk." (`--mono` and `--display` are aliases for the sans).
 
-**Motion:** easing `--out` `cubic-bezier(.16,1,.3,1)` for everything that moves; `--spring` for small landings (buttons). Hero: headline words rise from masks and the portrait unveils (a hand-drawn loop around "AI era." was tried and removed at Lee's request). Scroll: the thread draws to 62% of the viewport, with a pen dot at its tip; sections fade up once. Moments: year odometer rolls, count-up to 3,329, FY bars grow, the women-in-management line draws with its points; project and photo viewer fades in. Ambient: web cards cycle their screens on hover, the end dot pings. Reduced motion: the thread is fully drawn, everything visible, no auto-cycling.
+**Motion:** easing `--out` `cubic-bezier(.16,1,.3,1)`. The hero fades up and the portrait unveils on load. Within Career, the thread draws to 62% of the viewport with a pen dot at its tip, company nodes light as it passes, the year odometer rolls, and the end dot pings once the line is complete. Elsewhere: sections fade up once, the count-up to 3,329, FY bars grow, the line chart and representation lines draw, web cards cycle screens on hover, and the viewer fades in. With reduced motion, everything is fully drawn and visible.
 
 ---
 
@@ -42,14 +45,14 @@ Earlier the same day two other directions were shipped and replaced: a dark "Sta
 
 | Anchor | Section | Notes |
 |---|---|---|
-| `#top` | Hero | Kicker, "Lee Sam", headline ("AI era." in the accent), thesis, facts, portrait. |
-| `#career` | 01 Career | Sticky year odometer (desktop) beside chapters in chronological order. Each `.chapter` = company head + `.role` blocks (`data-year` drives the odometer) with summary, three proofs, and a `<details>` for responsibilities and note. |
-| `#results` | 02 Results | 3,329 count-up + FY bars · five figures (incl. 11 EMEA markets) · women-in-management panel (line chart + 2018 vs 2025 rows) · How · Maple Leaf Award. |
-| `#built` | 03 Built with AI | Horizontal rail of 7 cards, up to 640px wide at natural height (scroll, drag, arrows, keyboard). Web tools show one large browser (screens cycle on hover); phone apps show all three screens side by side (fanned, first screen in front, at ≤640px). Clicking a card's image opens the full-size viewer (`<dialog data-viewer>`: arrows, ←/→ keys, Esc, backdrop click). |
-| `#beyond` | 04 Beyond work | Text, then a photo mosaic (Busan 2×2 + 8 tiles; 4 columns desktop, 2 on mobile) with captions always shown; clicking opens the same viewer. |
-| `#contact` | Contact | End of the thread, "Let's talk.", email, Copy email, Back to top. |
+| `#top` | Hero | Original: "Lee Sam", serif line, thesis, three facts, portrait. |
+| `#career` | 01 Career | Inside `.journey`, the only element the thread covers. Sticky year odometer (desktop) beside chapters in chronological order. Each `.chapter` = company head + `.role` blocks (`data-year` drives the odometer) with summary, three proofs, and a `<details>` for responsibilities and note. |
+| `#results` | 02 Results | `.stat-card` (3,329 count-up + FY bars) · five `.figure`s · divider · `.stat-card.wim` (line chart) · `.rep` card · `.stats-note` (How) · `.award`. |
+| `#built` | 03 Built with AI | Horizontal rail of 7 cards, up to 640px wide at natural height (scroll, drag, arrows, keyboard). Web tools show one large browser (screens cycle on hover); phone apps show all three screens (fanned at ≤640px). Clicking a card's image opens the full-size viewer (`<dialog data-viewer>`: arrows, ←/→ keys, Esc, backdrop click). |
+| `#beyond` | 04 Beyond work | Text (indented under the heading), then a photo mosaic (Busan 2×2 + 8 tiles; 2 columns on mobile) with captions; clicking opens the same viewer. |
+| `#contact` | Contact | Original navy `.final` panel: "Let's talk.", email, Copy email, Back to top. |
 
-The thread is an SVG inside `.journey`, rebuilt from element positions on load, font load, resize and any size change (ResizeObserver), so opening a `<details>` keeps nodes aligned. Nodes come from `[data-node]` elements.
+The thread is an SVG inside `.journey`. It is a straight line from the Career heading to just below the last chapter, with the end dot (`[data-end]`) at its foot. It is rebuilt from element positions on load, font load, resize and any size change (ResizeObserver), so opening a `<details>` keeps nodes aligned. Nodes come from `[data-node]` elements (the Career heading and each chapter).
 
 ---
 
@@ -71,7 +74,7 @@ The thread is an SVG inside `.journey`, rebuilt from element positions on load, 
 
 ## Visual testing
 
-Test at 1440, 430, 390 and 360 widths before every push: no horizontal overflow, no console errors, every `[data-reveal]` reaches `.in` when scrolled through, the thread's drawn length grows with scroll and the end dot lights at the bottom, odometer years change, details open, project cards and photos open the viewer (arrows, keys, Esc, backdrop; focus returns to the card), rail arrows/drag, Copy email, and a reduced-motion pass. Any local Playwright install works; use `scrollTo({ behavior: 'instant' })` when measuring (the page uses smooth scrolling).
+Test at 1440, 430, 390 and 360 widths before every push: no horizontal overflow, no console errors, every `[data-reveal]` reaches `.in` when scrolled through, the thread's drawn length grows with scroll and its end dot lights at the end of Career (and sits above `#results`), odometer years change, details open, project cards and photos open the viewer (arrows, keys, Esc, backdrop; focus returns to the card), rail arrows/drag, Copy email, and a reduced-motion pass. Any local Playwright install works; use `scrollTo({ behavior: 'instant' })` when measuring (the page uses smooth scrolling).
 
 ---
 
