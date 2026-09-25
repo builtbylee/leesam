@@ -6,7 +6,7 @@ Personal digital CV for Lee Sam. Live at **https://talentbylee.com** (also `www.
 
 ## The site
 
-A single-file static site (`index.html`). All CSS and JavaScript is inline — no build step, no framework, no dependencies. The `assets/` folder holds images only.
+A single-file static site (`index.html`). All CSS and JavaScript is inline — no build step, no framework, no runtime dependencies. The `assets/` folder holds images only. `tools/gen-maps.mjs` regenerates the two dot-matrix map paths (see Night maps).
 
 **Deploy:** the Cloudflare Pages project `leesam` is connected to GitHub (`builtbylee/leesam`). Pushing to `main` triggers a production build — no manual upload needed. Check progress with:
 ```bash
@@ -18,7 +18,8 @@ npx wrangler pages deployment list --project-name leesam
 ## File structure
 
 ```
-index.html          — entire site (HTML + inline CSS + inline JS)
+index.html          — entire site (HTML + inline CSS + inline JS, incl. the two map paths)
+tools/gen-maps.mjs  — generates the EMEA and world dot-matrix paths and city positions
 assets/
   lee-sam-hero.jpeg — hero portrait
   logos/            — company logos (PNG + SVG, used in Experience timeline)
@@ -30,57 +31,64 @@ assets/
 
 ---
 
-## Design system
+## Design: "Star search" (September 2026)
 
-September 2026 redesign, aligned with verda.talentbylee.com: navy and blue only, hairline dividers, one soft shadow reserved for the object that matters in each section.
+**The idea.** Great people are "star talent", and the work is finding the one in a sky full of them. The site is a night sky: starlight text on a deep midnight ground, blue for what is current, and gold only for "the one" (the found star, the selected role's dot, the FY25 record year, home on the maps, the primary Contact button).
 
 | Token | Value | Use |
 |---|---|---|
-| `--navy` | `#0a2540` | Headings, brand mark, Contact band |
-| `--ink` | `#0f2540` | Body text |
-| `--muted` | `#4a5a6d` | Secondary text |
-| `--blue` | `#2563eb` | Accent: section numbers, active nav, selected role, peak bars |
-| `--blue-soft` | `#e8efff` | Selected-role background, mobile nav active |
-| `--bar` | `#b9cdf7` | Non-peak chart bars |
-| `--line` | `#e3e8ef` | Borders and dividers |
-| `--paper` | `#f5f8fb` | Alternate section background |
-| `--shadow` | soft navy drop | Portrait, timeline panel, carousels, numbers cards only |
+| `--night` | `#050a16` | Page ground |
+| `--deep` | `#08101f` | Alternate section ground (Experience, Numbers) |
+| `--panel` / `--panel-2` | `#0d1629` / `#121e36` | Cards, panels |
+| `--ink` | `#eaf0fb` | Text |
+| `--muted` | `#95a4c0` | Secondary text (7:1 on `--night`) |
+| `--faint` | `#5a6883` | Marks only, never text |
+| `--star` | `#cfe0ff` | Stars, galaxy points |
+| `--blue` / `--blue-2` | `#5b8cff` / `#9dbbff` | Current / selected, routes |
+| `--gold` | `#ffcb6b` | "The one" — used sparingly |
+| `--land` | `#2c4577` | Map land dots |
 
-**Typography (two families only):**
-- `Instrument Sans` — everything: headings, body, labels, stats
-- `Instrument Serif` — hero lede, Outside Work copy, italic "talk." in Contact
+**Type:** `Schibsted Grotesk` (400–800) for headings and text; `Newsreader` italic for Lee's own voice (lede, Outside Work copy, timeline notes, "talk."); `Martian Mono` at 87.5% width for labels, dates, coordinates and data.
 
-No monospace, no uppercase eyebrows. Labels are sentence case.
-
-**Shell:** `min(1180px, calc(100% - 48px))` (24px gutters); 16px gutters under 640px.
-
-**Section heads:** `.head` = small blue number beside an `h2` (30–44px) with optional intro paragraph.
+**Motion system:**
+- Easing: `--out` `cubic-bezier(.16,1,.3,1)` for anything that moves; `--spring` `(.34,1.56,.64,1)` only for things that land (nodes, buttons, dots).
+- Tiers: micro 160–240ms (hover, press) · move 460–700ms (timeline, carousel, panel) · moment 900–1700ms (letters, lock-on, galaxy, routes, count-up) · ambient loops (sky, galaxy spin, route lights, lock-tag pip).
+- Once vs loop: load sequence, reveals, galaxy assembly, route draw-in and count-up play once. Only the sky, galaxy rotation, route lights and flow dots loop, and each pauses when off screen or the tab is hidden.
+- Reduced motion: every canvas renders one composed still frame; reveals, letters and the portrait appear at rest; auto-advance stops. Every control still works.
 
 ---
 
 ## Sections
 
-| # | ID | Background | Notes |
-|---|---|---|---|
-| — | `.topbar` | white, sticky | LS mark + name + "Recruiting leadership"; section links highlight on scroll; Contact button. Under 860px the links collapse into a Menu button (`#navToggle` / `#mobileNav`). |
-| 01 | `#top` | white | Name, serif lede, two thesis paragraphs, Focus / Based / Most recently at strip, portrait. |
-| 02 | `#experience` | paper | Grouped vertical timeline (left) + detail panel (right). See below. |
-| 03 | `#ai-work` | white | Carousel, 7 slides (Candidate Intelligence, Job Builder, Relay, Coding Workshop, Execue, Pinr, Ryval). Counter total is computed from the slide count. The three tool slides have numbered screen steps; Candidate Intelligence also has a flow diagram. See Interactions. |
-| 04 | `#numbers` | paper | Two headline cards (3,329 hires; 29.4% women in management) with bar charts, a 5-stat hairline row, the representation switcher (`[data-rep]`), "How" note, Maple Leaf Award. Count-up and bar growth run once on scroll (skipped under reduced motion). |
-| 05 | `#outside-work` | white | Serif copy + 9-photo cross-fade carousel. |
-| — | `#contact` | navy | "Let's talk." left-aligned: email link, Copy email button, back to top. |
+| # | ID | Notes |
+|---|---|---|
+| — | `.topbar` | Star mark + name; nav links get a gold dot when current; Contact pill. Under 860px the links collapse into a Menu button (`#navToggle` / `#mobileNav`). |
+| 01 | `#top` | **The sky** (`canvas[data-sky="hero"]`). Letters of the name rise in; lede, thesis and facts follow; the gold lock frame snaps onto the portrait, which comes into focus; a London coordinates tag appears. A search frame then roams the sky, locks onto a star, turns it gold and grows a 3-line constellation. Pointer parallax on fine pointers. |
+| 02 | `#experience` | Grouped vertical timeline + detail panel (see below). |
+| 03 | `#ai-work` | Carousel, 7 slides. Arriving slide's copy slides in from the direction of travel. Screen steps with a 6s progress line; Candidate Intelligence flow. |
+| 04 | `#numbers` | **Galaxy** headline card (3,329 points, one per hire; 599 FY25 hires in gold) beside the count-up and FY bars · 4 stat cards · **EMEA markets map** · women-in-management chart · representation switcher · How note · Maple Leaf Award. |
+| 05 | `#outside-work` | Serif copy, **travel map** synced to the photo carousel (stops are real buttons over the map). |
+| — | `#contact` | The sky again (`data-sky="contact"`) with shooting stars. "Let's *talk.*", email (gold), Copy email, Back to top, coordinates sign-off. |
 
-The old fixed bottom ticker was removed in the redesign.
+Sections carry `data-reveal`: they arrive by coming into focus (blur → sharp, rise 26px), staggered by `--i`.
+
+---
+
+## Canvases and maps
+
+- **`Sky(canvas, opts)`** — star count = area / `opts.area`; seeded, so the sky is identical every visit. `hunt: true` runs the search frame (avoids `opts.avoid` elements, i.e. the hero copy and portrait); `shooting: true` adds shooting stars every 4–10s.
+- **Galaxy** (`canvas[data-galaxy]`) — `data-total` points and `data-gold` gold points, both read from attributes. Points wait scattered and gather into a three-arm spiral when the card is 25% on screen; inner arms turn faster. If the hire figures change, change the attributes, the figcaption and the `aria-label` together.
+- **Night maps** (`RouteMap(svg, cfg)`) — land is one `<path class="land">` of zero-length segments drawn with round caps (dot matrix). Routes are quadratic curves from `cfg.home`, bowed north, drawn in once; lights travel them while visible. EMEA: Mercator 600×516, `land-50m`, 8px grid; nodes sit at each market's capital, labelled by country. World: Natural Earth 720×321, `land-110m`, 7px grid, Antarctica trimmed. To add a place or market, run `tools/gen-maps.mjs` (needs `npm i d3-geo topojson-client world-atlas`) for its projected x/y, add it to the node list in the script block, and (travel) add `data-place` to its photo.
 
 ---
 
 ## Experience timeline
 
-**Left list (static HTML):** roles are grouped by company in `.tl-company` blocks. Each block has a `.tl-company-head` (28px greyscale logo, company name, years) followed by one `button.timeline-role` per role, newest first. A 1px spine (`.timeline-nav::before`) runs through the logos; each role has a dot (`.timeline-role::before`) on it. The selected role gets `aria-selected="true"` → pale blue background, blue left rule, blue title, filled dot. `syncCompanies()` adds `.is-active` to the company block of the selected role so its logo shows in colour. The list is sticky (`top: 92px`) on desktops at least 820px tall.
+**Left list (static HTML):** roles are grouped by company in `.tl-company` blocks. Each block has a `.tl-company-head` (28px greyscale logo, company name, years) followed by one `button.timeline-role` per role, newest first. The selected role's company logo gets a gold ring.
 
-Buttons keep their `data-role-index`, which must match the order of the `roles` array. Multi-role companies show years on each role row; single-role companies show years only on the company head. Each button carries a `.sr-only` suffix with company (and years) for screen readers, because the company heads are `aria-hidden`.
+Buttons keep their `data-role-index`, which must match the order of the `roles` array. Each button carries a `.sr-only` suffix with company (and years) for screen readers, because the company heads are `aria-hidden`.
 
-**Right panel (JS-rendered):** data lives in `const roles = [` near the bottom of `index.html`:
+**Right panel (JS-rendered):** data lives in `const roles = [`:
 
 ```js
 {
@@ -88,13 +96,11 @@ Buttons keep their `data-role-index`, which must match the order of the `roles` 
   logo, logoClass, logoAlt, fallback,
   proofs: [['EMEA', 'VP+ leadership searches'], ...],  // 3 value/label pairs
   bullets: [...],                                      // responsibilities
-  noteTitle, note                                      // right column
+  noteTitle, note                                      // right column (set in serif italic)
 }
 ```
 
-**Mobile (≤980px):** the panel is hidden; each role button expands an accordion inserted after it (one open at a time, first opened on load).
-
-**Selection animation (desktop):** JS inserts one `.tl-indicator` into `.timeline-nav` and adds `.has-indicator`; `placeIndicator()` slides it (with its spine dot) to the selected row using sub-pixel `getBoundingClientRect` positions, and re-places it on `document.fonts.ready` and resize. `renderRole()` measures the panel height before swapping content, then `slidePanel()` eases the height and slides the three panel parts in from the direction of travel (down the list = from below), staggered 45ms. Mobile accordions fade their content up on open. Nothing animates on first render or under reduced motion.
+**Desktop motion:** `.tl-indicator` glides to the selected row (sub-pixel positions) and `.tl-progress`, a lit gold→blue line, grows down the spine from the present to it. `slidePanel()` eases the panel height and slides its three parts in from the direction of travel (down the list = from below) with a blur-to-sharp, staggered 55ms; the company disc springs in. **Mobile (≤980px):** accordion per role, one open at a time, content comes into focus on open.
 
 When adding or renaming a role, update both the list HTML and the `roles` entry.
 
@@ -102,30 +108,33 @@ When adding or renaming a role, update both the list HTML and the `roles` entry.
 
 ## Interactions
 
-- **Representation switcher** (`[data-rep]`, Numbers): four `.rep-row`s, each carrying `data-value`, `data-delta`, `data-label` and chart positions `--a` / `--b` (/ `--m`) on a 0–40% axis, where position = percentage × 2.5. Buttons with `data-rep-view` highlight a row and update the readout. If a figure changes, update the row's data attributes, its `--a`/`--b`, and its `.rep-vals` text.
-- **Screen steps** (`[data-steps]`, AI Work): `.web-step` buttons map by order to `.web-stage img`; the visible image has `.on`. Auto-advances every 6s only while visible and not hovered/focused; no auto-advance under reduced motion.
-- **Candidate Intelligence flow** (`.ci-flow`): one dot per arrow on a 4.8s loop — the first arrow's dot runs in the first half, the second's (delayed 2.4s) in the second half, so it reads as one candidate moving through. Switched on by adding `.run` while the diagram is at least 60% on screen.
-- **Copy email** (`[data-copy-email]`): reads the address from the contact `mailto:` link (Cloudflare email obfuscation decodes it on load), falls back to `execCommand('copy')`, and announces the result in `[data-copy-status]`.
+- **Representation switcher** (`[data-rep]`): four `.rep-row`s with `data-value`, `data-delta`, `data-label` and chart positions `--a` / `--b` (/ `--m`) on a 0–40% axis (position = percentage × 2.5). If a figure changes, update the row's data attributes, `--a`/`--b` and its `.rep-vals` text.
+- **Market chips** (`[data-market]`): hover/focus previews a route; click pins it (click again to unpin).
+- **Travel stops** (`.stop`, generated): click shows that place's first photo; the carousel auto-advances every 5s while visible and not hovered or focused.
+- **Screen steps** (`[data-steps]`): `.web-step` buttons map by order to `.web-stage img`; 6s auto-advance while visible, paused on hover/focus.
+- **Candidate Intelligence flow** (`.ci-flow`): one gold dot per arrow on a 4.8s loop, in sequence; runs only while 60% on screen.
+- **Copy email** (`[data-copy-email]`): reads the address from the contact `mailto:` link (Cloudflare obfuscation decodes it on load), falls back to `execCommand('copy')`, announces the result in `[data-copy-status]`.
 
 ---
 
 ## Remaining work
 
-- [ ] **Logo quality:** review logos at 28px (timeline) and 64px (panel); replace any that read poorly.
+- [ ] **Logo quality:** review logos at 28px (timeline) and 68px (panel).
+- [ ] **Agency figure:** the card says 2.2%, but 76 ÷ 3,329 = 2.28%, which rounds to 2.3%. Confirm which is right with Lee.
 
 ---
 
 ## Visual testing
 
-Test at 1440, 768, 390 and 360 widths before every push: no horizontal overflow, no console errors, timeline click/arrow keys, mobile accordion, representation switcher, screen steps, Copy email, Menu button, carousel controls. Any local Playwright install works; load `file:///…/index.html`, wait for `document.fonts.ready`, and use `scrollTo({ behavior: 'instant' })` when measuring positions (the page uses smooth scrolling).
+Test at 1440, 430, 390 and 360 widths before every push: no horizontal overflow, no console errors, every `[data-reveal]` reaches `.in` when scrolled through, canvases draw (non-empty pixels), timeline click/arrow keys, mobile accordion, market chips, travel stops + auto-advance, representation switcher, screen steps, Copy email, Menu button, carousel controls, and a reduced-motion pass. Any local Playwright install works; load `file:///…/index.html`, wait for `document.fonts.ready`, and use `scrollTo({ behavior: 'instant' })` when measuring (the page uses smooth scrolling).
 
 ---
 
 ## Key technical notes
 
 - **Carousel overflow:** `.ai-carousel` and `.ai-carousel-viewport` have `min-width: 0` — required to prevent horizontal overflow on mobile.
-- **Sticky header offset:** `section[id] { scroll-margin-top: 84px }` keeps anchored sections clear of the 68px top bar.
-- **Reduced motion:** photo and phone cross-fades show only the first image; screen steps don't auto-advance; the flow dots, line redraws, count-up and bar growth are skipped. Every control still works.
+- **Sticky header offset:** `section[id] { scroll-margin-top: 76px }` keeps anchored sections clear of the 64px top bar.
+- **`html.js`:** set by an inline script in `<head>`; all load and reveal hiding is scoped to it, so the page is fully visible without JavaScript.
 - **No build step:** edit `index.html` directly.
 
 ---
