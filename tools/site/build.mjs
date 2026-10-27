@@ -102,7 +102,7 @@ const companies = [
         'Built two automation tool prototypes for the talent acquisition org — Job Builder, which turns an 11-page manual interview-plan template into a guided Greenhouse flow, and Candidate Intelligence, which matches high-volume applicants against role requirements so strong candidates aren\'t missed.'],
       noteTitle: 'Operating model', note: 'Balanced delivery, team development, executive communication, and hiring governance through a period of significant EMEA scale.' },
     { title: 'Executive Recruiting', years: 'Jan — Jul 2026', from: 2026, brief: true,
-      summary: "Led VP+ executive search across EMEA until leaving Cloudflare in July 2026, and co-hosted an agentic coding workshop at the London office (February 2026) introducing non-technical employees to building with AI tools." }] }
+      summary: "Led VP+ executive search across EMEA — market mapping, candidate engagement, and senior stakeholder partnership with regional business leaders on the region's most critical leadership hires." }] }
 ];
 
 const projects = [
