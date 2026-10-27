@@ -59,6 +59,7 @@ The thread is an SVG inside `.journey`. It is a straight line from the Career he
 ## Data notes
 
 - Role content lives in `tools/site/build.mjs` (and is rendered into `index.html`). Cloudflare's three roles are ordered 2018 → 2022 → 2026.
+- Since 2026-10-27 the 2026 Executive Recruiting role is a compact one-liner (`brief: true` in `build.mjs`: date, title and one line, no proof row or details), matching the CV. Executive hiring is shown as a long-standing responsibility in the 2018–2022 and Head of Recruiting roles, and Job Builder / Candidate Intelligence sit under Head of Recruiting (built before Jan 2026, confirmed by Lee). Keep the real dates: Head of Recruiting ends Jan 2026, never extend it.
 - Women-in-management series (2018–2025): 13.0, 13.0, 15.0, 16.0, 16.0, 23.5, 29.2, 29.4 — in the line-chart script.
 - Representation rows use `--a` / `--b` (/ `--m`) on a 0–40% axis (position = percentage × 2.5).
 - The dot-matrix EMEA and world maps were removed on 2026-09-25 (Lee: they took space without adding value); don't reintroduce them.

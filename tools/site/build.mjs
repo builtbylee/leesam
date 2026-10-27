@@ -84,6 +84,7 @@ const companies = [
       proofs: [['IC → Lead', 'Progression path'], ['GTM', 'Commercial hiring'], ['Eng', 'Technical hiring']],
       bullets: ['Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare regional growth.',
         'Hired across Sales and Engineering talent across EMEA.',
+        'Ran executive hiring for EMEA from the start, partnering directly with regional leadership on senior and executive appointments as the business scaled.',
         'Partnered with managers and leaders to identify diverse talent for active and future hiring needs.',
         'Built the foundation for broader EMEA recruiting leadership across planning, delivery, stakeholder partnership, and team operating rhythm.'],
       noteTitle: 'Foundation', note: 'This period established the operating rhythm, stakeholder trust, and delivery credibility that later expanded into regional leadership.' },
@@ -92,23 +93,16 @@ const companies = [
       summary: 'Led regional recruiting delivery at scale while managing team performance, workforce planning partnership, and cross-functional hiring governance.',
       proofs: [['318', 'FY 2023 hires'], ['477', 'FY 2024 hires'], ['599', 'FY 2025 hires']],
       bullets: ['Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 599 hires in 2025 — a record year.',
+        'Personally ran VP+ executive search for EMEA alongside leading the team — market mapping, candidate engagement, and senior stakeholder partnership with regional business leaders.',
         'Partnered with business leaders and Finance on headcount forecasting and resource planning for GTM and Engineering, aligning recruiting capacity with business growth objectives.',
         'Supported GTM leadership on EMEA territory expansion, building talent pipelines ahead of regional growth plans.',
         'Partnered with the M&A team on EMEA acquihire targets — facilitating candidate assessment, offer processes, and onboarding transitions.',
         'Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.',
-        'Established employer brand partnerships to elevate visibility and connect with diverse talent pools across EMEA, embedding inclusive hiring practices across the team.'],
+        'Established employer brand partnerships to elevate visibility and connect with diverse talent pools across EMEA, embedding inclusive hiring practices across the team.',
+        'Built two automation tool prototypes for the talent acquisition org — Job Builder, which turns an 11-page manual interview-plan template into a guided Greenhouse flow, and Candidate Intelligence, which matches high-volume applicants against role requirements so strong candidates aren\'t missed.'],
       noteTitle: 'Operating model', note: 'Balanced delivery, team development, executive communication, and hiring governance through a period of significant EMEA scale.' },
-    { title: 'Executive Recruiting', years: '2026', from: 2026,
-      meta: 'Cloudflare · EMEA · 2026',
-      summary: 'A data-led, relationship-driven approach to executive hiring — combining market intelligence, inclusive pipeline development, AI-enabled operations, and structured search execution.',
-      proofs: [['EMEA', 'VP+ leadership searches'], ['AI', 'Recruiting workflow adoption'], ['Exec', 'Senior stakeholder partnership']],
-      bullets: ['Led VP+ executive search for Cloudflare across EMEA, focused on the most critical regional leadership roles.',
-        'Designed executive search strategies, research frameworks, market maps, and proactive succession pipelines.',
-        'Improved recruiting productivity and simplified recurring workflows, building custom internal tool prototypes.',
-        "Contributed to Cloudflare's official candidate guidance on AI usage in interviews, helping define practical expectations for candidates and interview teams.",
-        'Partnered with senior stakeholders on talent availability, market dynamics, candidate positioning, pipeline diversity, and search cadence.',
-        'Applied a deliberate focus on inclusive pipeline development — building diverse candidate pools and bringing structured DE&I thinking to every leadership search.'],
-      noteTitle: 'AI-era work', note: "Built practical tools for recurring recruiting tasks, helped define how candidates and interview teams should approach AI usage in hiring processes, and co-hosted an agentic coding workshop at Cloudflare's London office (February 2026) introducing non-technical employees to agentic coding using AI tools." }] }
+    { title: 'Executive Recruiting', years: 'Jan — Jul 2026', from: 2026, brief: true,
+      summary: "Led VP+ executive search across EMEA until leaving Cloudflare in July 2026, and co-hosted an agentic coding workshop at the London office (February 2026) introducing non-technical employees to building with AI tools." }] }
 ];
 
 const projects = [
@@ -152,6 +146,9 @@ const role = (r, co) => `
             <div class="role" data-year="${r.from}" data-co="${esc(co.name)}">
               <p class="role-when mono">${esc(r.years)}</p>
               <h4>${esc(r.title)}</h4>
+${r.brief ? `
+              <p class="role-sum">${esc(r.summary)}</p>
+            </div>` : `
               <p class="role-meta">${esc(r.meta)}</p>
               <p class="role-sum">${esc(r.summary)}</p>
               <dl class="proofs">${r.proofs.map(p => `<div><dt>${esc(p[0])}</dt><dd>${esc(p[1])}</dd></div>`).join('')}</dl>
@@ -162,7 +159,7 @@ const role = (r, co) => `
                   <p class="note"><b>${esc(r.noteTitle)}.</b> ${esc(r.note)}</p>
                 </div>
               </details>
-            </div>`;
+            </div>`}`;
 
 const chapter = co => `
           <article class="chapter" id="co-${co.key}" data-node data-reveal>
