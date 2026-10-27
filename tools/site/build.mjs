@@ -84,7 +84,7 @@ const companies = [
       proofs: [['IC → Lead', 'Progression path'], ['GTM', 'Commercial hiring'], ['Eng', 'Technical hiring']],
       bullets: ['Progressed from Recruiter to EMEA Recruiting Lead and EMEA Recruiting Manager during Cloudflare regional growth.',
         'Hired across Sales and Engineering talent across EMEA.',
-        'Ran executive hiring for EMEA from the start, partnering directly with regional leadership on senior and executive appointments as the business scaled.',
+        'Responsible for executive hiring for EMEA, partnering directly with regional leadership on senior and executive appointments as the business scaled.',
         'Partnered with managers and leaders to identify diverse talent for active and future hiring needs.',
         'Built the foundation for broader EMEA recruiting leadership across planning, delivery, stakeholder partnership, and team operating rhythm.'],
       noteTitle: 'Foundation', note: 'This period established the operating rhythm, stakeholder trust, and delivery credibility that later expanded into regional leadership.' },
