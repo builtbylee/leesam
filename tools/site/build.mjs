@@ -95,7 +95,7 @@ const companies = [
       bullets: ['Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 599 hires in 2025 — a record year.',
         'Personally ran VP+ executive search for EMEA alongside leading the team — market mapping, candidate engagement, and senior stakeholder partnership with regional business leaders.',
         'Partnered with business leaders and Finance on headcount forecasting and resource planning for GTM and Engineering, aligning recruiting capacity with business growth objectives.',
-        'Supported GTM leadership on EMEA territory expansion, building talent pipelines ahead of regional growth plans.',
+        'Partnered with business leadership on hiring strategy for new country expansion across EMEA, building talent pipelines ahead of each market launch.',
         'Partnered with the M&A team on EMEA acquihire targets — facilitating candidate assessment, offer processes, and onboarding transitions.',
         'Built and developed a high-performing recruiting team through feedback loops, career development, performance management, and succession planning.',
         'Established employer brand partnerships to elevate visibility and connect with diverse talent pools across EMEA, embedding inclusive hiring practices across the team.',
