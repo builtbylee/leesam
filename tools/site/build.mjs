@@ -93,7 +93,7 @@ const companies = [
       summary: 'Led regional recruiting delivery at scale while managing team performance, workforce planning partnership, and cross-functional hiring governance.',
       proofs: [['318', 'FY 2023 hires'], ['477', 'FY 2024 hires'], ['599', 'FY 2025 hires']],
       bullets: ['Led EMEA recruiting delivery at scale: 318 hires in 2023, 477 in 2024, and 599 hires in 2025 — a record year.',
-        'Personally ran VP+ executive search for EMEA alongside leading the team — market mapping, candidate engagement, and senior stakeholder partnership with regional business leaders.',
+        'Managed executive search for EMEA alongside leading the team — market mapping, candidate engagement, and senior stakeholder partnership with regional business leaders.',
         'Partnered with business leaders and Finance on headcount forecasting and resource planning for GTM and Engineering, aligning recruiting capacity with business growth objectives.',
         'Partnered with business leadership on hiring strategy for new country expansion across EMEA, building talent pipelines ahead of each market launch.',
         'Partnered with the M&A team on EMEA acquihire targets — facilitating candidate assessment, offer processes, and onboarding transitions.',
